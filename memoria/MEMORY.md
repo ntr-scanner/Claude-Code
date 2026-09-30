@@ -1,0 +1,20 @@
+# Memory Index
+
+- [Coerenza nuovi file siti Vektora](feedback_coerenza_nuovi_file.md) — Riusa css/styles.css, js/script.js, header/nav/footer esistenti; segnala prima di deviare
+- [Progetto Vektora WAT](project_vektora.md) — Framework WAT per agenzia web freelance, stack HTML/Tailwind/Netlify, percorso `Vektora Site/`
+- [Blog Vektora (Eleventy)](project_vektora_blog.md) — Blog scoped a /blog in `vektora-site-main/`, Eleventy 3, insidie url/eleventyComputed
+- [Regola immagini copertina blog](feedback_blog_immagini_copertina.md) — Prima di nuovo articolo, controllare match immagine in blog-src/image/, mai placeholder autonomo
+- [Progetto ATM](project_atm.md) — Ayanokoji Task Manager self-hosted (FastAPI+PostgreSQL+Docker), tutte le fasi completate, percorso `SyncThings\Task Manager Ayanokoji\`
+- [Alembic asyncpg ENUM fix](feedback_alembic_postgresql_enum.md) — Come creare ENUM in Alembic+asyncpg: `postgresql.ENUM(create_type=False)` + SELECT su pg_type; `.env` bcrypt hash tra singole virgolette
+- [Cybersecurity DR audit script](project_cybersecurity_dr_audit.md) — `dr-audit.py` 159 KB, 13 moduli base64, PDF firmato+Telegram+auto-eliminazione, build con `build.py`
+- [Vektora Lead Monitor](project_lead_monitor.md) — `install_lead_monitor.py` bootstrap singolo, Reddit/RSS/Google Alerts + Telegram, in `Cybersecurity/Script per server/`
+- [Vektora Backup Integrity Audit](project_backup_audit.md) — `install_backup_audit.py` bootstrap singolo, checker Restic/Git+GPG/archivi, PDF reportlab, in `Cybersecurity/Script per server/`
+- [Clienti Vektora — cartella e naming](project_clienti_vektora.md) — Siti clienti in `Vektora Site/Clienti Vektora/`, naming `[anno]-[nome]-[tipo]` (vecchie cartelle `Cliente N - nome`)
+- [Vektora Compliance Tracker](project_compliance_tracker.md) — CLI GDPR/ISO 27001 multi-cliente, 36+43 controlli YAML, report PDF reportlab, in `Cybersecurity/Script/Compliance Tracker/`
+- [Vektora Ransomware Identifier](project_ransomware_identifier.md) — Tool IR sola lettura, 33 famiglie DB, decryptor registry, in `Cybersecurity/Script/Ransomware Identifier/`
+- [Scan Orchestrator](project_scan_orchestrator.md) — `scan_orchestrator.py` flusso interattivo scansioni autorizzate, gate consenso PDF, in `Cybersecurity/Script/Scan Orchestrator/`
+- [Autoverifica esami](project_autoverifica.md) — Sito statico quiz multi-materia, limite 10/giorno, voto animato, in `Università/autoverifica/`
+- [Password Import Converter](project_password_import_converter.md) — txt→CSV Bitwarden, modalità block per formato multi-riga utente, in `Cybersecurity/Script/Password Import Converter/`
+- [Bounty Session Assistant](project_bounty_session_assistant.md) — Assistente metodologia IDOR/business logic, mai esecutivo, scope hard-block senza override, in `Cybersecurity/Script/Bounty Session Assistant/`
+- [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
+- [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/
