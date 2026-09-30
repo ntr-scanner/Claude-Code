@@ -13,3 +13,5 @@ Non offrire né chiedere di eseguire commit git dopo aver modificato file in un 
 **Why:** L'utente ha esplicitamente detto "non serve che mi chieda di fare i commit verso git, poiché li faccio io manualmente" dopo che avevo chiesto conferma per committare le modifiche a [[project_password_import_converter]] (Cybersecurity/Script/Password Import Converter).
 
 **How to apply:** Dopo modifiche a file in una cartella che risulta essere un repository git, non chiedere "vuoi che faccia il commit?" né eseguire commit di propria iniziativa. È comunque ok segnalare passivamente cosa è stato modificato/non committato se rilevante, ma senza offrire l'azione di commit. Resta valido chiedere conferma per altre azioni git rischiose (push, force, reset) se mai richieste, ma l'iniziativa di commit non va mai presa né proposta.
+
+**Eccezione (2026-09-30):** per il repo di backup `Web Developer/Claude/` (remote `https://github.com/ntr-scanner/Claude-Code.git`, privato) l'utente ha chiesto esplicitamente di fare commit e push ogni volta che c'è una modifica in `Claude/`. Lì li faccio io senza chiedere. Vedi [[claude-folder-unica-fonte]].

@@ -27,7 +27,7 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer/CLAUDE.md`, 
 
 ### Ricostruzione da zero
 
-1. Crea `C:\Users\pc\Documents\Web Developer\` e clona qui il repo, in modo che il risultato sia `Web Developer\Claude\` (`git clone <url> Claude`).
+1. Crea `C:\Users\pc\Documents\Web Developer\` e clona qui il repo, in modo che il risultato sia `Web Developer\Claude\` (`git clone https://github.com/ntr-scanner/Claude-Code.git Claude`).
 2. Ricrea accanto a `Claude/` almeno queste cartelle: `Vektora Site/` (con `Clienti Vektora/`, `templates/`, `workflows/`, `tools/`, `assets-vektora/`), `Cybersecurity/`, `Marketing/`. Se non hai più i contenuti, crea le cartelle vuote e ripristinali dai backup dei progetti; altrimenti aggiorna i percorsi in `INDEX.md` e nelle skill.
 3. Ricrea le junction, così Claude Code trova skill, agent e memoria dentro `Claude/` (da PowerShell, con Claude Code chiuso; se le cartelle di destinazione esistono già vuote, eliminale prima):
 

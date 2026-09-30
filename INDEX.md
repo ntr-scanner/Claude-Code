@@ -18,6 +18,7 @@ Aggiornato: 2026-09-30 (aggiunto SCRIPT.md)
 - Nuovi file per i siti Vektora: riusa `css/styles.css`, `js/script.js`, header/nav/footer esistenti; segnala prima di deviare.
 - Immagini (siti clienti e blog): mai sceglierle in autonomia, chiedi sempre. Per il blog controlla prima `blog-src/image/`.
 - Prima di azioni irreversibili o esterne, chiedi conferma.
+- **Backup di `Claude/`:** ogni volta che modifichi qualcosa dentro `Claude/` (anche memoria, skill, agent), fai commit e push su `origin/main` (repo privato `ntr-scanner/Claude-Code`). Su questo repo non chiedere conferma. Vale solo per `Claude/`, negli altri repo l'utente committa da sé.
 - Dettagli: `memoria/feedback_*.md`.
 
 ## Quale file leggere per quale task
