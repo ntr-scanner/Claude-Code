@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-09-30 (aggiunto SCRIPT.md)
+Aggiornato: 2026-10-01 (SCRIPT.md: regola `--help` completo, sezione 3b)
 
 ## Regola d'oro: tutto sta in `Claude/`
 

@@ -10,6 +10,7 @@ Origine: dedotto dalla scansione di `Cybersecurity/` (198 script: Media Loader, 
 |---|---|
 | 2 Struttura, 3 Interattività, 5 Conferme, 9 Sicurezza, 10 Naming | **Dedotto** dagli script esistenti |
 | 4 Modalità automatica | **Parzialmente proposto**: `--yes` esiste solo nel Ransomware Simulator, `--dry-run` è diffuso, `isatty()` è usato in 7 file. `--non-interactive` e la regola "senza TTY = non interattivo" sono **decisione dell'utente**, non prassi esistente |
+| 3b Guida `--help` completa | **Regola dell'utente (2026-10-01)**, vale per tutti gli script da ora in poi: l'utente non vuole aprire il README per cercare i comandi |
 | 5 Default fail-safe | **Regola dell'utente, non negoziabile**. Sentinel, `pulizia_disco.py` e IR Wizard oggi fanno il contrario (operativi di default, `--dry-run` opzionale) |
 | 6 Output e logging | **Decisione dell'utente**: `rich` con fallback. Oggi gli script usano ANSI a mano, colorama, `print` con prefissi `[*] [!] [OK]` o `logging` |
 | 7 Errori e uscite | **Proposto**: isolamento errori per modulo è dedotto (hardening), i codici di uscita **non** emergono dagli script |
@@ -21,6 +22,7 @@ Origine: dedotto dalla scansione di `Cybersecurity/` (198 script: Media Loader, 
 - **Utilizzabile in automatico** (cron, systemd, altri script) tramite flag e rilevamento del contesto non interattivo.
 - **Stesso stile dei tool esistenti** (Media Loader, Scan Orchestrator, IR Wizard, tool server), non uno stile nuovo scollegato.
 - **Fail-safe di default** per ogni script che modifica o cancella (sezione 5).
+- **`--help` completo dentro lo script** (sezione 3b): tutti i comandi e gli esempi si leggono dal terminale, mai solo nel README.
 
 ## 2. Struttura del file (Python)
 
@@ -34,7 +36,7 @@ Origine: dedotto dalla scansione di `Cybersecurity/` (198 script: Media Loader, 
 - Sezioni separate da righe `# ═══ TITOLO ═══` o `# ─── titolo ───`.
 - Funzioni piccole; classi per stato o moduli; tool grandi in `core/`, `reporter/`, `config.yaml`.
 - `main()` con `argparse` e `if __name__ == "__main__": main()` (o `sys.exit(main())`).
-- Espone sempre `--version`; `--help` con esempi (`RawDescriptionHelpFormatter`).
+- Espone sempre `--version` e un `--help` completo secondo la sezione 3b.
 - Bash: `#!/usr/bin/env bash`, `set -euo pipefail`, colori come variabili, parsing flag con `case`, `--dry-run` e `--help`.
 
 ## 3. Interattività (default da terminale)
@@ -46,6 +48,24 @@ Origine: dedotto dalla scansione di `Cybersecurity/` (198 script: Media Loader, 
 - Input validato e richiesto di nuovo se non valido ("Risposta non valida — digitare 's' o 'n'").
 - Segreti con `getpass.getpass("... (nascosto): ")`.
 - Flusso a step numerati con intestazione (`STEP n — titolo`) per operazioni lunghe.
+
+## 3b. Guida integrata `--help` (obbligatoria)
+
+L'utente non deve mai aprire il README per sapere come lanciare uno script: `--help` mostra **tutto**.
+
+- `-h`, `--help` e anche la parola `help` da sola (`python script.py help`) stampano la guida ed escono con 0.
+- Guida in italiano: `add_help=False` + `-h/--help` aggiunto a mano, prefisso `uso:` (sottoclasse di `RawDescriptionHelpFormatter` che passa `prefix="uso: "` ad `add_usage`).
+- Opzioni raggruppate con `add_argument_group` per tema (es. Sorgente, Output, Esecuzione), ognuna con una descrizione chiara e il default.
+- Forme brevi (`-i`, `-o`, `-n`, `-y`...) per le opzioni usate spesso.
+- Nell'`epilog` (testo preformattato), a sezioni `═══ TITOLO ═══`:
+  - **varianti/modalità** dell'input con un esempio concreto di com'è fatto il dato (es. `--metodo blocchi` vs `file-per-sito`);
+  - **formati supportati** e non supportati;
+  - **esempi pronti da copiare per ogni scenario d'uso** (guidato, base, cartella, anteprima/dry-run, automatico/cron);
+  - **file generati** e dove finiscono;
+  - **codici di uscita**.
+- Quando i dati in input possono essere organizzati in modi diversi (clienti diversi, formati diversi), la variante si sceglie **con un flag al lancio** (con default sensato) e compare sia nel `--help` sia nel wizard; mai solo modificando un file di configurazione.
+- Il README resta la documentazione estesa, ma ogni comando che contiene deve essere presente anche nel `--help`.
+- Un test verifica che `--help` contenga le sezioni e le opzioni principali.
 
 ## 4. Modalità automatica / non interattiva
 
@@ -130,4 +150,5 @@ Origine: dedotto dalla scansione di `Cybersecurity/` (198 script: Media Loader, 
 - [ ] Dipendenze controllate all'avvio con messaggio chiaro; `requirements.txt` presente.
 - [ ] `try/except` sulle operazioni critiche; Ctrl+C gestito; codici di uscita corretti.
 - [ ] Docstring `Uso:` con esempi; commenti in italiano.
+- [ ] `--help` (e `help`) mostra tutti i comandi raggruppati, varianti di input, esempi per scenario, file generati e codici di uscita (sezione 3b).
 - [ ] Testato: dry-run, esecuzione reale su dati di prova e modalità non interattiva.
