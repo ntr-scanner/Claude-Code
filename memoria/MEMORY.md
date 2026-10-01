@@ -19,3 +19,4 @@
 - [Simulatore Firmware + Flip](project_simulatore_firmware.md) — Tool Python multi-console per firmware in `Cybersecurity/Script/Simulatore Firmware/` + firmware Flip ESP32-S3; repo GitHub ntr-scanner
 - [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
 - [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/
+- [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch rinominato, piano in ANALISI_KATHARSIS.md, implementazione solo dopo conferma utente

@@ -1,0 +1,20 @@
+---
+name: project-katharsis
+description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Tron/ originale da non toccare; analisi fatta, implementazione in attesa di conferma utente"
+metadata:
+  node_type: memory
+  type: project
+  originSessionId: b9981542-5590-4ac4-a0e4-5a7a1b3e253c
+  modified: 2026-10-01T09:34:40.893Z
+---
+
+Katharsis è il fork di Tron v12.0.6 (orchestratore Batch di vocatus/r/TronScript, MIT) in `Cybersecurity/Script/Katharsis/` (script in `katharsis/katharsis.bat`). L'originale `Cybersecurity/Script/Tron/` resta intatto come riferimento: mai modificarlo.
+
+Stato al 2026-10-01: copia fatta, rebranding fatto (crediti vocatus e URL upstream lasciati di proposito), analisi + piano in `Katharsis/ANALISI_KATHARSIS.md` (Fase 0 sicurezza, Fase 1 fondamenta/WMIC, Fase 2 detection propria, Fase 3 opzionale).
+
+Fase 0 applicata il 2026-10-01 su richiesta esplicita (S1 hash pinnati in `resources/functions/pinned_hashes.txt`, S2 update solo con hash pinnato, S3 gate verso `%ProgramFiles%\Katharsis`, S4 ACL su LOGPATH + switch -prb, S5 -udl rimosso, S7 quarantena con manifest): dettagli e punti aperti in `Katharsis/FASE0_MODIFICHE.md`. Testata solo senza elevazione, in sandbox; manca un test da amministratore su VM. Fase 1/2 non autorizzate. Una run reale di Tron del 2024-03-23 su LAPTOP-FR25O2FD ha probabilmente lasciato un backup del registro esposto in C:\logs\tron.
+
+Fase 1 applicata il 2026-10-01 (WMIC -> `resources/functions/katharsis_sys.ps1`, log `katharsis_events.jsonl` + `flag.bat` con separatore "+", Defender primo motore, TDSSKiller/MBAM rimossi, `MANIFEST.sha256` + `katharsis_manifest.ps1`, impronta richiesta dal gate o via -mf): dettagli in `Katharsis/FASE1_MODIFICHE.md`. Ogni modifica al pacchetto richiede di ricostruire il manifest. Aggiornamento eseguibili Stinger/AdwCleaner/KVRT/Sophos non fatto (serve conferma download). Fase 2 applicata il 2026-10-01: triage PowerShell in `resources/stage_0_prep/katharsis_triage/` (persistenza, hash, YARA, VirusTotal solo hash con -vt, quarantena AES solo per rilevamenti di contenuto con -kq), report HTML in stage 7, regole firmate RSA (`katharsis_sign.ps1`, `update_rules.ps1`, RULES_UPDATE_URL vuoto = disattivo). Dettagli in `Katharsis/FASE2_MODIFICHE.md`. YARA 4.5.5 + YARA-Forge core (5110 regole) installati il 2026-10-01 in katharsis_triage/db; yara64 vuole --scan-list in UTF-16LE senza BOM. Impronta manifest attuale ab07772fbf4c331b. MalwareBazaar non scaricato (decisione utente). Insidia PowerShell ricorrente: nomi variabile case-insensitive ($sev nasconde $Sev).
+
+**Why:** l'utente vuole decidere lui quali tecniche aggiungere prima di qualsiasi implementazione.
+**How to apply:** non implementare nulla del piano finché l'utente non conferma esplicitamente le voci; non cambiare KATHARSIS_VERSION prima di disattivare il self-update verso bmrf.org (scaricherebbe Tron e autodistruggerebbe Katharsis). Collegamento possibile con [[project-ransomware-identifier]].
