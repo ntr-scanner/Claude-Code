@@ -7,7 +7,7 @@ metadata:
 
 App "Vektora Order" in `Vektora Site/Prodotti Vektora/vektora-order/`: menu cliente PWA via QR (`/menu?table=qrToken`), gestionale `/admin`, cucina `/kitchen`. Piano in 11 step forniti dall'utente (1-8 base, 9 "Chiama cameriere", 10 statistiche, 11 i18n IT/EN/AR/ZH/ES con RTL).
 
-Stato: Step 1 (setup) e Step 2 (schema Prisma + seed) completati il 2026-10-02. Prossimo: Step 3 backoffice admin.
+Stato: Step 1-3 completati il 2026-10-02 (setup, schema+seed, gestionale /admin). Prossimo: Step 4 QR + sessione tavolo.
 
 **Why:** l'utente impone un flusso rigido: uno step alla volta, a fine step elenco file, comandi di test, problemi noti e domanda "Procedo con lo step successivo?". Mai andare oltre senza conferma esplicita. Prezzi/totali sempre ricalcolati server-side dal DB.
 
@@ -20,4 +20,6 @@ Stato: Step 1 (setup) e Step 2 (schema Prisma + seed) completati il 2026-10-02. 
 - Prisma 7: URL in `prisma.config.ts` (con `dotenv/config`), client generato in `src/generated/prisma` (gitignored, `postinstall` lo rigenera), adapter `@prisma/adapter-pg`. `migrate dev` NON lancia più il seed: serve `pnpm db:seed`.
 - Schema: Table→Order e Dish→OrderItem sono `Restrict` (disattivare invece di eliminare, lo Step 3 deve gestire l'errore P2003); `Order.number` autoincrement aggiunto per la conferma ordine; allergeni come enum (14 UE). Login cucina (Step 7) non ha ancora campi nello schema.
 - PostgreSQL 17 nativo (servizio `postgresql-x64-17`, porta 5432), credenziali sconosciute: per testare usare un cluster usa-e-getta con `initdb -A trust` nello scratchpad su porta 55432 (`pg_ctl start` resta agganciato a bash, il server parte lo stesso).
+- Gestionale: `requireAdmin()` in `src/server/admin/session.ts` (rilegge admin da DB, `cache`), Server Action in `src/server/admin/*-actions.ts` con scoping `updateMany/deleteMany where {id, restaurantId}`. Form via hook `useFormAction` (submit da onSubmit, non `action`, perché React 19 azzera i campi). TanStack Table pinnata a **v8** (v9 ha API diversa). Ruolo `admin`/`kitchen` nel JWT (next-auth augment in `src/types/next-auth.d.ts`).
+- Test E2E fatti con fetch replay dell'header `next-action` per verificare l'isolamento cross-tenant: utile ripeterlo negli step successivi.
 - Aggiornare il README del progetto a ogni step. Nessun commit: [[feedback_no_commit_git]].
