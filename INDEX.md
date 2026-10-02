@@ -69,7 +69,8 @@ Claude/
 | `ransomware-id-demo` | `Cybersecurity/Script/Ransomware Identifier/start-demo.bat` | 7444 |
 | `autoverifica` | `Università/autoverifica` | 8765 |
 | `vektora-forensics` | `Vektora Site/Prodotti Vektora/vektora-forensics` | 8081 |
-| `vektora-order` | `Vektora Site/Prodotti Vektora/vektora-order` (`pnpm dev`, Next.js) | 3000 |
+| `vektora-order` | `Vektora Site/Prodotti Vektora/vektora-order` (`pnpm dev`, custom server Next + Socket.io) | 3000 |
+| `vektora-order-prod` | stesso progetto, `pnpm start` dopo `pnpm build` (serve `.env.production.local`) | 3001 |
 
 ## Fuori da `Web Developer/`
 
