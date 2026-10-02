@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-01 (SCRIPT.md: regola `--help` completo, sezione 3b)
+Aggiornato: 2026-10-02 (progetto Vektora Order, server `vektora-order`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
@@ -69,6 +69,7 @@ Claude/
 | `ransomware-id-demo` | `Cybersecurity/Script/Ransomware Identifier/start-demo.bat` | 7444 |
 | `autoverifica` | `Università/autoverifica` | 8765 |
 | `vektora-forensics` | `Vektora Site/Prodotti Vektora/vektora-forensics` | 8081 |
+| `vektora-order` | `Vektora Site/Prodotti Vektora/vektora-order` (`pnpm dev`, Next.js) | 3000 |
 
 ## Fuori da `Web Developer/`
 
