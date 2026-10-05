@@ -11,7 +11,7 @@ Decisioni dell'utente (2026-10-05): prodotto QR si chiama **Vektora Order** (mod
 
 Architettura: registro `src/_data/registro.json` + `src/prodotti/<slug>/prodotto.json` validati da `src/_data/prodotti.js`; CSS d'accento generato (`prodotti-css.njk`); `site.config.json` validato da `src/_data/sito.js` (stringa vuota = build fallisce; null solo per capitaleSociale; anteprima con `npm run dev` o `ANTEPRIMA=1`, rifiutata se NETLIFY/CONTEXT/CI). Unico script inline (tema) autorizzato in CSP via hash (`src/_data/inline.js`). Light theme: `--oro-testo` portato a #7D5F17 (il #8A6A1C del sito principale scende a 4.3:1 sulle schede).
 
-Fasi: 1 scheletro (fatta 2026-10-05), 2 dati/catalogo/pagine prodotto, 3 legali, 4 lista d'attesa provvisoria + security.txt/sitemap/robots, 5 verifiche + Lighthouse + README.
+Fasi: 1 scheletro e 2 dati/catalogo/pagine prodotto (fatte 2026-10-05; testi solo dai fatti dati dall utente, prova negativa della validazione fatta), 3 legali, 4 lista d'attesa provvisoria + security.txt/sitemap/robots, 5 verifiche + Lighthouse + README.
 
 **Why:** l'utente vuole conferma tra una fase e l'altra e nessun testo segnaposto; Katharsis è un fork di Tron (vedi [[project-katharsis]]): non citare "Tron" sul sito e segnalare la verifica delle licenze dei tool inclusi prima della vendita.
 **How to apply:** fermarsi a fine fase con riepilogo; niente riferimenti ad AI/strumenti nel codice/README; nessun commit ([[feedback_no_commit_git]]).
