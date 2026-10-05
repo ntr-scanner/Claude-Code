@@ -1,0 +1,17 @@
+---
+name: project-vektora-prodotti
+description: Catalogo prodotti Vektora su prodotti.vektora-web.com (Eleventy 3, CSS custom, font self-hosted), in Prodotti Vektora/vektora-prodotti, lavorato a fasi con conferma
+metadata:
+  type: project
+---
+
+Sito statico separato da vektora-site-main: `Vektora Site/Prodotti Vektora/vektora-prodotti/`, dominio **prodotti.vektora-web.com** (scelto dall'utente il 2026-10-05). Dev server `vektora-prodotti` in launch.json, porta 8082 (`npm run dev`).
+
+Decisioni dell'utente (2026-10-05): prodotto QR si chiama **Vektora Order** (modalità contatto, B2B); Katharsis in-arrivo, Sonar in-sviluppo, entrambi lista d'attesa; contatti = vektora.web@gmail.com / +39 379 127 6390. **Lista d'attesa rimandata**: l'utente pensa di lasciare Netlify (problema crediti) e ospitare tutto sul proprio server; per ora CTA "Avvisami" via mailto, partial isolato da sostituire. Header di sicurezza generati da `src/_data/sicurezza.js` (oggi in `_headers`, riusabili per nginx/Caddy).
+
+Architettura: registro `src/_data/registro.json` + `src/prodotti/<slug>/prodotto.json` validati da `src/_data/prodotti.js`; CSS d'accento generato (`prodotti-css.njk`); `site.config.json` validato da `src/_data/sito.js` (stringa vuota = build fallisce; null solo per capitaleSociale; anteprima con `npm run dev` o `ANTEPRIMA=1`, rifiutata se NETLIFY/CONTEXT/CI). Unico script inline (tema) autorizzato in CSP via hash (`src/_data/inline.js`). Light theme: `--oro-testo` portato a #7D5F17 (il #8A6A1C del sito principale scende a 4.3:1 sulle schede).
+
+Fasi: 1 scheletro (fatta 2026-10-05), 2 dati/catalogo/pagine prodotto, 3 legali, 4 lista d'attesa provvisoria + security.txt/sitemap/robots, 5 verifiche + Lighthouse + README.
+
+**Why:** l'utente vuole conferma tra una fase e l'altra e nessun testo segnaposto; Katharsis è un fork di Tron (vedi [[project-katharsis]]): non citare "Tron" sul sito e segnalare la verifica delle licenze dei tool inclusi prima della vendita.
+**How to apply:** fermarsi a fine fase con riepilogo; niente riferimenti ad AI/strumenti nel codice/README; nessun commit ([[feedback_no_commit_git]]).
