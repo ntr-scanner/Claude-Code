@@ -65,3 +65,5 @@ paginazione si aggiornano da soli. Se in futuro serve paginare anche le
 pagine categoria (oggi mostrano tutti gli articoli di quella categoria senza
 limite), è un'estensione volontariamente rimandata per non overengineerare
 prematuramente.
+
+**Dominio e navigazione (2026-10-05):** il sito live è su **https://vektora-web.com** (Netlify; `www.vektora-web.com` → 301 al dominio nudo). `www.vektora.it`, usato nei canonical/og/JSON-LD della maggior parte delle pagine, **non risolve**: portfolio, sitemap.xml e robots.txt sono già passati a vektora-web.com, le altre pagine no (da sistemare su richiesta). Nav/footer unici in `assets/js/components.js` (NAV_LINKS con `children` = tendina desktop accessibile + sotto-voci nel menu mobile); con 7 voci il menu hamburger scatta sotto 1180px (`vektora.css`). Redirect `/forensics` e `/prodotti` (301 verso i sottodomini) in `netlify.toml`.
