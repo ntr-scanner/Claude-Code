@@ -22,3 +22,5 @@
 - [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, test VirtualBox da completare
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
+- [Generatore firma](project_generatore_firma.md) — HTML singolo offline: 3 modalità, sigla, SVG, firme salvate, firma PDF (pdf-lib+pdf.js incorporati), insidie di test
+- [White Room](project_white_room.md) — Gioco allenamento HTML in `Games/White Room/`, Brave Win+Ubuntu, salvataggi `Saves/` via `white_room_server.py` + lanciatori .bat/.sh
