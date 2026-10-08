@@ -1,6 +1,6 @@
 ---
 name: project-tool-for-work
-description: "Work Tools (ex Tool for Work): 18 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
+description: "Work Tools (ex Tool for Work): 19 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
 metadata:
   node_type: memory
   type: project
@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-08T08:12:46.753Z
 ---
 
-`Work Tools/` (rinominata dall'utente da "Tool for Work"; repo git già pubblicato, commit manuali) (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR; poi Generatore Dati Fittizi (dati di test, email example.com, cellulari con "555"; rifiutata la parte "numeri che ricevono SMS"). Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
+`Work Tools/` (rinominata dall'utente da "Tool for Work"; repo git già pubblicato, commit manuali) (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR; poi Markdown con immagini Base64 (`Markdown Immagini Base64/`, CSP senza rete, abbinamento percorsi per suffisso, scelta manuale) e Generatore Dati Fittizi (dati di test, email example.com, cellulari con "555"; rifiutata la parte "numeri che ricevono SMS"). Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
 
 Convenzioni: stile del Convertitore (token CSS chiaro/scuro, `.panel`, `.drop`), link "← Dashboard" (`../Dashboard.html`) nei tool nuovi, italiano. Librerie offline come `<script type="text/plain" id="lib-…">` in fondo al file, iniettate al primo uso (pdf.js + worker in pagina, `isEvalSupported:false`; pdf-lib; JSZip; qrcode-generator; dati comuni ISTAT `data-comuni`). AI e OCR da CDN al primo uso (ONNX Runtime Web 1.22.0, modelli Hugging Face in IndexedDB, Tesseract.js 6.0.1).
 
