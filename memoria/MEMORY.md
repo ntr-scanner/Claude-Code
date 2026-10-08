@@ -24,5 +24,5 @@
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
 - [Generatore firma](project_generatore_firma.md) — HTML singolo offline: 3 modalità, sigla, SVG, firme salvate, firma PDF (pdf-lib+pdf.js incorporati), insidie di test
 - [White Room](project_white_room.md) — Gioco allenamento HTML in `Ayanokoji/.../Diagnosi Ricadute/White Room/`, Brave Win+Ubuntu, salvataggi `Saves/` via `white_room_server.py` + lanciatori .bat/.sh
-- [Work Tools](project_tool_for_work.md) — cartella `Work Tools/` (ex Tool for Work), 19 tool HTML a file singolo + Dashboard.html, librerie incorporate, server test 8084, insidie DOMContentLoaded/rAF
+- [Work Tools](project_tool_for_work.md) — cartella `Work Tools/` (ex Tool for Work), 20 tool HTML a file singolo + Dashboard.html, librerie incorporate, server test 8084, insidie DOMContentLoaded/rAF
 - [Cyber Study Room](project_cyber_study_room.md) — Studio cyber 30 min/giorno in `Diagnosi Ricadute/Cyber Study Room/`, clone di White Room (server 8771, Saves/), test Playwright con Edge

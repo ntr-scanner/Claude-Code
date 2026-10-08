@@ -1,6 +1,6 @@
 ---
 name: project-tool-for-work
-description: "Work Tools (ex Tool for Work): 19 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
+description: "Work Tools (ex Tool for Work): 20 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
 metadata:
   node_type: memory
   type: project
@@ -10,7 +10,9 @@ metadata:
 
 `Work Tools/` (rinominata dall'utente da "Tool for Work"; repo git già pubblicato, commit manuali) (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR; poi Markdown con immagini Base64 (`Markdown Immagini Base64/`: CSP senza rete, modalità Incorpora/Estrai, più .md con percorsi relativi al documento, riduzione foto via canvas, SVG come testo con apici singoli, definizioni in fondo, anteprima markdown-it 14.3.0 in iframe sandbox, JSZip; markdown-it copiato da `vektora-site-main/node_modules`) e Generatore Dati Fittizi (dati di test, email example.com, cellulari con "555"; rifiutata la parte "numeri che ricevono SMS"). Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
 
-Convenzioni: stile del Convertitore (token CSS chiaro/scuro, `.panel`, `.drop`), link "← Dashboard" (`../Dashboard.html`) nei tool nuovi, italiano. Librerie offline come `<script type="text/plain" id="lib-…">` in fondo al file, iniettate al primo uso (pdf.js + worker in pagina, `isEvalSupported:false`; pdf-lib; JSZip; qrcode-generator; dati comuni ISTAT `data-comuni`). AI e OCR da CDN al primo uso (ONNX Runtime Web 1.22.0, modelli Hugging Face in IndexedDB, Tesseract.js 6.0.1).
+Poi Simulatore SMS (`Simulatore SMS/`, categoria adm: spostato dalla radice di Web Developer e ristilizzato, numeri finti e OTP simulati, nessun SMS reale).
+
+Convenzioni: stile del Convertitore (token CSS chiaro/scuro, `.panel`, `.drop`, niente animazioni vistose), link "← Dashboard" (`../Dashboard.html`) nei tool nuovi, italiano. Ogni tool ha nel `<head>`, subito dopo `<title>`, la stessa favicon SVG data-URI della Dashboard (riga 7 di Dashboard.html): i tool nuovi devono averla. Librerie offline come `<script type="text/plain" id="lib-…">` in fondo al file, iniettate al primo uso (pdf.js + worker in pagina, `isEvalSupported:false`; pdf-lib; JSZip; qrcode-generator; dati comuni ISTAT `data-comuni`). AI e OCR da CDN al primo uso (ONNX Runtime Web 1.22.0, modelli Hugging Face in IndexedDB, Tesseract.js 6.0.1).
 
 **Why:** l'utente vuole strumenti che funzionino con doppio clic, offline e senza inviare dati.
 **How to apply:** un nuovo tool va in una cartella sua e nella lista `TOOLS` di Dashboard.html e nel README. Se lo script legge un `<script type="text/plain">` posto in fondo, deve partire su `DOMContentLoaded` (bug già visto in Validatore e QR). Test: server `tool-for-work` (porta 8084) in `.claude/launch.json`; il pannello browser non apre file >2 MB come `data:`; con pannello nascosto `requestAnimationFrame` non scatta (pdf.js render si blocca) e gli screenshot vanno in timeout. La console del pannello conserva errori di pagine precedenti.
