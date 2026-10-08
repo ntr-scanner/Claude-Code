@@ -1,11 +1,11 @@
 ---
 name: project-white-room
-description: White Room, gioco di allenamento cognitivo HTML singolo in Ayanokoji/Ayanokoji System/Diagnosi Ricadute/White Room, salvataggi in Saves/ condivisi Windows+Ubuntu via Syncthing tramite server Python locale
+description: White Room, gioco di allenamento cognitivo HTML singolo in Ayanokoji/Ayanokoji System/White Room, salvataggi in Saves/ condivisi Windows+Ubuntu via Syncthing tramite server Python locale
 metadata:
   type: project
 ---
 
-`Ayanokoji/Ayanokoji System/Diagnosi Ricadute/White Room/white-room.html` (spostata da `Games/White Room` il 2026-10-08): gioco di allenamento cognitivo (moduli, indice, protocollo giornaliero) in un solo file HTML.
+`Ayanokoji/Ayanokoji System/White Room/white-room.html` (spostata in `Ayanokoji System/White Room` il 2026-10-08): gioco di allenamento cognitivo (moduli, indice, protocollo giornaliero) in un solo file HTML.
 
 - L'utente usa **Brave** su **Windows e Ubuntu** (dual boot o due PC), cartella sincronizzata con Syncthing.
 - Progressi in un unico file `Saves/white-room-dati.js` (`window.WHITE_ROOM_DATA = {...}`), caricato con `<script src="Saves/...">`. Export `.json` in `Saves/Backup/`; copie in conflitto di Syncthing unite e spostate in `Saves/Backup/conflitti-syncthing/`. Backup vecchi della pagina in `Versioni precedenti/`.
