@@ -1,6 +1,6 @@
 ---
 name: project-generatore-firma
-description: "Generatore di firma grafica offline (file HTML singolo, ~2,3 MB) in Tool for Work/Generatore Firme Digitale: modalità, PDF, insidie"
+description: "Generatore di firma grafica offline (file HTML singolo, ~2,3 MB) in Work Tools/Generatore Firme Digitale: modalità, PDF, insidie"
 metadata:
   node_type: memory
   type: project
@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-06T13:13:44.669Z
 ---
 
-`Tool for Work/Generatore Firme Digitale/generatore-firma.html`: un solo file HTML offline, nessuna dipendenza esterna a runtime. Copia pre-PDF e originale solo nello scratchpad di sessione (non persistenti).
+`Work Tools/Generatore Firme Digitale/generatore-firma.html`: un solo file HTML offline, nessuna dipendenza esterna a runtime. Copia pre-PDF e originale solo nello scratchpad di sessione (non persistenti).
 
 Funzioni (ottobre 2026): 3 modalità (nome con 8 font OFL incorporati, disegno a mano con stilografica simulata dalla velocità + stabilizzatore, firma da foto con sfondo stimato a celle 32 px), sigla, PNG trasparente/bianco/2-4×/larghezza fissa 300-600-1200, SVG solo per il disegno, copia appunti compatibile Safari, firme salvate (localStorage `generatore-firma:salvate:v1`), stato in `generatore-firma:v1` con casella "Ricorda", firma di PDF.
 

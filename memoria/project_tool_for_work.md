@@ -1,6 +1,6 @@
 ---
 name: project-tool-for-work
-description: "Tool for Work: 17 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
+description: "Work Tools (ex Tool for Work): 17 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
 metadata:
   node_type: memory
   type: project
@@ -8,7 +8,7 @@ metadata:
   modified: 2026-10-08T08:12:46.753Z
 ---
 
-`Tool for Work/` (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR. Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
+`Work Tools/` (rinominata dall'utente da "Tool for Work"; repo git già pubblicato, commit manuali) (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR. Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
 
 Convenzioni: stile del Convertitore (token CSS chiaro/scuro, `.panel`, `.drop`), link "← Dashboard" (`../Dashboard.html`) nei tool nuovi, italiano. Librerie offline come `<script type="text/plain" id="lib-…">` in fondo al file, iniettate al primo uso (pdf.js + worker in pagina, `isEvalSupported:false`; pdf-lib; JSZip; qrcode-generator; dati comuni ISTAT `data-comuni`). AI e OCR da CDN al primo uso (ONNX Runtime Web 1.22.0, modelli Hugging Face in IndexedDB, Tesseract.js 6.0.1).
 
