@@ -24,5 +24,7 @@ metadata:
 - Attenzione: `avvia.py --spegni` **ignora `--porta`** e spegne il server dei dati predefiniti (quello vero): i server di prova si spengono con `POST /api/spegni` sulla loro porta. Dopo uno spegnimento la 8765 resta in TIME-WAIT ~1 min e il server riparte su 8766/8767: aspettare che la porta si liberi.
 - Bug aperto in `dashboard/api.js` `salva()`: chiamate a raffica → due PUT con la stessa revisione → 409 contro sé stessi (fix proposto `if (S.inVolo)` → `while`, in attesa del via dell'utente perché tocca tutti i moduli).
 
+- **2026-10-10 notte**: sezione **Ayanokoji** (`moduli/ayanokoji/`, `"primo": true` → prima di Home e pagina di `/`). Risposte dell'utente: 30 min feriali, 1 ora sabato, domenica poca (= giorno di recupero + revisione), si parte dalla Psicologia e i domini ruotano ogni giorno (avanza solo se completi), nessun vincolo fisico, solo tappetino e corpo libero, valutazione un dominio al giorno, ancore visibili, XP da Sfide, Cyber Study Room, Laboratorio, Simulazione. «Protocolli L» non esistono (l'utente non sa a cosa si riferisse il prompt). Vault: Test Mensile (F1-F7) è la base delle rubriche; alcune note citano «a cedimento», doccia fredda, digiuno: esclusi dalle quest.
+
 **Why:** l'utente ha riunito i tool di allenamento in un sistema unico usato su Windows e Ubuntu via Syncthing.
 **How to apply:** nuovi moduli = cartella + voce in moduli.json, senza toccare il server; non usare le porte 8770/8771 dei vecchi strumenti; mai provare sui `dati/` veri.
