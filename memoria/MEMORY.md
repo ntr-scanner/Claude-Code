@@ -23,6 +23,8 @@
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
 - [Generatore firma](project_generatore_firma.md) — HTML singolo offline: 3 modalità, sigla, SVG, firme salvate, firma PDF (pdf-lib+pdf.js incorporati), insidie di test
-- [White Room](project_white_room.md) — Gioco allenamento HTML in `Ayanokoji/Ayanokoji System/White Room/`, Brave Win+Ubuntu, salvataggi `Saves/` via `white_room_server.py` + lanciatori .bat/.sh
+- [White Room (archiviata)](project_white_room.md) — Vecchia versione separata, ora modulo di Ayanokoji System. Gioco allenamento HTML in `Ayanokoji/Ayanokoji System/White Room/`, Brave Win+Ubuntu, salvataggi `Saves/` via `white_room_server.py` + lanciatori .bat/.sh
 - [Work Tools](project_tool_for_work.md) — cartella `Work Tools/` (ex Tool for Work), 20 tool HTML a file singolo + Dashboard.html, librerie incorporate, server test 8084, insidie DOMContentLoaded/rAF
-- [Cyber Study Room](project_cyber_study_room.md) — Tracciatore apprendimento cyber (un argomento alla volta) in `Ayanokoji System/Cyber Study Room/`, clone server di White Room (8771), schema v2, test Playwright con Edge
+- [Cyber Study Room (archiviata)](project_cyber_study_room.md) — Vecchia versione separata, ora modulo di Ayanokoji System. Tracciatore apprendimento cyber (un argomento alla volta) in `Ayanokoji System/Cyber Study Room/`, clone server di White Room (8771), schema v2, test Playwright con Edge
+- [Ayanokoji System](project_ayanokoji_system.md) — Dashboard unica 127.0.0.1:8765, barra solo icone con «Altro», moduli: Laboratorio Cognitivo, Cyber, Language Room, Metriche, Diagnosi, Progetti, Sfide, Galanteria (tetto 100 € con vincoli server); STATO.md e MIGRAZIONE.md
+- [Vektora RMM Console](project_vektora_rmm.md) — Demo HTML singolo RMM multi-tenant + patch pipeline + LAPS vault in `Prodotti Vektora/vektora-rmm/`, dati simulati, test jsdom + Brave headless
