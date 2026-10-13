@@ -3,3 +3,6 @@
 __pycache__/
 .DS_Store
 Thumbs.db
+
+# Clone dei repo esterni: si ricreano con Repository/setup_repos.sh
+Repository/*/
