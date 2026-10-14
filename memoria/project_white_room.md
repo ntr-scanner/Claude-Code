@@ -1,9 +1,11 @@
 ---
 name: project-white-room
-description: White Room, gioco di allenamento cognitivo HTML singolo in Ayanokoji/Ayanokoji System/White Room, salvataggi in Saves/ condivisi Windows+Ubuntu via Syncthing tramite server Python locale
+description: ARCHIVIATO (2026-10-08): ora modulo palestra-cognitiva di Ayanokoji System; questa è la vecchia pagina in _archivio/White Room, porta 8770. White Room, gioco di allenamento cognitivo HTML singolo in Ayanokoji/Ayanokoji System/White Room, salvataggi in Saves/ condivisi Windows+Ubuntu via Syncthing tramite server Python locale
 metadata:
   type: project
 ---
+
+> Versione archiviata: il sistema attuale è descritto in [[project-ayanokoji-system]].
 
 `Ayanokoji/Ayanokoji System/White Room/white-room.html` (spostata in `Ayanokoji System/White Room` il 2026-10-08): gioco di allenamento cognitivo (moduli, indice, protocollo giornaliero) in un solo file HTML.
 

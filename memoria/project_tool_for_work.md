@@ -1,6 +1,6 @@
 ---
 name: project-tool-for-work
-description: "Work Tools (ex Tool for Work): 20 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
+description: "Work Tools (ex Tool for Work): 21 strumenti HTML a file singolo + Dashboard.html, convenzioni comuni, librerie incorporate e insidie di test"
 metadata:
   node_type: memory
   type: project
@@ -9,6 +9,8 @@ metadata:
 ---
 
 `Work Tools/` (rinominata dall'utente da "Tool for Work"; repo git già pubblicato, commit manuali) (ottobre 2026): `Dashboard.html` + `README.md` nella radice, ogni strumento nella sua cartella (nome con spazi, file kebab-case). L'utente vuole caricarla su GitHub. Nuovi tool del 2026-10-08: Rimozione Sfondo, OCR Testo, Scanner Documenti, Comprimi e Dividi PDF, Pulitore Metadati, Password e Hash, Preventivi e Fatture, Validatore Codici, Calcolatore Date e Ore, Firma Email, Confronto Testi, Generatore QR; poi Markdown con immagini Base64 (`Markdown Immagini Base64/`: CSP senza rete, modalità Incorpora/Estrai, più .md con percorsi relativi al documento, riduzione foto via canvas, SVG come testo con apici singoli, definizioni in fondo, anteprima markdown-it 14.3.0 in iframe sandbox, JSZip; markdown-it copiato da `vektora-site-main/node_modules`) e Generatore Dati Fittizi (dati di test, email example.com, cellulari con "555"; rifiutata la parte "numeri che ricevono SMS"). Preesistenti: Convertitore Immagini (con upscaling Lanczos + Real-ESRGAN ONNX), Pdf Editor, Generatore Firme Digitale ([[project-generatore-firma]]), Attestati, Rubrica Colleghi.
+
+Poi Editor CV (`Editor CV/editor-cv.html`, 2026-10-14, categoria doc: modelli classico/moderno/minimale, sezioni riordinabili, lingue QCER, IT/EN, clausola GDPR, archivio versioni in localStorage `editor-cv:*`, PDF via stampa con `@page` margin 14mm 0 e stima pagine; testato solo in jsdom perché Chrome per Playwright MCP non è installato su questo PC Linux).
 
 Poi Simulatore SMS (`Simulatore SMS/`, categoria adm: spostato dalla radice di Web Developer e ristilizzato, numeri finti e OTP simulati, nessun SMS reale).
 

@@ -1,9 +1,11 @@
 ---
 name: project-cyber-study-room
-description: Cyber Study Room, pagina HTML singola, tracciatore dell'apprendimento cybersecurity (un argomento alla volta per materia); stesso stile e server di salvataggio di White Room (porta 8771)
+description: ARCHIVIATO (2026-10-08): ora modulo cyber-study-room di Ayanokoji System; questa è la vecchia pagina in _archivio/Cyber Study Room, porta 8771. Cyber Study Room, pagina HTML singola, tracciatore dell'apprendimento cybersecurity (un argomento alla volta per materia); stesso stile e server di salvataggio di White Room (porta 8771)
 metadata:
   type: project
 ---
+
+> Versione archiviata: il sistema attuale è descritto in [[project-ayanokoji-system]].
 
 `Ayanokoji/Ayanokoji System/Cyber Study Room/cyber-study-room.html` (creata 2026-10-08), accanto a `../White Room/`.
 
