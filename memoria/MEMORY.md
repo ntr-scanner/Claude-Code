@@ -28,3 +28,4 @@
 - [Cyber Study Room (archiviata)](project_cyber_study_room.md) — Vecchia versione separata, ora modulo di Ayanokoji System. Tracciatore apprendimento cyber (un argomento alla volta) in `Ayanokoji System/Cyber Study Room/`, clone server di White Room (8771), schema v2, test Playwright con Edge
 - [Ayanokoji System](project_ayanokoji_system.md) — Dashboard unica 127.0.0.1:8765; dal 2026-10-14 `codice/` (repo git) separato da `dati/`,`log/`,`_archivio/`; moduli fino a Revisione più Roadmap Milionario, Videogames, Gustare la vita, Profiling (rifatti dopo un'altra AI); STATO.md e MIGRAZIONE.md
 - [Vektora RMM Console](project_vektora_rmm.md) — Demo HTML singolo RMM multi-tenant + patch pipeline + LAPS vault in `Prodotti Vektora/vektora-rmm/`, dati simulati, test jsdom + Brave headless
+- [Ruota (Porn Roulette v.3)](project_ruota.md) — server Python + PWA in Intrattenimento/, Ritmo e Metriche dalla 3.8, test con -B, Playwright via Brave snap
