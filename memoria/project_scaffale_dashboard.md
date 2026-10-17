@@ -8,7 +8,9 @@ metadata:
   modified: 2026-10-17T15:07:29.142Z
 ---
 
-Creata il 2026-10-17. `server.py` (stdlib ThreadingHTTPServer + Pillow, pypdfium2 per PDF) + `static/` vanilla JS, avvio `avvia.sh`/`avvia.bat` (creano `.venv` locale). Libreria in `dashboard/dati/biblioteca/<slug>/` (serie.json con capitoli e dimensioni pagine, cover.webp, `capitoli/cNNNN/`). In arrivo = `~/Videos/MediaLoader/manga` + `dati/caricati/`. Test: `test_dashboard.py` (30 controlli).
+Creata il 2026-10-17. `server.py` (stdlib ThreadingHTTPServer + Pillow, pypdfium2 per PDF) + `static/` vanilla JS, avvio `avvia.sh`/`avvia.bat` (creano `.venv` locale). Libreria in `dashboard/dati/biblioteca/<slug>/` (serie.json con capitoli e dimensioni pagine, cover.webp, `capitoli/cNNNN/`). In arrivo = `../Download/manga` (Media Loader) + `dati/caricati/`. Lanciatore in stile Ayanokoji (`--stato`, `--spegni`, `--rete`, porte 8790+20, browser staccato con log in `dati/browser.log`, `/api/ping`). Test: `test_dashboard.py` (35 controlli).
+
+Dal 2026-10-17 (richiesta utente) Media Loader scarica TUTTO in `<cartella progetto>/Download/` (`core/library.DOWNLOAD_ROOT`, vale dopo ogni clone; `.gitignore` tiene solo `Download/.gitkeep`). Manga: gallery-dl in `Download/manga/.scaricamento` con `--download-archive`, poi `core/manga_pdf.py` (img2pdf, senza ricompressione) crea `Download/manga/<Titolo>/Capitolo NNN.pdf` e cancella le immagini; la dashboard estrae le pagine dai PDF con pypdfium2 senza perdita. Strisce spaziatrici < 8 px scartate (img2pdf/pikepdf rifiutano pagine < 3 pt).
 
 Insidie:
 - gallery-dl (motore manga di Media Loader) salva Webtoons piatto come `EP-PAGINA.jpg` in `manga/webtoons/<serie>/`: il numero EP è `episode_no` di Webtoons, non il numero "Ep." del titolo.
