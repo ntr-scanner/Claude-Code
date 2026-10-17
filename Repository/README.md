@@ -23,7 +23,7 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 | `emil-skills/` | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Solo `skills/apple-design`, link in `~/.claude/skills/apple-design` |
 | `ui-ux-pro-max/` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Plugin `ui-ux-pro-max@ui-ux-pro-max-skill` (7 skill di design) |
 | `ponytail/` | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | Plugin `ponytail@ponytail` (hook: modalità sempre attiva + statistiche locali) |
-| `anthropic-skills/` | [anthropics/skills](https://github.com/anthropics/skills) | Plugin `document-skills`, `example-skills`, `claude-api` @`anthropic-agent-skills` |
+| `anthropic-skills/` | [anthropics/skills](https://github.com/anthropics/skills) | Plugin `document-skills`, `example-skills`, `claude-api` @`anthropic-agent-skills` (nome riservato: marketplace da GitHub `anthropics/skills`, non dal clone) |
 | `karpathy-skills/` | [multica-ai/andrej-karpathy-skills](https://github.com/multica-ai/andrej-karpathy-skills) | Plugin `andrej-karpathy-skills@karpathy-skills` |
 | `mattpocock-skills/` | [mattpocock/skills](https://github.com/mattpocock/skills) | Plugin `mattpocock-skills@mattpocock` |
 | `superpowers/` | [obra/superpowers](https://github.com/obra/superpowers) | Plugin `superpowers@superpowers-dev` (hook SessionStart) |

@@ -18,7 +18,7 @@
 
 set -euo pipefail
 
-VERSION="1.1.0"
+VERSION="1.1.1"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -159,7 +159,7 @@ link_skill() {
     local src="$1" dst="$HOME/.claude/skills/$(basename "$1")"
     if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then ok "Skill collegata: $(basename "$src")"; return; fi
     manca "link skill $dst" || return 0
-    run mkdir -p "$HOME/.claude/skills" && run ln -sfn "$src" "$dst"
+    run mkdir -p "$HOME/.claude/skills" && run ln -sfn "$src" "$dst" || true
 }
 
 claude_home() { (cd "$HOME" && "$@"); }  # evita che Claude legga .mcp.json della cartella corrente
@@ -188,9 +188,9 @@ clone_repo() {
     manca "clone di $nome ($url)" || return 0
     if [[ -n "$sparse" ]]; then
         run git clone --depth 1 --filter=blob:none --sparse "$url" "$dir" && \
-        run git -C "$dir" sparse-checkout set "$sparse"
+        run git -C "$dir" sparse-checkout set "$sparse" || true
     else
-        run git clone --depth 1 "$url" "$dir"
+        run git clone --depth 1 "$url" "$dir" || true
     fi
 }
 
@@ -203,7 +203,7 @@ install_venv() {
     elif manca "installazione $pacchetto in $venv"; then
         run python3 -m venv "$venv" && \
         run "$venv/bin/pip" install -q -U pip && \
-        run "$venv/bin/pip" install -q "$pacchetto"
+        run "$venv/bin/pip" install -q "$pacchetto" || true
     fi
     for b in "$@"; do link_bin "$venv/bin/$b"; done
 }
@@ -213,7 +213,7 @@ install_omniroute() {
     if [[ -x "$bin" ]]; then
         ok "Tool installato: omniroute ($bin)"
     elif manca "installazione npm di omniroute in $TOOLS_DIR/npm"; then
-        run npm install -g --prefix "$TOOLS_DIR/npm" omniroute
+        run npm install -g --prefix "$TOOLS_DIR/npm" omniroute || true
     fi
     link_bin "$bin"
 }
@@ -222,7 +222,7 @@ link_bin() {
     local src="$1" dst="$BIN_DIR/$(basename "$1")"
     if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then return; fi
     manca "link $dst" || return 0
-    run mkdir -p "$BIN_DIR" && run ln -sf "$src" "$dst"
+    run mkdir -p "$BIN_DIR" && run ln -sf "$src" "$dst" || true
 }
 
 # ═══ STEP 3 — integrazione con Claude Code ═══
@@ -242,7 +242,7 @@ integra_plugin() {
     if grep -q "$plugin@$marketplace" <<<"$PLUGIN_LIST"; then
         ok "Plugin integrato: $plugin@$marketplace"
     elif manca "plugin $plugin@$marketplace"; then
-        run claude_home claude plugin install "$plugin@$marketplace"
+        run claude_home claude plugin install "$plugin@$marketplace" || true
     fi
 }
 
@@ -251,7 +251,7 @@ integra_mcp() {
     if grep -q "^$nome:" <<<"$MCP_LIST"; then
         ok "MCP integrato: $nome"
     elif manca "server MCP $nome"; then
-        run claude_home "$@"
+        run claude_home "$@" || true
     fi
 }
 
@@ -295,9 +295,10 @@ esegui() {
     echo; info "STEP 4 — skill (plugin da marketplace locale = clone in $BASE_DIR)"
     integra_plugin ui-ux-pro-max          ui-ux-pro-max-skill    "$BASE_DIR/ui-ux-pro-max"
     integra_plugin ponytail               ponytail               "$BASE_DIR/ponytail"
-    integra_plugin document-skills        anthropic-agent-skills "$BASE_DIR/anthropic-skills"
-    integra_plugin example-skills         anthropic-agent-skills "$BASE_DIR/anthropic-skills"
-    integra_plugin claude-api             anthropic-agent-skills "$BASE_DIR/anthropic-skills"
+    # nome riservato: il marketplace ufficiale Anthropic si aggiunge solo da GitHub, non dal clone locale
+    integra_plugin document-skills        anthropic-agent-skills anthropics/skills
+    integra_plugin example-skills         anthropic-agent-skills anthropics/skills
+    integra_plugin claude-api             anthropic-agent-skills anthropics/skills
     integra_plugin andrej-karpathy-skills karpathy-skills        "$BASE_DIR/karpathy-skills"
     integra_plugin mattpocock-skills      mattpocock             "$BASE_DIR/mattpocock-skills"
     integra_plugin superpowers            superpowers-dev        "$BASE_DIR/superpowers"
@@ -308,7 +309,7 @@ esegui() {
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
     elif manca "skill graphify (graphify install --platform claude)"; then
-        run claude_home "$TOOLS_DIR/venvs/graphify/bin/graphify" install --platform claude
+        run claude_home "$TOOLS_DIR/venvs/graphify/bin/graphify" install --platform claude || true
     fi
 
     echo
