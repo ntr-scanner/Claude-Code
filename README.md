@@ -40,6 +40,17 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer/CLAUDE.md`, 
    ```
 
    Se il percorso del progetto cambia, cambia anche il nome della cartella sotto `.claude\projects\`.
+
+   Su Linux, con symlink (con Claude Code chiuso; `rmdir` elimina solo cartelle vuote):
+
+   ```bash
+   cd "$HOME/Web Developer Claude/.claude"
+   rmdir skills agents 2>/dev/null; ln -s ../Claude/skills skills; ln -s ../Claude/agents agents
+   M="$HOME/.claude/projects/-home-joyboy-Web-Developer-Claude/memory"
+   mkdir -p "$(dirname "$M")"; rmdir "$M" 2>/dev/null; ln -s "$HOME/Web Developer Claude/Claude/memoria" "$M"
+   ```
+
+   Il nome sotto `projects/` è il percorso del progetto con `/` e spazi sostituiti da `-`.
 4. `Claude/vektora-wat.md` è già al posto giusto: non serve ripristinare nulla in `Vektora Site\`.
 5. Ricrea `Web Developer\CLAUDE.md` con questo contenuto minimo: leggere `Claude/INDEX.md` prima di ogni task; leggere `Claude/SCRIPT.md` prima di scrivere script; aggiungere e modificare le regole solo dentro `Claude/`.
 6. Ricrea `Web Developer\.claude\settings.local.json` e `launch.json` se servono (non sono nel backup).
@@ -56,9 +67,9 @@ Questo backup copre solo configurazione e riferimento, non il lavoro. Per i prog
 
 ## Come tenerlo aggiornato
 
-Non c'è più uno specchio: skill, agent e memoria attivi **sono** le cartelle di `Claude/`, collegate con junction. Ogni modifica fatta da Claude Code o a mano finisce già qui.
+Non c'è più uno specchio: skill, agent e memoria attivi **sono** le cartelle di `Claude/`, collegate con junction (Windows) o symlink (Linux). Ogni modifica fatta da Claude Code o a mano finisce già qui.
 
-Prima di committare basta controllare `git status` e assicurarsi che le junction esistano (`Get-Item "Web Developer\.claude\skills"` deve mostrare `LinkType: Junction`). Aggiorna la data in `INDEX.md` quando cambia una regola.
+Prima di committare basta controllare `git status` e assicurarsi che le junction esistano (`Get-Item "Web Developer\.claude\skills"` deve mostrare `LinkType: Junction`; su Linux `ls -la .claude` deve mostrare `skills -> ../Claude/skills`). Aggiorna la data in `INDEX.md` quando cambia una regola.
 
 ## Sicurezza
 

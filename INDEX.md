@@ -45,9 +45,9 @@ Claude/
 ├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
 ├── README.md           documentazione del repo di backup
 ├── vektora-wat.md      regole di lavoro sui siti cliente Vektora (framework WAT): unica copia
-├── skills/             skill Vektora (`.claude/skills` è una junction verso questa cartella)
-├── agents/             sub-agent (security-auditor; `.claude/agents` è una junction)
-└── memoria/            memoria persistente di Claude (MEMORY.md + file singoli; la cartella memoria di Claude Code è una junction)
+├── skills/             skill Vektora (`.claude/skills` è un collegamento a questa cartella)
+├── agents/             sub-agent (security-auditor; `.claude/agents` è un collegamento)
+└── memoria/            memoria persistente di Claude (MEMORY.md + file singoli; la cartella memoria di Claude Code è un collegamento)
 ```
 
 ## Mappa di `Web Developer/`
@@ -62,7 +62,7 @@ Claude/
 | `Antigravity/` | Area di lavoro di un altro agente (Antigravity) con sue regole; ha una copia vecchia della skill `vektora-web-dev`, non è quella attiva |
 | `Ayanokoji/`, `Games/` | Progetti personali |
 | `Claude/` | Questa cartella |
-| `.claude/` | Configurazione attiva di Claude Code: `skills/` e `agents/` (junction verso `Claude/`), `settings.local.json` (permessi), `launch.json` (server di sviluppo) |
+| `.claude/` | Configurazione attiva di Claude Code: `skills/` e `agents/` (collegamenti a `Claude/`), `settings.local.json` (permessi), `launch.json` (server di sviluppo) |
 
 ## Server di sviluppo (`.claude/launch.json`)
 
@@ -96,8 +96,9 @@ Claude/
 - Firma nel footer: `vektora-wat.md` ha il blocco con logo SVG, la skill `vektora-web-dev` un semplice paragrafo.
 - Le animazioni per piano nella skill erano legate ai vecchi 4 livelli: la mappatura Vetrina Essenziale→Starter, Business→Standard è per posizione e va confermata.
 
-## Junction (nessuno specchio)
+## Collegamenti (nessuno specchio)
 
-- `Web Developer\.claude\skills` → `Claude\skills`, `Web Developer\.claude\agents` → `Claude\agents`, `C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer\memory` → `Claude\memoria`.
+- Windows (junction): `Web Developer\.claude\skills` → `Claude\skills`, `Web Developer\.claude\agents` → `Claude\agents`, `C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer\memory` → `Claude\memoria`.
 - Esiste una sola copia di ogni file: modificare in `Claude/` equivale a modificare la configurazione attiva. Non ci sono copie da sincronizzare.
-- Se una junction sparisce (ripristino, cancellazione), ricrearla con i comandi in `README.md`.
+- Linux (dispositivo attuale): symlink `Web Developer Claude/.claude/skills` → `../Claude/skills`, `.claude/agents` → `../Claude/agents`, `~/.claude/projects/-home-joyboy-Web-Developer-Claude/memory` → `Claude/memoria` (ricreati il 2026-10-17: col passaggio da Windows erano diventate cartelle vuote e skill, agent e memoria non venivano caricati).
+- Se un collegamento sparisce (ripristino, cancellazione, nuovo dispositivo), ricrearlo con i comandi in `README.md`. Verifica: `ls -la .claude` deve mostrare `skills -> ../Claude/skills`.
