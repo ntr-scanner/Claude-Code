@@ -13,10 +13,12 @@
 #   ./setup_repos.sh --apply --yes   come sopra senza conferme [s/N]
 #
 # Requisiti: git, python3 (venv), node/npm, claude (CLI di Claude Code).
+# Le skill di terzi (plugin con hook) vanno attivate dall'utente: --apply chiede
+# conferma per ogni marketplace/plugin.
 
 set -euo pipefail
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -60,6 +62,19 @@ Esecuzione:
   mempalace        mempalace/mempalace               CLI 'mempalace' (venv) + plugin mempalace@mempalace
   playwright-mcp   microsoft/playwright-mcp          MCP 'playwright' (npx @playwright/mcp@latest)
 
+═══ SKILL GESTITE ═══
+  emil-skills      emilkowalski/skills               skill apple-design (link in ~/.claude/skills)
+  ui-ux-pro-max    nextlevelbuilder/ui-ux-pro-max-skill plugin ui-ux-pro-max@ui-ux-pro-max-skill
+  ponytail         DietrichGebert/ponytail           plugin ponytail@ponytail (hook)
+  anthropic-skills anthropics/skills                 plugin document-skills, example-skills, claude-api
+  karpathy-skills  multica-ai/andrej-karpathy-skills plugin andrej-karpathy-skills@karpathy-skills
+  mattpocock-skills mattpocock/skills                plugin mattpocock-skills@mattpocock
+  superpowers      obra/superpowers                  plugin superpowers@superpowers-dev (hook)
+  taste-skill      Leonxlnx/taste-skill              plugin taste-skill@taste-skill
+  agent-skills     addyosmani/agent-skills           plugin agent-skills@addy-agent-skills
+  caveman          JuliusBrussee/caveman             plugin caveman@caveman (hook)
+  graphify         Graphify-Labs/graphify            CLI 'graphify' (venv) + skill /graphify
+
 ═══ ESEMPI ═══
   Nuovo dispositivo, guidato:        ./setup_repos.sh
   Solo controllo:                    ./setup_repos.sh --check
@@ -71,7 +86,8 @@ Esecuzione:
   Claude/Repository/<repo>/          clone dei repo (esclusi dal backup git di Claude/)
   $TOOLS_DIR/venvs/                  virtualenv di headroom e mempalace
   $TOOLS_DIR/npm/                    installazione npm di omniroute
-  $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute
+  $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute, graphify
+  ~/.claude/skills/                  link apple-design, skill graphify (+ blocco in ~/.claude/CLAUDE.md)
   ~/.claude.json, ~/.claude/         configurazione MCP e plugin di Claude Code (scope utente)
 
   Variabile CLAUDE_REPOS_HOME: cambia la cartella dei tool (default ~/.local/share/claude-repos).
@@ -136,6 +152,14 @@ manca() {
     [[ "$MODE" == "check" ]] && return 1
     [[ "$MODE" == "dry-run" ]] && return 0
     ask_yesno "Procedo con: $1?"
+}
+
+link_skill() {
+    # link_skill <cartella skill> -> ~/.claude/skills/<nome>
+    local src="$1" dst="$HOME/.claude/skills/$(basename "$1")"
+    if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then ok "Skill collegata: $(basename "$src")"; return; fi
+    manca "link skill $dst" || return 0
+    run mkdir -p "$HOME/.claude/skills" && run ln -sfn "$src" "$dst"
 }
 
 claude_home() { (cd "$HOME" && "$@"); }  # evita che Claude legga .mcp.json della cartella corrente
@@ -212,7 +236,8 @@ load_claude_state() {
 integra_plugin() {
     local plugin="$1" marketplace="$2" sorgente="$3"
     if ! grep -q "$marketplace" <<<"$MARKET_LIST"; then
-        manca "marketplace $marketplace ($sorgente)" && run claude_home claude plugin marketplace add "$sorgente"
+        manca "marketplace $marketplace ($sorgente)" && run claude_home claude plugin marketplace add "$sorgente" && \
+            MARKET_LIST+=$'\n'"$marketplace"  # piu' plugin dallo stesso marketplace: aggiungilo una volta sola
     fi
     if grep -q "$plugin@$marketplace" <<<"$PLUGIN_LIST"; then
         ok "Plugin integrato: $plugin@$marketplace"
@@ -242,11 +267,23 @@ esegui() {
     clone_repo headroom        https://github.com/chopratejas/headroom.git
     clone_repo mempalace       https://github.com/mempalace/mempalace.git
     clone_repo playwright-mcp  https://github.com/microsoft/playwright-mcp.git
+    clone_repo emil-skills       https://github.com/emilkowalski/skills.git
+    clone_repo ui-ux-pro-max     https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git
+    clone_repo ponytail          https://github.com/DietrichGebert/ponytail.git
+    clone_repo anthropic-skills  https://github.com/anthropics/skills.git
+    clone_repo karpathy-skills   https://github.com/multica-ai/andrej-karpathy-skills.git
+    clone_repo mattpocock-skills https://github.com/mattpocock/skills.git
+    clone_repo superpowers       https://github.com/obra/superpowers.git
+    clone_repo taste-skill       https://github.com/Leonxlnx/taste-skill.git
+    clone_repo agent-skills      https://github.com/addyosmani/agent-skills.git
+    clone_repo caveman           https://github.com/JuliusBrussee/caveman.git
+    clone_repo graphify          https://github.com/Graphify-Labs/graphify.git
 
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
     install_venv headroom "headroom-ai[mcp]" headroom
     install_omniroute
+    install_venv graphify graphifyy graphify
 
     echo; info "STEP 3 — integrazione con Claude Code"
     load_claude_state
@@ -254,6 +291,25 @@ esegui() {
     integra_plugin mempalace mempalace MemPalace/mempalace
     integra_mcp playwright claude mcp add -s user playwright -- npx @playwright/mcp@latest
     integra_mcp headroom "$TOOLS_DIR/venvs/headroom/bin/headroom" mcp install --agent claude
+
+    echo; info "STEP 4 — skill (plugin da marketplace locale = clone in $BASE_DIR)"
+    integra_plugin ui-ux-pro-max          ui-ux-pro-max-skill    "$BASE_DIR/ui-ux-pro-max"
+    integra_plugin ponytail               ponytail               "$BASE_DIR/ponytail"
+    integra_plugin document-skills        anthropic-agent-skills "$BASE_DIR/anthropic-skills"
+    integra_plugin example-skills         anthropic-agent-skills "$BASE_DIR/anthropic-skills"
+    integra_plugin claude-api             anthropic-agent-skills "$BASE_DIR/anthropic-skills"
+    integra_plugin andrej-karpathy-skills karpathy-skills        "$BASE_DIR/karpathy-skills"
+    integra_plugin mattpocock-skills      mattpocock             "$BASE_DIR/mattpocock-skills"
+    integra_plugin superpowers            superpowers-dev        "$BASE_DIR/superpowers"
+    integra_plugin taste-skill            taste-skill            "$BASE_DIR/taste-skill"
+    integra_plugin agent-skills           addy-agent-skills      "$BASE_DIR/agent-skills"
+    integra_plugin caveman                caveman                "$BASE_DIR/caveman"
+    link_skill "$BASE_DIR/emil-skills/skills/apple-design"
+    if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
+        ok "Skill installata: graphify"
+    elif manca "skill graphify (graphify install --platform claude)"; then
+        run claude_home "$TOOLS_DIR/venvs/graphify/bin/graphify" install --platform claude
+    fi
 
     echo
     case ":$PATH:" in *":$BIN_DIR:"*) ;; *) warn "$BIN_DIR non e' nel PATH: rifai il login o aggiungilo (serve agli hook di MemPalace)." ;; esac

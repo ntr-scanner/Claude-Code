@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-13 (cartella `Repository/` con i repo esterni integrati in Claude Code)
+Aggiornato: 2026-10-17 (`SKILLS.md`: skill esterne da usare in base al task)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
@@ -28,6 +28,7 @@ Aggiornato: 2026-10-13 (cartella `Repository/` con i repo esterni integrati in C
 | Nuovo sito cliente Vektora | `DESIGN.md`, `skills/vektora-web-dev/SKILL.md` (+ `snippets/animations.md`), `vektora-wat.md` |
 | Nuova cartella cliente | `skills/vektora-clienti/SKILL.md`, `memoria/project_clienti_vektora.md` |
 | Sito/blog Vektora | `memoria/project_vektora.md`, `memoria/project_vektora_blog.md` |
+| **Qualsiasi lavoro su un progetto o codice** | `SKILLS.md` (quali skill caricare per il task), poi i file specifici sotto |
 | Scrivere qualsiasi script (Python, Bash, PowerShell) | `SCRIPT.md` (obbligatorio, prima di scrivere) |
 | Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
 | Audit / sicurezza | `agents/security-auditor.md`, `memoria/project_cybersecurity_*.md` e gli altri `project_*` di cybersecurity |
@@ -39,8 +40,9 @@ Aggiornato: 2026-10-13 (cartella `Repository/` con i repo esterni integrati in C
 Claude/
 ├── INDEX.md            ← questo file
 ├── DESIGN.md           direttive tecniche per piano (Starter/Standard/Pro/Premium)
+├── SKILLS.md           quale skill esterna usare per quale task (design, TDD, debug, review, ...)
 ├── SCRIPT.md           standard per scrivere script (interattivo di default, --yes/--non-interactive, fail-safe)
-├── Repository/         repo esterni integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
+├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
 ├── README.md           documentazione del repo di backup
 ├── vektora-wat.md      regole di lavoro sui siti cliente Vektora (framework WAT): unica copia
 ├── skills/             skill Vektora (`.claude/skills` è una junction verso questa cartella)
