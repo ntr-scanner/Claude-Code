@@ -29,3 +29,4 @@
 - [Ayanokoji System](project_ayanokoji_system.md) — Dashboard unica 127.0.0.1:8765; dal 2026-10-14 `codice/` (repo git) separato da `dati/`,`log/`,`_archivio/`; moduli fino a Revisione più Roadmap Milionario, Videogames, Gustare la vita, Profiling (rifatti dopo un'altra AI); STATO.md e MIGRAZIONE.md
 - [Vektora RMM Console](project_vektora_rmm.md) — Demo HTML singolo RMM multi-tenant + patch pipeline + LAPS vault in `Prodotti Vektora/vektora-rmm/`, dati simulati, test jsdom + Brave headless
 - [Ruota (Porn Roulette v.3)](project_ruota.md) — server Python + PWA in Intrattenimento/, Ritmo e Metriche dalla 3.8, test con -B, Playwright via Brave snap
+- [Scaffale dashboard Media Loader](project_scaffale_dashboard.md) — Lettore manga/manhwa/webtoon locale porta 8790, import/conversione, insidie gallery-dl/Webtoons/MangaDex bloccato
