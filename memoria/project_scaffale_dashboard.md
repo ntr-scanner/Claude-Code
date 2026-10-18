@@ -5,12 +5,12 @@ metadata:
   node_type: memory
   type: project
   originSessionId: 5022339b-d81d-4780-870f-5436d2ccd427
-  modified: 2026-10-17T15:07:29.142Z
+  modified: 2026-10-18T12:00:00.000Z
 ---
 
 Creata il 2026-10-17. `server.py` (stdlib ThreadingHTTPServer + Pillow, pypdfium2 per PDF) + `static/` vanilla JS, avvio `avvia.sh`/`avvia.bat` (creano `.venv` locale). Libreria in `dashboard/dati/biblioteca/<slug>/` (serie.json con capitoli e dimensioni pagine, cover.webp, `capitoli/cNNNN/`). In arrivo = `../Download/manga` (Media Loader) + `dati/caricati/`. Lanciatore in stile Ayanokoji (`--stato`, `--spegni`, `--rete`, porte 8790+20, browser staccato con log in `dati/browser.log`, `/api/ping`). Test: `test_dashboard.py` (35 controlli).
 
-Dal 2026-10-17 (richiesta utente) Media Loader scarica TUTTO in `<cartella progetto>/Download/` (`core/library.DOWNLOAD_ROOT`, vale dopo ogni clone; `.gitignore` tiene solo `Download/.gitkeep`). Manga: gallery-dl in `Download/manga/.scaricamento` con `--download-archive`, poi `core/manga_pdf.py` (img2pdf, senza ricompressione) crea `Download/manga/<Titolo>/Capitolo NNN.pdf` e cancella le immagini; la dashboard estrae le pagine dai PDF con pypdfium2 senza perdita. Strisce spaziatrici < 8 px scartate (img2pdf/pikepdf rifiutano pagine < 3 pt).
+Dal 2026-10-17 (richiesta utente) Media Loader scarica TUTTO in `<cartella progetto>/Download/` (`core/library.DOWNLOAD_ROOT`, vale dopo ogni clone; `.gitignore` tiene solo `Download/.gitkeep`). Manga: gallery-dl in `Download/manga/.scaricamento` con `--download-archive`, poi `core/manga_capitoli.py` crea `Download/manga/<Titolo>/Capitolo NNN/0001.jpg...` (JPEG copiati, altri formati → JPEG q92; temp nascosta `.Capitolo NNN.part`, la dashboard ignora le cartelle con "."). Dal 2026-10-18 niente più PDF (richiesta utente: i PDF non riducevano il peso e duplicavano la biblioteca, 22 GB cancellati dopo verifica 1563/1563). Per evitare doppioni: in import spuntare "Elimina l'originale". Dopo aver svuotato Download, rilanciare mgeko/likemanga su una serie la riscarica tutta: usare `--da`.
 
 Insidie:
 - gallery-dl (motore manga di Media Loader) salva Webtoons piatto come `EP-PAGINA.jpg` in `manga/webtoons/<serie>/`: il numero EP è `episode_no` di Webtoons, non il numero "Ep." del titolo.
