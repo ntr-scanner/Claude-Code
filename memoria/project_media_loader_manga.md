@@ -1,6 +1,6 @@
 ---
 name: project-media-loader-manga
-description: "Flusso manga di Media Loader (Cybersecurity/Script/Media Loader): cartelle JPG per capitolo, siti diretti Mgeko/LikeManga (core/mgeko.py motore), MangaRead/Webtoons via gallery-dl, insidie"
+description: "Flusso manga di Media Loader (Cybersecurity/Script/Media Loader v3; v2 eliminata il 2026-10-18): cartelle JPG per capitolo, siti diretti Mgeko/LikeManga (core/mgeko.py motore), MangaRead/Webtoons via gallery-dl, insidie"
 metadata:
   type: project
 ---
