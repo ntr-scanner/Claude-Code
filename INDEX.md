@@ -57,7 +57,7 @@ Claude/
 | `Vektora Site/` | Framework WAT dell'agenzia (regole in `vektora-wat.md`): `templates/`, `workflows/`, `tools/`, `assets-vektora/`, `Clienti Vektora/` (cartelle esistenti in formato vecchio `Cliente N - nome`; le nuove `[anno]-[nome]-[tipo]`), `vektora-site-main/` (sito + blog Eleventy), `Prodotti Vektora/` |
 | `Cybersecurity/` | Script e tool di sicurezza (DR audit, Compliance Tracker, Ransomware Identifier, Scan Orchestrator, ecc.) |
 | `Marketing/` | Costi mercato, prospecting n8n, catalogo tipologie siti, quiz |
-| `Progetti/` | Progetti vari (Sonar) |
+| `Progetti/` | Progetti vari (Sonar, Scaffale Mangawa: lettore manga con `codice/` separato da `dati/`) |
 | `Università/` | Materiale di studio, autoverifica |
 | `Antigravity/` | Area di lavoro di un altro agente (Antigravity) con sue regole; ha una copia vecchia della skill `vektora-web-dev`, non è quella attiva |
 | `Ayanokoji/`, `Games/` | Progetti personali |
