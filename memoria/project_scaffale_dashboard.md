@@ -25,6 +25,8 @@ Dal 2026-10-18 anche **LikeManga** (`core/likemanga.py`, elenco capitoli da `/?a
 Insidie aggiuntive:
 - Webtoons `episode_no` ≠ numero "Ep.": prologo + Ep. 49.1/49.2 spostano tutto (episode_no 92 = Ep. 89). Fix: main.py passa `-o directory=["{category}","{comic}","{episode_name}"]` per webtoons, manga_pdf legge "Ep. N" dalla cartella (Prologue → 0). Sashimi già rinumerata (49.1/49.2 → 49.5/49.6 come mgeko).
 - Su Linux la `.venv` del progetto è Windows: usare `.venv-linux/`. Background con `python -u` sennò il log resta vuoto.
+- MangaRead (AoT): metadati sporchi, alcuni capitoli in cartelle `Attack On Titan - Chapter N/cNNN` e side story etichettato 16 (è il 19); sul sito mancano 11-13 e 131. CDN likemanga può rispondere 200 con 0 byte (fix in `_scarica_img`); Superhuman Era cap. 23 pag. 26 vuota sul server, PDF fatto con 42 pagine.
+- La dashboard può essere riavviata dall'utente su un'altra porta: rileggere la porta con `./avvia.sh --stato` prima di ogni import.
 - `pkill -f "core.mgeko"` uccide anche la shell di Claude: usare il pattern `"[c]ore.mgeko"`.
 - Import in dashboard da script: POST `/api/import` `{source: percorso assoluto, slug | new_series:{title,type,status}}`, poi `/api/jobs/<id>`; porta da `./avvia.sh --stato`.
 
