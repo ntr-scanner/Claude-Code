@@ -20,6 +20,8 @@ Insidie:
 
 Dal 2026-10-17 anche **Mgeko** (`core/mgeko.py`, `python -m core.mgeko URL [--titolo cartella] [--da N --a M] [--elenco]`): gallery-dl non lo supporta; un PDF per capitolo, salta i capitoli con PDF già presente; in menu chiede il nome cartella (serve per continuare serie scaricate altrove). Ricerca `search_mgeko` in `sites/search.py`. Scaricati Solo Leveling e Sashimi Knife 90-99.
 
+Dal 2026-10-18 anche **LikeManga** (`core/likemanga.py`, elenco capitoli da `/?act=ajax&code=load_list_chapter`, usa il motore di `core/mgeko.py`: `scarica(..., sito=modulo)`, `cli(sito, esempio)`; un modulo-sito espone NOME, BASE, FALLBACK_IMG, e_sito, client, info_serie, pagine) e **MangaRead** (gallery-dl nativo). Ricerca: `search_likemanga`, `search_mangaread`. gallery-dl dal menu ora scarica in `.scaricamento/gallery-dl/` (prima `.scaricamento/`: la conversione finale avrebbe preso anche i capitoli a metà dei siti diretti). Scaricati: Limit Breaker, Eternally Regressing Knight (mgeko); Attack on Titan (mangaread), Gantz, Tokyo Ghoul, Subaru the Invincible, Superhuman Era (likemanga).
+
 Insidie aggiuntive:
 - Webtoons `episode_no` ≠ numero "Ep.": prologo + Ep. 49.1/49.2 spostano tutto (episode_no 92 = Ep. 89). Fix: main.py passa `-o directory=["{category}","{comic}","{episode_name}"]` per webtoons, manga_pdf legge "Ep. N" dalla cartella (Prologue → 0). Sashimi già rinumerata (49.1/49.2 → 49.5/49.6 come mgeko).
 - Su Linux la `.venv` del progetto è Windows: usare `.venv-linux/`. Background con `python -u` sennò il log resta vuoto.
