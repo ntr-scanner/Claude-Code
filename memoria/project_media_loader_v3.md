@@ -12,7 +12,7 @@ Creata il 2026-10-18 su richiesta dell'utente: copia di `Media Loader` (v2, inta
 
 Come funziona: stdout/stderr sostituiti da un instradatore per thread (output di ogni download → suo lavoro, il resto scartato: terminale con sola riga di avvio e "Chiuso."); `input()` sostituito: le domande dei motori (file esistente a/b/c, 301, nome) compaiono nella coda con pulsanti. Annullo = eccezione `Annullato(BaseException)` alla prossima scrittura del thread. Avanzamento dedotto da `%` o `n/m` nelle righe. Due download paralleli. Senza battito dalla finestra per 30 s e senza download attivi il server si spegne. `main.py` v3: `scarica_manga(url, title, nome_cartella)` estratta dal menu, gallery-dl via Popen con righe passate a print.
 
-Test: `test_app.py` (14), `test_manga_capitoli.py` (16). Test reali via Playwright + Brave snap (vedi [[project-scaffale-dashboard]] per il setup) il 2026-10-18: YouTube video/MP3, domanda file esistente, AnimeWorld, Mgeko (annullo + ripresa), Webtoons, XNXX nativo e yt-dlp, xHamster, HentaiGasm, HentaiMama, dominio sconosciuto, sistema/chiusura.
+Test: `test_app.py` (17), `test_manga_capitoli.py` (16). Test reali via Playwright + Brave snap (vedi [[project-scaffale-dashboard]] per il setup) il 2026-10-18: YouTube video/MP3, domanda file esistente, AnimeWorld, Mgeko (annullo + ripresa), Webtoons, XNXX nativo e yt-dlp, xHamster, HentaiGasm, HentaiMama, dominio sconosciuto, sistema/chiusura.
 
 Corretti in v3 (bug anche della v2, non riportati): `detect_platform` su host intero (xnxx.com veniva preso per x.com, reddit per t.co), HentaiMama MP4 diretti marcati hls, titoli xHamster (`.video-thumb-info__name`), CHAP_DIR accetta "[Season 1] Ep. 0".
 
