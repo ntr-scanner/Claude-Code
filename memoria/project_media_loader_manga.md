@@ -10,7 +10,7 @@ Dal 2026-10-17 (richiesta utente) Media Loader scarica TUTTO in `<cartella proge
 Insidie:
 - gallery-dl (motore manga di Media Loader) salva Webtoons piatto come `EP-PAGINA.jpg` in `manga/webtoons/<serie>/`: il numero EP è `episode_no` di Webtoons, non il numero "Ep." del titolo.
 - CDN Webtoons ~1 immagine ogni 2 s per connessione: per serie intere lanciare più gallery-dl con `--chapter-range` disgiunti (l'ordine indice è dal più recente).
-- MangaDex è bloccato in Italia (ordine AGCOM, DNS restituisce pagina "AVVISO"): non aggirarlo.
+- MangaDex: bloccato in Italia (AGCOM) fino a ottobre 2026, il 2026-10-18 di nuovo raggiungibile senza aggirare nulla. Se torna la pagina "AVVISO", non aggirarlo. gallery-dl va con `-o lang=en` (main.py lo aggiunge); serie con licenza spesso senza capitoli leggibili (Re:Zero arco 2: 0 leggibili, arco 1: 11 → scaricato).
 - Test browser: MCP Playwright cerca Chrome assente → Playwright da `~/.npm/_npx/*/node_modules/playwright-core` con `/snap/bin/brave`, screenshot in `~/` (Brave snap ha /tmp privata).
 
 Dal 2026-10-17 anche **Mgeko** (`core/mgeko.py`, `python -m core.mgeko URL [--titolo cartella] [--da N --a M] [--elenco]`): gallery-dl non lo supporta; un PDF per capitolo, salta i capitoli con PDF già presente; in menu chiede il nome cartella (serve per continuare serie scaricate altrove). Ricerca `search_mgeko` in `sites/search.py`. Scaricati Solo Leveling e Sashimi Knife 90-99.

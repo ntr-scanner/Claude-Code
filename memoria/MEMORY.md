@@ -30,4 +30,4 @@
 - [Vektora RMM Console](project_vektora_rmm.md) — Demo HTML singolo RMM multi-tenant + patch pipeline + LAPS vault in `Prodotti Vektora/vektora-rmm/`, dati simulati, test jsdom + Brave headless
 - [Ruota (Porn Roulette v.3)](project_ruota.md) — server Python + PWA in Intrattenimento/, Ritmo e Metriche dalla 3.8, test con -B, Playwright via Brave snap
 - [Scaffale Mangawa](project_scaffale_mangawa.md) — Lettore manga separato in `Progetti/Scaffale Mangawa/` (codice/ repo, dati/ fuori), porta 8790, In arrivo da impostazioni.json
-- [Media Loader manga](project_media_loader_manga.md) — Download manga in cartelle JPG per capitolo, Mgeko/LikeManga (core/mgeko.py), MangaRead/Webtoons via gallery-dl, insidie episode_no/.venv-linux/0 byte
+- [Media Loader manga](project_media_loader_manga.md) — Download manga in cartelle JPG per capitolo, Mgeko/LikeManga (core/mgeko.py), MangaRead/Webtoons via gallery-dl, insidie episode_no/.venv-linux/0 byte, MangaDex di nuovo raggiungibile
