@@ -16,6 +16,12 @@ Test: `test_app.py` (14), `test_manga_capitoli.py` (16). Test reali via Playwrig
 
 Corretti in v3 (bug anche della v2, non riportati): `detect_platform` su host intero (xnxx.com veniva preso per x.com, reddit per t.co), HentaiMama MP4 diretti marcati hls, titoli xHamster (`.video-thumb-info__name`), CHAP_DIR accetta "[Season 1] Ep. 0".
 
-Non funzionanti al 2026-10-18 (motori, non app): Film e Serie (domini StreamingCommunity/AltaDefinizione/FilmSenzaLimiti/GuardaSerie/Eurostreaming parcheggiati; ricerca impiega ~2 min per 0 risultati), ricerca adulti a 0 su Eporner, SpankBang, JavGuru, MissAV, NoodleMagazine, 141Jav, HentaiWorld.eu/.tv. mp4decrypt non installato.
+Domini (2026-10-18, tecnica presa da VibraVid, cartella poi eliminata): `refresh_domains` scarica prima `https://domains-tracker.server66.workers.dev/get` (serve User-Agent; mappa TRACKER_KEYS: SC, AltaDefinizione, Eurostreaming, AnimeWorld, AnimeUnity), poi GET senza www forzato, scarta pagine parcheggiate (`_PARCHEGGIO`) e redirect a host senza `key[:5]`. Cache `~/.medialoader/site_domains.json` condivisa con la v2. Dominio manuale: Sistema → Domini dei siti (`/api/siti`, `imposta_dominio`). AltaDefinizione ora app Next.js: ricerca su `/api/v1/web/archive?q=` (download non provato). SC: version Inertia va letta da HTML con `html.unescape`. FilmSenzaLimiti e GuardaSerie: nessun dominio valido trovato (non nel tracker).
+
+Link → `/api/analizza` restituisce `motore`: `episodi` (host con resolver), `nativo` (solo generic_hls: .m3u8/.mpd/.mp4), `ytdlp` (resto). Il vecchio "nativo" per siti adulti estraeva con yt-dlp e scaricava con httpx: PornHub dava 410. yt-dlp usa `impersona()` (curl_cffi, in requirements): senza, PornHub 403.
+
+Prova nomi utente 2026-10-18 tutte riuscite: One Piece ep 2 (AnimeWorld), Tarzan 1999 (SC), Supersex 1-3 (SC), Tsf Monogatari 1 (HentaiGasm, yt-dlp), Solo Leveling cap. 1 (Mgeko, da/a), short YouTube, PornHub (yt-dlp).
+
+Ancora rotti: ricerca adulti a 0 su Eporner, SpankBang, JavGuru, MissAV, NoodleMagazine, 141Jav, HentaiWorld.eu/.tv; mp4decrypt non installato.
 
 **Why:** l'utente voleva un'app interattiva senza testo che scorre, senza toccare la versione funzionante. **How to apply:** modifiche all'app partono da `app.py`/`interfaccia/`; i motori sono condivisi nel codice con la v2 ma copiati, quindi una correzione va portata a mano nell'altra versione se l'utente lo chiede.
