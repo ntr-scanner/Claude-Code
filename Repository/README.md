@@ -48,7 +48,11 @@ cd "Claude/Repository"
 ./setup_repos.sh --apply     # clona, installa, integra (chiede conferma per ogni passo)
 ```
 
-Dopo `--apply` riavvia Claude Code. Su Windows lo script va eseguito da WSL o Git Bash.
+Dopo `--apply` riavvia Claude Code. Su Windows lo script va eseguito da Git Bash (dalla v1.2.0 lo supporta in modo nativo):
+
+- i venv usano `Scripts/` invece di `bin/`; il CLI `claude` nativo sta in `~/.local/bin`, che lo script aggiunge da sé al PATH;
+- i symlink richiedono Developer Mode, quindi `apple-design` si collega con una junction e i tool in `~/.local/bin` sono shim (`nome` per Git Bash + `nome.cmd` per cmd/PowerShell/hook);
+- `--apply` aggiunge `C:\Users\<utente>\.local\bin` al PATH utente di Windows (serve agli hook di MemPalace).
 
 ## Avvertenze
 

@@ -13,15 +13,24 @@
 #   ./setup_repos.sh --apply --yes   come sopra senza conferme [s/N]
 #
 # Requisiti: git, python3 (venv), node/npm, claude (CLI di Claude Code).
+# Linux e Windows (Git Bash): su Windows le cartelle si collegano con junction e
+# gli eseguibili con shim in ~/.local/bin (i symlink richiedono Developer Mode).
 # Le skill di terzi (plugin con hook) vanno attivate dall'utente: --apply chiede
 # conferma per ogni marketplace/plugin.
 
 set -euo pipefail
 
-VERSION="1.1.1"
+VERSION="1.2.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
+export PATH="$BIN_DIR:$PATH"  # il CLI claude nativo si installa qui
+
+# ─── piattaforma: su Windows i venv hanno Scripts/ e i tool npm stanno nel prefix ───
+case "$(uname -s)" in
+    MINGW*|MSYS*|CYGWIN*) WINDOWS=1; VENV_BIN="Scripts"; EXE=".exe"; NPM_BIN="" ;;
+    *)                    WINDOWS=0; VENV_BIN="bin";     EXE="";     NPM_BIN="/bin" ;;
+esac
 
 # ─── colori (solo su terminale) ───
 if [[ -t 1 ]]; then
@@ -87,7 +96,9 @@ Esecuzione:
   $TOOLS_DIR/venvs/                  virtualenv di headroom e mempalace
   $TOOLS_DIR/npm/                    installazione npm di omniroute
   $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute, graphify
-  ~/.claude/skills/                  link apple-design, skill graphify (+ blocco in ~/.claude/CLAUDE.md)
+                                     (Windows: shim bash + .cmd; il PATH utente include questa cartella)
+  ~/.claude/skills/                  link apple-design (Windows: junction), skill graphify
+                                     (+ blocco in ~/.claude/CLAUDE.md)
   ~/.claude.json, ~/.claude/         configurazione MCP e plugin di Claude Code (scope utente)
 
   Variabile CLAUDE_REPOS_HOME: cambia la cartella dei tool (default ~/.local/share/claude-repos).
@@ -157,12 +168,22 @@ manca() {
 link_skill() {
     # link_skill <cartella skill> -> ~/.claude/skills/<nome>
     local src="$1" dst="$HOME/.claude/skills/$(basename "$1")"
-    if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then ok "Skill collegata: $(basename "$src")"; return; fi
+    if [[ -L "$dst" && "$(readlink -f "$dst")" == "$(readlink -f "$src")" ]]; then ok "Skill collegata: $(basename "$src")"; return; fi
     manca "link skill $dst" || return 0
-    run mkdir -p "$HOME/.claude/skills" && run ln -sfn "$src" "$dst" || true
+    run mkdir -p "$HOME/.claude/skills" || return 0
+    if [[ $WINDOWS -eq 1 ]]; then
+        run powershell.exe -NoProfile -Command "New-Item -ItemType Junction -Path '$(cygpath -w "$dst")' -Target '$(cygpath -w "$src")' | Out-Null" || true
+    else
+        run ln -sfn "$src" "$dst" || true
+    fi
 }
 
-claude_home() { (cd "$HOME" && "$@"); }  # evita che Claude legga .mcp.json della cartella corrente
+claude_home() {
+    # cd $HOME: evita che Claude legga .mcp.json della cartella corrente
+    # insteadOf: i plugin con sorgente github si clonano via HTTPS anche senza chiave SSH
+    (cd "$HOME" && GIT_CONFIG_COUNT=1 GIT_CONFIG_KEY_0='url.https://github.com/.insteadOf' \
+        GIT_CONFIG_VALUE_0='git@github.com:' "$@")
+}
 
 check_deps() {
     local mancanti=()
@@ -171,7 +192,11 @@ check_deps() {
     done
     if [[ ${#mancanti[@]} -gt 0 ]]; then
         err "Dipendenze mancanti: ${mancanti[*]}"
-        err "Installa: sudo apt install git python3-venv nodejs npm  ·  Claude Code: npm i -g @anthropic-ai/claude-code"
+        if [[ $WINDOWS -eq 1 ]]; then
+            err "Installa: winget install Git.Git Python.Python.3.13 OpenJS.NodeJS  ·  Claude Code: irm https://claude.ai/install.ps1 | iex"
+        else
+            err "Installa: sudo apt install git python3-venv nodejs npm  ·  Claude Code: npm i -g @anthropic-ai/claude-code"
+        fi
         exit 2
     fi
 }
@@ -182,6 +207,8 @@ clone_repo() {
     local dir="$BASE_DIR/$nome"
     if [[ -d "$dir/.git" ]]; then
         ok "Clone presente: $nome"
+        # Windows: i bit di esecuzione non esistono, senza questo ogni script risulta modificato e il pull fallisce
+        [[ $WINDOWS -eq 1 && "$MODE" == "apply" ]] && git -C "$dir" config core.fileMode false
         [[ "$MODE" != "check" ]] && run git -C "$dir" pull --ff-only --quiet || true
         return
     fi
@@ -198,19 +225,20 @@ clone_repo() {
 install_venv() {
     local nome="$1" pacchetto="$2"; shift 2
     local venv="$TOOLS_DIR/venvs/$nome"
-    if [[ -x "$venv/bin/$1" ]]; then
+    if [[ -x "$venv/$VENV_BIN/$1$EXE" ]]; then
         ok "Tool installato: $nome ($venv)"
     elif manca "installazione $pacchetto in $venv"; then
         run python3 -m venv "$venv" && \
-        run "$venv/bin/pip" install -q -U pip && \
-        run "$venv/bin/pip" install -q "$pacchetto" || true
+        run "$venv/$VENV_BIN/python$EXE" -m pip install -q -U pip && \
+        run "$venv/$VENV_BIN/python$EXE" -m pip install -q "$pacchetto" || true
     fi
-    for b in "$@"; do link_bin "$venv/bin/$b"; done
+    for b in "$@"; do link_bin "$venv/$VENV_BIN/$b$EXE"; done
 }
 
 install_omniroute() {
-    local bin="$TOOLS_DIR/npm/bin/omniroute"
-    if [[ -x "$bin" ]]; then
+    local bin="$TOOLS_DIR/npm$NPM_BIN/omniroute"
+    [[ $WINDOWS -eq 1 ]] && bin+=".cmd"
+    if [[ -f "$bin" ]]; then
         ok "Tool installato: omniroute ($bin)"
     elif manca "installazione npm di omniroute in $TOOLS_DIR/npm"; then
         run npm install -g --prefix "$TOOLS_DIR/npm" omniroute || true
@@ -219,10 +247,33 @@ install_omniroute() {
 }
 
 link_bin() {
-    local src="$1" dst="$BIN_DIR/$(basename "$1")"
+    local src="$1" nome; nome="$(basename "$1")"; nome="${nome%.exe}"; nome="${nome%.cmd}"
+    local dst="$BIN_DIR/$nome"
+    if [[ $WINDOWS -eq 1 ]]; then
+        # niente symlink senza Developer Mode: shim bash (Git Bash) + .cmd (cmd/PowerShell/hook)
+        if grep -qF "$src" "$dst" 2>/dev/null && [[ -f "$dst.cmd" ]]; then return; fi
+        manca "shim $dst" || return 0
+        run mkdir -p "$BIN_DIR" && \
+        run write_file "$dst" "#!/usr/bin/env bash"$'\n'"exec \"$src\" \"\$@\"" && \
+        run write_file "$dst.cmd" "@\"$(cygpath -w "$src")\" %*" || true
+        return
+    fi
     if [[ -L "$dst" && "$(readlink "$dst")" == "$src" ]]; then return; fi
     manca "link $dst" || return 0
     run mkdir -p "$BIN_DIR" && run ln -sf "$src" "$dst" || true
+}
+
+write_file() { printf '%s\n' "$2" > "$1"; }  # write_file <file> <contenuto>
+
+path_utente() {
+    # Windows: BIN_DIR nel PATH utente, serve agli hook di MemPalace e ai server MCP
+    [[ $WINDOWS -eq 1 ]] || return 0
+    local win attuale
+    win="$(cygpath -w "$BIN_DIR")"
+    attuale="$(powershell.exe -NoProfile -Command '[Environment]::GetEnvironmentVariable("Path","User")' | tr -d '\r')"
+    if [[ ";${attuale,,};" == *";${win,,};"* ]]; then ok "PATH utente include $win"; return; fi
+    manca "$win nel PATH utente di Windows" || return 0
+    run powershell.exe -NoProfile -Command "[Environment]::SetEnvironmentVariable('Path', [Environment]::GetEnvironmentVariable('Path','User').TrimEnd(';') + ';$win', 'User')" || true
 }
 
 # ═══ STEP 3 — integrazione con Claude Code ═══
@@ -284,13 +335,14 @@ esegui() {
     install_venv headroom "headroom-ai[mcp]" headroom
     install_omniroute
     install_venv graphify graphifyy graphify
+    path_utente
 
     echo; info "STEP 3 — integrazione con Claude Code"
     load_claude_state
     integra_plugin frontend-design claude-plugins-official anthropics/claude-plugins-official
     integra_plugin mempalace mempalace MemPalace/mempalace
     integra_mcp playwright claude mcp add -s user playwright -- npx @playwright/mcp@latest
-    integra_mcp headroom "$TOOLS_DIR/venvs/headroom/bin/headroom" mcp install --agent claude
+    integra_mcp headroom "$TOOLS_DIR/venvs/headroom/$VENV_BIN/headroom$EXE" mcp install --agent claude
 
     echo; info "STEP 4 — skill (plugin da marketplace locale = clone in $BASE_DIR)"
     integra_plugin ui-ux-pro-max          ui-ux-pro-max-skill    "$BASE_DIR/ui-ux-pro-max"
@@ -309,7 +361,7 @@ esegui() {
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
     elif manca "skill graphify (graphify install --platform claude)"; then
-        run claude_home "$TOOLS_DIR/venvs/graphify/bin/graphify" install --platform claude || true
+        run claude_home "$TOOLS_DIR/venvs/graphify/$VENV_BIN/graphify$EXE" install --platform claude || true
     fi
 
     echo
