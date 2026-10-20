@@ -27,16 +27,16 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer/CLAUDE.md`, 
 
 ### Ricostruzione da zero
 
-1. Crea `C:\Users\pc\Documents\Web Developer\` e clona qui il repo, in modo che il risultato sia `Web Developer\Claude\` (`git clone https://github.com/ntr-scanner/Claude-Code.git Claude`).
+1. Crea `C:\Users\pc\Documents\Web Developer Claude\` e clona qui il repo, in modo che il risultato sia `Web Developer Claude\Claude\` (`git clone https://github.com/ntr-scanner/Claude-Code.git Claude`).
 2. Ricrea accanto a `Claude/` almeno queste cartelle: `Vektora Site/` (con `Clienti Vektora/`, `templates/`, `workflows/`, `tools/`, `assets-vektora/`), `Cybersecurity/`, `Marketing/`. Se non hai più i contenuti, crea le cartelle vuote e ripristinali dai backup dei progetti; altrimenti aggiorna i percorsi in `INDEX.md` e nelle skill.
 3. Ricrea le junction, così Claude Code trova skill, agent e memoria dentro `Claude/` (da PowerShell, con Claude Code chiuso; se le cartelle di destinazione esistono già vuote, eliminale prima):
 
    ```powershell
-   New-Item -ItemType Directory -Force "C:\Users\pc\Documents\Web Developer\.claude" | Out-Null
-   cmd /c mklink /J "C:\Users\pc\Documents\Web Developer\.claude\skills" "C:\Users\pc\Documents\Web Developer\Claude\skills"
-   cmd /c mklink /J "C:\Users\pc\Documents\Web Developer\.claude\agents" "C:\Users\pc\Documents\Web Developer\Claude\agents"
-   New-Item -ItemType Directory -Force "C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer" | Out-Null
-   cmd /c mklink /J "C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer\memory" "C:\Users\pc\Documents\Web Developer\Claude\memoria"
+   New-Item -ItemType Directory -Force "C:\Users\pc\Documents\Web Developer Claude\.claude" | Out-Null
+   cmd /c mklink /J "C:\Users\pc\Documents\Web Developer Claude\.claude\skills" "C:\Users\pc\Documents\Web Developer Claude\Claude\skills"
+   cmd /c mklink /J "C:\Users\pc\Documents\Web Developer Claude\.claude\agents" "C:\Users\pc\Documents\Web Developer Claude\Claude\agents"
+   New-Item -ItemType Directory -Force "C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer-Claude" | Out-Null
+   cmd /c mklink /J "C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer-Claude\memory" "C:\Users\pc\Documents\Web Developer Claude\Claude\memoria"
    ```
 
    Se il percorso del progetto cambia, cambia anche il nome della cartella sotto `.claude\projects\`.

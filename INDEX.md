@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-17 (`SKILLS.md`: skill esterne da usare in base al task)
+Aggiornato: 2026-10-20 (junction Windows ricreate sul percorso `Web Developer Claude`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
@@ -98,7 +98,7 @@ Claude/
 
 ## Collegamenti (nessuno specchio)
 
-- Windows (junction): `Web Developer\.claude\skills` → `Claude\skills`, `Web Developer\.claude\agents` → `Claude\agents`, `C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer\memory` → `Claude\memoria`.
+- Windows (junction): `Web Developer Claude\.claude\skills` → `Claude\skills`, `Web Developer Claude\.claude\agents` → `Claude\agents`, `C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer-Claude\memory` → `Claude\memoria` (ricreate il 2026-10-20: dopo il rinomino della cartella in `Web Developer Claude` mancavano, e al loro posto c'erano `.claude\_backup_claude_skills` e `_backup_claude_agents`, copie vecchie).
 - Esiste una sola copia di ogni file: modificare in `Claude/` equivale a modificare la configurazione attiva. Non ci sono copie da sincronizzare.
 - Linux (dispositivo attuale): symlink `Web Developer Claude/.claude/skills` → `../Claude/skills`, `.claude/agents` → `../Claude/agents`, `~/.claude/projects/-home-joyboy-Web-Developer-Claude/memory` → `Claude/memoria` (ricreati il 2026-10-17: col passaggio da Windows erano diventate cartelle vuote e skill, agent e memoria non venivano caricati).
 - Se un collegamento sparisce (ripristino, cancellazione, nuovo dispositivo), ricrearlo con i comandi in `README.md`. Verifica: `ls -la .claude` deve mostrare `skills -> ../Claude/skills`.
