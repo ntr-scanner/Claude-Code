@@ -8,7 +8,7 @@ Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficial
 
 - Prima di fare qualsiasi cosa leggi questo file. Non cercare istruzioni altrove.
 - **Non creare nuovi file `CLAUDE.md`** o altri file di istruzioni fuori da `Claude/`. Regole, skill, note e direttive nuove si aggiungono o modificano qui dentro.
-- L'unico `CLAUDE.md` del workspace è `Web Developer Claude/CLAUDE.md`: è solo un rimando, caricato in automatico da Claude Code.
+- L'unico `CLAUDE.md` del workspace è `Web Developer Claude/CLAUDE.md`: è solo un rimando, caricato in automatico da Claude Code. Si modifica solo lì. `Claude/CLAUDE.md` è la sua copia di backup nel repo: la riallinea l'hook `.git/hooks/pre-commit` a ogni commit (ogni push la contiene), non modificarla a mano. Dopo un clone o un pull: `cp Claude/CLAUDE.md CLAUDE.md`.
 - Eccezioni fuori dal perimetro (non toccare): `Cybersecurity/Script/PentestGPT/CLAUDE.md` (istruzioni interne di quel progetto di terzi) e `Antigravity/ANTYGRAVITY.md` (regole di un altro agente, Antigravity).
 
 ## Regole generali dell'utente (sempre valide)

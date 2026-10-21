@@ -6,3 +6,6 @@ Thumbs.db
 
 # Clone dei repo esterni: si ricreano con Repository/setup_repos.sh
 Repository/*/
+
+# marker di Syncthing
+.stfolder/

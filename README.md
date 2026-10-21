@@ -15,7 +15,7 @@ Repository privato che contiene **solo** la cartella `Claude/` di `Web Developer
 | `memoria/` | Memoria persistente di Claude: `MEMORY.md` (indice) e i file `feedback_*` / `project_*` |
 | `README.md` | Questo file |
 
-Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer Claude/CLAUDE.md`, ed è solo un rimando a `Claude/INDEX.md` (non è nel backup). Le regole Vektora stanno in `vektora-wat.md`. Non vanno creati altri file di istruzioni fuori da `Claude/`.
+Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md` da modificare, in `Web Developer Claude/CLAUDE.md`, ed è solo un rimando a `Claude/INDEX.md`. Il repo ne contiene una copia (`Claude/CLAUDE.md`) che l'hook `.git/hooks/pre-commit` aggiorna a ogni commit. Le regole Vektora stanno in `vektora-wat.md`. Non vanno creati altri file di istruzioni fuori da `Claude/`.
 
 ## Come viene usato
 
@@ -52,7 +52,7 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer Claude/CLAUD
 
    Il nome sotto `projects/` è il percorso del progetto con `/` e spazi sostituiti da `-`.
 4. `Claude/vektora-wat.md` è già al posto giusto: non serve ripristinare nulla in `Vektora Site\`.
-5. Ricrea `Web Developer Claude\CLAUDE.md` con questo contenuto minimo: leggere `Claude/INDEX.md` prima di ogni task; leggere `Claude/SCRIPT.md` prima di scrivere script; aggiungere e modificare le regole solo dentro `Claude/`.
+5. Copia il `CLAUDE.md` del backup nella radice: `Copy-Item Claude\CLAUDE.md CLAUDE.md`. Ricrea anche l'hook che lo tiene aggiornato: `.git/hooks/pre-commit` copia `../CLAUDE.md` in `CLAUDE.md` e lo aggiunge al commit (gli hook non vengono clonati).
 6. Ricrea `Web Developer Claude\.claude\settings.local.json` e `launch.json` se servono (non sono nel backup).
 7. Apri Claude Code in `Web Developer Claude\` e verifica che legga `Claude/INDEX.md`.
 
@@ -60,7 +60,7 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer Claude/CLAUD
 
 - I progetti cliente (`Vektora Site/Clienti Vektora/`), il sito e il blog (`Vektora Site/vektora-site-main/`), `templates/`, `workflows/`, `tools/`, `assets-vektora/`.
 - Gli script e i tool fuori da `Claude/` (`Cybersecurity/`, `Marketing/`, `Progetti/`, `Università/`, ecc.).
-- Il `CLAUDE.md` di root (va ricreato, vedi procedura).
+- L'hook `.git/hooks/pre-commit` (va ricreato, vedi procedura); il `CLAUDE.md` di root invece è nel backup come `Claude/CLAUDE.md`.
 - `.claude/settings.local.json`, permessi, credenziali (`.credentials.json`) e file `.env`.
 
 Questo backup copre solo configurazione e riferimento, non il lavoro. Per i progetti serve un backup a parte.
