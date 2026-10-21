@@ -19,6 +19,7 @@
 - [Simulatore Firmware + Flip](project_simulatore_firmware.md) — Tool Python multi-console per firmware in `Cybersecurity/Script/Simulatore Firmware/` + firmware Flip ESP32-S3; repo GitHub ntr-scanner
 - [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
 - [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/
+- [Coerenza tra componenti](feedback_coerenza_componenti.md) — Un elemento nuovo ha tutto quello che hanno i suoi simili (es. dettagli a comparsa sulle schede); leggere prima come fa il programma
 - [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, test VirtualBox da completare
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
