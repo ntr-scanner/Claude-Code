@@ -32,18 +32,22 @@ Aggiornato: 2026-10-17
 | Da immagine/mockup a codice | taste-skill `image-to-code-skill` |
 | Brand, design system, banner, slide | ui-ux-pro-max `brand`, `design-system`, `banner-design`, `slides`; anthropic `brand-guidelines`, `theme-factory` |
 | API e interfacce | addy `api-and-interface-design`; anthropic `mcp-builder` per server MCP |
-| App con Claude API | anthropic `claude-api` |
-| Sicurezza | addy `security-and-hardening` (+ `agents/security-auditor.md`) |
+| App con Claude API | anthropic `claude-api`; `agent-sdk-dev` (`/new-sdk-app` crea un progetto Agent SDK, agent verifier Python/TS) |
+| Sicurezza | `claude-security` (`/claude-security`: scan del codebase o delle modifiche, report SARIF, patch suggerite); addy `security-and-hardening` (+ `agents/security-auditor.md`) |
 | Performance | addy `performance-optimization`, `browser-testing-with-devtools` |
 | CI/CD, rilascio | addy `ci-cd-and-automation`, `shipping-and-launch`; `observability-and-instrumentation` |
 | Documentazione, ADR | addy `documentation-and-adrs`; anthropic `doc-coauthoring` |
 | File Office/PDF | anthropic `docx`, `xlsx`, `pptx`, `pdf` |
 | Risparmio token / sessioni lunghe | `caveman` (attivo di default, `/caveman off` per disattivarlo), `caveman-compress` per comprimere file di memoria |
 | Creare o migliorare una skill | anthropic `skill-creator`; superpowers `writing-skills` |
+| Configurare Claude Code su un progetto (hook, MCP, skill, agent consigliati) | `claude-code-setup` (`claude-automation-recommender`) |
+| Revisionare file di istruzioni (CLAUDE.md, `Claude/*.md`) | `claude-md-management` (`claude-md-improver`, `/revise-claude-md`): nel workspace le regole stanno in `Claude/`, non creare altri CLAUDE.md |
+| Navigazione del codice TS/JS e Python (definizioni, riferimenti, errori) | `typescript-lsp`, `pyright-lsp`: language server automatici, nessun comando |
 
 ## Note sui plugin con hook
 
 - **superpowers**: all'avvio sessione inietta `using-superpowers` (ricorda di cercare la skill giusta prima di agire).
 - **caveman**: all'avvio attiva la modalità compressa; `/caveman status` mostra la modalità, `/caveman off` (o "stop caveman") la spegne, `/ultracave` e `/megacave` comprimono di più; spenta per sempre con `CAVEMAN_DEFAULT_MODE=off`.
 - **ponytail**: modalità "lazy senior dev" sempre attiva; dopo ogni turno scrive una riga di statistiche in `~/.config/ponytail/band/<progetto>.csv` (solo locale, webhook vuoto).
+- **claude-security**: banner all'apertura di `/claude-security`, contatori d'uso locali dopo i suoi script, chiude dopo 60 s la domanda di conferma prima di uno scan se resta senza risposta, suggerisce uno scan dopo `git push` / `gh pr create` (disattiva con `CLAUDE_SECURITY_SCAN_TIP=off`). Serve `python3` ≥ 3.9 nel PATH.
 - **graphify**: `graphify install` aggiunge un blocco `# graphify` in `~/.claude/CLAUDE.md` (file utente, fuori dal workspace).

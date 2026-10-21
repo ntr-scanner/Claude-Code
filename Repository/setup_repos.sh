@@ -20,7 +20,7 @@
 
 set -euo pipefail
 
-VERSION="1.2.0"
+VERSION="1.3.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -66,7 +66,9 @@ Esecuzione:
 
 ═══ REPO GESTITI ═══
   omni-route       diegosouzapw/OmniRoute            CLI 'omniroute' (npm, prefix utente)
-  frontend-design  anthropics/claude-plugins-official  plugin frontend-design@claude-plugins-official
+  language server  npm typescript-language-server, pyright  per i plugin typescript-lsp e pyright-lsp
+  frontend-design  anthropics/claude-plugins-official  plugin frontend-design, claude-security, claude-code-setup,
+                                                     claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp
   headroom         chopratejas/headroom              CLI 'headroom' (venv) + MCP 'headroom'
   mempalace        mempalace/mempalace               CLI 'mempalace' (venv) + plugin mempalace@mempalace
   playwright-mcp   microsoft/playwright-mcp          MCP 'playwright' (npx @playwright/mcp@latest)
@@ -94,8 +96,9 @@ Esecuzione:
 ═══ FILE GENERATI ═══
   Claude/Repository/<repo>/          clone dei repo (esclusi dal backup git di Claude/)
   $TOOLS_DIR/venvs/                  virtualenv di headroom e mempalace
-  $TOOLS_DIR/npm/                    installazione npm di omniroute
-  $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute, graphify
+  $TOOLS_DIR/npm/                    installazione npm di omniroute e dei language server
+  $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute, graphify,
+                                     typescript-language-server, pyright-langserver
                                      (Windows: shim bash + .cmd; il PATH utente include questa cartella)
   ~/.claude/skills/                  link apple-design (Windows: junction), skill graphify
                                      (+ blocco in ~/.claude/CLAUDE.md)
@@ -210,12 +213,14 @@ clone_repo() {
         # Windows: i bit di esecuzione non esistono, senza questo ogni script risulta modificato e il pull fallisce
         [[ $WINDOWS -eq 1 && "$MODE" == "apply" ]] && git -C "$dir" config core.fileMode false
         [[ "$MODE" != "check" ]] && run git -C "$dir" pull --ff-only --quiet || true
+        # sparse: le cartelle aggiunte dopo il primo clone vanno scaricate anche nei clone esistenti
+        if [[ -n "$sparse" && "$MODE" != "check" ]]; then run git -C "$dir" sparse-checkout set $sparse || true; fi
         return
     fi
     manca "clone di $nome ($url)" || return 0
     if [[ -n "$sparse" ]]; then
         run git clone --depth 1 --filter=blob:none --sparse "$url" "$dir" && \
-        run git -C "$dir" sparse-checkout set "$sparse" || true
+        run git -C "$dir" sparse-checkout set $sparse || true  # $sparse: piu' cartelle separate da spazio
     else
         run git clone --depth 1 "$url" "$dir" || true
     fi
@@ -235,15 +240,20 @@ install_venv() {
     for b in "$@"; do link_bin "$venv/$VENV_BIN/$b$EXE"; done
 }
 
-install_omniroute() {
-    local bin="$TOOLS_DIR/npm$NPM_BIN/omniroute"
+install_npm() {
+    # install_npm "<pacchetti npm>" <eseguibile>...
+    local pacchetti="$1"; shift
+    local bin="$TOOLS_DIR/npm$NPM_BIN/$1"
     [[ $WINDOWS -eq 1 ]] && bin+=".cmd"
     if [[ -f "$bin" ]]; then
-        ok "Tool installato: omniroute ($bin)"
-    elif manca "installazione npm di omniroute in $TOOLS_DIR/npm"; then
-        run npm install -g --prefix "$TOOLS_DIR/npm" omniroute || true
+        ok "Tool installato: $1 ($bin)"
+    elif manca "installazione npm di $pacchetti in $TOOLS_DIR/npm"; then
+        run npm install -g --prefix "$TOOLS_DIR/npm" $pacchetti || true
     fi
-    link_bin "$bin"
+    for b in "$@"; do
+        bin="$TOOLS_DIR/npm$NPM_BIN/$b"; [[ $WINDOWS -eq 1 ]] && bin+=".cmd"
+        link_bin "$bin"
+    done
 }
 
 link_bin() {
@@ -314,7 +324,7 @@ esegui() {
 
     echo; info "STEP 1 — clone dei repo in $BASE_DIR"
     clone_repo omni-route      https://github.com/diegosouzapw/OmniRoute.git
-    clone_repo frontend-design https://github.com/anthropics/claude-plugins-official.git plugins/frontend-design
+    clone_repo frontend-design https://github.com/anthropics/claude-plugins-official.git         "plugins/frontend-design plugins/claude-security plugins/claude-code-setup plugins/claude-md-management plugins/agent-sdk-dev plugins/typescript-lsp plugins/pyright-lsp"
     clone_repo headroom        https://github.com/chopratejas/headroom.git
     clone_repo mempalace       https://github.com/mempalace/mempalace.git
     clone_repo playwright-mcp  https://github.com/microsoft/playwright-mcp.git
@@ -333,13 +343,18 @@ esegui() {
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
     install_venv headroom "headroom-ai[mcp]" headroom
-    install_omniroute
+    install_npm omniroute omniroute
+    install_npm "typescript-language-server typescript" typescript-language-server
+    install_npm pyright pyright-langserver
     install_venv graphify graphifyy graphify
     path_utente
 
     echo; info "STEP 3 — integrazione con Claude Code"
     load_claude_state
     integra_plugin frontend-design claude-plugins-official anthropics/claude-plugins-official
+    for p in claude-security claude-code-setup claude-md-management agent-sdk-dev typescript-lsp pyright-lsp; do
+        integra_plugin "$p" claude-plugins-official anthropics/claude-plugins-official
+    done
     integra_plugin mempalace mempalace MemPalace/mempalace
     integra_mcp playwright claude mcp add -s user playwright -- npx @playwright/mcp@latest
     integra_mcp headroom "$TOOLS_DIR/venvs/headroom/$VENV_BIN/headroom$EXE" mcp install --agent claude

@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-20 (junction Windows ricreate sul percorso `Web Developer Claude`)
+Aggiornato: 2026-10-21 (plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
