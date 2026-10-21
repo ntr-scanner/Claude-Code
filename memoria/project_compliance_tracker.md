@@ -1,39 +1,27 @@
 ---
 name: project-compliance-tracker
-description: Vektora Compliance Tracker — tool CLI GDPR/ISO 27001 multi-cliente con report PDF
-metadata: 
+description: Vektora Compliance Tracker — console locale dell'auditor (Flask 127.0.0.1:8091) per audit ISO 27001, GDPR e Disaster Recovery multi-cliente, con guida per controllo, procedura, archivio comandi, Agente DR integrato, evidenze e report PDF
+metadata:
   node_type: memory
   type: project
   originSessionId: dfdc2830-5421-4ca0-abab-c53d3c764abf
-  modified: 2026-09-16T07:02:45.396Z
+  modified: 2026-10-21T00:00:00.000Z
 ---
 
-Dashboard web locale per tracciare avanzamento compliance GDPR e ISO 27001 per clienti multipli, in `Cybersecurity/Script/Compliance Tracker/`.
+`Cybersecurity/Script/Compliance Tracker/` (repo git `ntr-scanner/Compliance-Tracker`, l'utente committa da sé). Avvio: `avvia.bat` / `avvia.sh` (apre il browser; `--no-browser`). Stack: Flask, pyyaml, reportlab, bcrypt (`requirements.txt`, `.venv`).
 
-**Stack:** Python 3.10+, Flask, pyyaml, reportlab, bcrypt. Venv in `.venv/`.
+**2026-10-21: diventato «Vektora Audit», dashboard stile Ayanokoji** (richiesta dell'utente: integrare la cartella `Audit Automatico/Vektora Audit` e avere guida + archivio per gli audit Vektora):
+- Terzo framework **Disaster Recovery** (`checklists/dr_checklist.yaml`, 25 controlli, id `dr-NN`). `FRAMEWORKS` in `core/client_manager.py` è l'unica lista dei framework: server, report e template ci girano sopra.
+- `guida/` (YAML, nessun codice): `gdpr.yaml`/`iso27001.yaml`/`dr.yaml` con guida per id (riferimento, obiettivo, passi, dove, domande, comandi os linux|windows|rete, evidenze, agente), `procedura.yaml` (8 fasi), `raccolta.yaml` (ricette log con manifest SHA-256). Caricate da `core/guida.py` (cache per mtime); `guida.verifica()` controlla che ogni controllo abbia la guida (test).
+- `agente-dr/`: copia di Vektora Audit; `dr-audit-vektora.py` **identico byte per byte** (sha256 702aae94…). Unica modifica: in `scripts/make_variants.py` i percorsi di destinazione (Vektora → `agente-dr/`, GV → `Cybersecurity/Audit Automatico/GV Audit`). La cartella originale `Audit Automatico/Vektora Audit` NON è stata cancellata (in attesa di conferma dell'utente).
+- Pagine: Clienti (registro con 3 barre), Cliente (mappa dei controlli a celle per forma: pieno/metà/vuoto/tratteggiato, schede, guida apribile, Evidenze con upload), Procedura, Archivio comandi (filtri OS/ambito), Agente DR (compone comandi scp/ssh; quelli per il server si incollano nella sessione SSH per evitare il quoting di PowerShell 5.1; import del report su dr-25).
+- Sicurezza aggiunta: nome cliente validato in `client_exists` (prima `..` passava), SameSite=Strict, API solo JSON, CSP senza inline (JS in `webapp/static/*.js`), upload con whitelist e download sempre allegato, escape del testo nel PDF, `.gitignore` che esclude `clients/*` tranne il demo.
+- Test: `.venv\Scripts\python -m unittest discover -s tests` (16). Verifica visiva con playwright-core + Edge (`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`): Playwright MCP non trova Chrome su questo PC.
 
-**Entry point:** `python compliance_tracker.py` — avvia server Flask su 127.0.0.1:8091. Prima esecuzione: setup password interattivo con getpass, salvata come bcrypt hash in `.env`.
+**Stato controllo:** `non_iniziato | in_corso | completato | non_applicabile`. **%:** pesi completati / pesi applicabili.
 
-**Struttura:**
-- `compliance_tracker.py` — entry point web: setup .env, rileva IP/SSH tunnel, avvia Flask
-- `webapp/server.py` — Flask app (bind 127.0.0.1 esclusivo, auth sessione, 8 route)
-- `webapp/templates/` — login.html, client_select.html, checklist.html, storico.html
-- `webapp/static/style.css` — CSS professionale con variabili colore, accordion, tabs
-- `checklists/gdpr_checklist.yaml` — 36 controlli GDPR organizzati in 11 aree
-- `checklists/iso27001_checklist.yaml` — 43 controlli ISO 27001:2022 (Annex A, 4 categorie)
-- `core/client_manager.py` — crea/elenca clienti, cartella per cliente
-- `core/state_persistence.py` — salvataggio atomico stato.json + storico_modifiche.jsonl append-only
-- `core/progress_calculator.py` — % ponderata per peso, per area e per framework
-- `reporter/report_builder.py` — PDF reportlab: copertina, executive summary, dettaglio, evidenze, storico, prossimi passi, disclaimer
+**Why:** servizio di readiness per Vektora, NON certificazione.
 
-**Dati cliente:** `clients/<nome_cliente>/stato.json` + `storico_modifiche.jsonl` + `Report/`
+**How to apply:** nuovi controlli = YAML in `checklists/` + guida con stesso id in `guida/`. I clienti vecchi ricevono controlli/framework nuovi all'apertura (`refresh_client_from_template`). Il demo ha descrizioni salvate più vecchie dei YAML (es. gdpr-02).
 
-**Stato controllo:** `non_iniziato | in_corso | completato | non_applicabile`
-
-**Formula %:** somma pesi completati / somma pesi applicabili × 100 (esclude non_applicabile)
-
-**Why:** Servizio di readiness compliance GDPR/ISO 27001 per Vektora — NON certificazione formale.
-
-**How to apply:** Aggiungere nuovi controlli solo nei file YAML (no modifiche al codice). Ogni cliente ha la sua cartella isolata.
-
-[[project-ransomware-identifier]]
+[[project-cybersecurity-dr-audit]] [[project-ayanokoji-system]] [[project-ransomware-identifier]]

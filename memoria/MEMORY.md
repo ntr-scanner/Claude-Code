@@ -10,7 +10,7 @@
 - [Vektora Lead Monitor](project_lead_monitor.md) — `install_lead_monitor.py` bootstrap singolo, Reddit/RSS/Google Alerts + Telegram, in `Cybersecurity/Script per server/`
 - [Vektora Backup Integrity Audit](project_backup_audit.md) — `install_backup_audit.py` bootstrap singolo, checker Restic/Git+GPG/archivi, PDF reportlab, in `Cybersecurity/Script per server/`
 - [Clienti Vektora — cartella e naming](project_clienti_vektora.md) — Siti clienti in `Vektora Site/Clienti Vektora/`, naming `[anno]-[nome]-[tipo]` (vecchie cartelle `Cliente N - nome`)
-- [Vektora Compliance Tracker](project_compliance_tracker.md) — CLI GDPR/ISO 27001 multi-cliente, 36+43 controlli YAML, report PDF reportlab, in `Cybersecurity/Script/Compliance Tracker/`
+- [Vektora Compliance Tracker](project_compliance_tracker.md) — console audit ISO 27001/GDPR/DR (Flask 8091): guida per controllo, procedura, archivio comandi, Agente DR integrato, in `Cybersecurity/Script/Compliance Tracker/`
 - [Vektora Ransomware Identifier](project_ransomware_identifier.md) — Tool IR sola lettura, 33 famiglie DB, decryptor registry, in `Cybersecurity/Script/Ransomware Identifier/`
 - [Scan Orchestrator](project_scan_orchestrator.md) — `scan_orchestrator.py` flusso interattivo scansioni autorizzate, gate consenso PDF, in `Cybersecurity/Script/Scan Orchestrator/`
 - [Autoverifica esami](project_autoverifica.md) — Sito statico quiz multi-materia, limite 10/giorno, voto animato, in `Università/autoverifica/`

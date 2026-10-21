@@ -8,7 +8,9 @@ metadata:
   modified: 2026-08-03T11:50:51.192Z
 ---
 
-**Percorso:** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\scripts\`
+**Dal 2026-10-21 la variante Vektora vive in `Cybersecurity/Script/Compliance Tracker/agente-dr/`** (script intatto + `scripts/` di build; `make_variants.py` aggiornato nei percorsi) ed è guidata dalla pagina «Agente DR» del tracker: vedi [[project-compliance-tracker]]. La copia in `Audit Automatico/Vektora Audit/` resta finché l'utente non conferma di eliminarla.
+
+**Percorso (storico):** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\scripts\`
 
 **File principali:**
 - `dr-audit.py` — file distribuibile (~177 KB, autogenerato da `build.py`, si auto-elimina dopo invio)
