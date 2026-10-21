@@ -14,4 +14,4 @@ Non offrire né chiedere di eseguire commit git dopo aver modificato file in un 
 
 **How to apply:** Dopo modifiche a file in una cartella che risulta essere un repository git, non chiedere "vuoi che faccia il commit?" né eseguire commit di propria iniziativa. È comunque ok segnalare passivamente cosa è stato modificato/non committato se rilevante, ma senza offrire l'azione di commit. Resta valido chiedere conferma per altre azioni git rischiose (push, force, reset) se mai richieste, ma l'iniziativa di commit non va mai presa né proposta.
 
-**Eccezione (2026-09-30):** per il repo di backup `Web Developer/Claude/` (remote `https://github.com/ntr-scanner/Claude-Code.git`, privato) l'utente ha chiesto esplicitamente di fare commit e push ogni volta che c'è una modifica in `Claude/`. Lì li faccio io senza chiedere. Vedi [[claude-folder-unica-fonte]].
+**Eccezione (2026-09-30):** per il repo di backup `Web Developer Claude/Claude/` (remote `https://github.com/ntr-scanner/Claude-Code.git`, privato) l'utente ha chiesto esplicitamente di fare commit e push ogni volta che c'è una modifica in `Claude/`. Lì li faccio io senza chiedere. Vedi [[claude-folder-unica-fonte]].

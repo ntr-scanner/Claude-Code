@@ -1,6 +1,6 @@
 # Claude — setup di riferimento per Claude Code
 
-Repository privato che contiene **solo** la cartella `Claude/` di `Web Developer/`. Serve a ricostruire il setup di riferimento di Claude Code se si perdono i file locali: clonando questo repo si recuperano indice, skill, agent e memoria.
+Repository privato che contiene **solo** la cartella `Claude/` di `Web Developer Claude/`. Serve a ricostruire il setup di riferimento di Claude Code se si perdono i file locali: clonando questo repo si recuperano indice, skill, agent e memoria.
 
 ## Cosa contiene
 
@@ -15,11 +15,11 @@ Repository privato che contiene **solo** la cartella `Claude/` di `Web Developer
 | `memoria/` | Memoria persistente di Claude: `MEMORY.md` (indice) e i file `feedback_*` / `project_*` |
 | `README.md` | Questo file |
 
-Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer/CLAUDE.md`, ed è solo un rimando a `Claude/INDEX.md` (non è nel backup). Le regole Vektora stanno in `vektora-wat.md`. Non vanno creati altri file di istruzioni fuori da `Claude/`.
+Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer Claude/CLAUDE.md`, ed è solo un rimando a `Claude/INDEX.md` (non è nel backup). Le regole Vektora stanno in `vektora-wat.md`. Non vanno creati altri file di istruzioni fuori da `Claude/`.
 
 ## Come viene usato
 
-`Web Developer/CLAUDE.md` viene caricato automaticamente da Claude Code a ogni sessione e dice di leggere `Claude/INDEX.md` prima di qualsiasi task. L'indice indirizza poi verso le skill, gli agent e la memoria pertinenti. Le regole Vektora e `DESIGN.md` stanno in `Claude/`.
+`Web Developer Claude/CLAUDE.md` viene caricato automaticamente da Claude Code a ogni sessione e dice di leggere `Claude/INDEX.md` prima di qualsiasi task. L'indice indirizza poi verso le skill, gli agent e la memoria pertinenti. Le regole Vektora e `DESIGN.md` stanno in `Claude/`.
 
 ## Attenzione ai percorsi
 
@@ -52,9 +52,9 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md`, in `Web Developer/CLAUDE.md`, 
 
    Il nome sotto `projects/` è il percorso del progetto con `/` e spazi sostituiti da `-`.
 4. `Claude/vektora-wat.md` è già al posto giusto: non serve ripristinare nulla in `Vektora Site\`.
-5. Ricrea `Web Developer\CLAUDE.md` con questo contenuto minimo: leggere `Claude/INDEX.md` prima di ogni task; leggere `Claude/SCRIPT.md` prima di scrivere script; aggiungere e modificare le regole solo dentro `Claude/`.
-6. Ricrea `Web Developer\.claude\settings.local.json` e `launch.json` se servono (non sono nel backup).
-7. Apri Claude Code in `Web Developer\` e verifica che legga `Claude/INDEX.md`.
+5. Ricrea `Web Developer Claude\CLAUDE.md` con questo contenuto minimo: leggere `Claude/INDEX.md` prima di ogni task; leggere `Claude/SCRIPT.md` prima di scrivere script; aggiungere e modificare le regole solo dentro `Claude/`.
+6. Ricrea `Web Developer Claude\.claude\settings.local.json` e `launch.json` se servono (non sono nel backup).
+7. Apri Claude Code in `Web Developer Claude\` e verifica che legga `Claude/INDEX.md`.
 
 ## Cosa NON è incluso
 
@@ -69,7 +69,7 @@ Questo backup copre solo configurazione e riferimento, non il lavoro. Per i prog
 
 Non c'è più uno specchio: skill, agent e memoria attivi **sono** le cartelle di `Claude/`, collegate con junction (Windows) o symlink (Linux). Ogni modifica fatta da Claude Code o a mano finisce già qui.
 
-Prima di committare basta controllare `git status` e assicurarsi che le junction esistano (`Get-Item "Web Developer\.claude\skills"` deve mostrare `LinkType: Junction`; su Linux `ls -la .claude` deve mostrare `skills -> ../Claude/skills`). Aggiorna la data in `INDEX.md` quando cambia una regola.
+Prima di committare basta controllare `git status` e assicurarsi che le junction esistano (`Get-Item "Web Developer Claude\.claude\skills"` deve mostrare `LinkType: Junction`; su Linux `ls -la .claude` deve mostrare `skills -> ../Claude/skills`). Aggiorna la data in `INDEX.md` quando cambia una regola.
 
 ## Sicurezza
 

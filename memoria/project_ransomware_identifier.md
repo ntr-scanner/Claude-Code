@@ -8,7 +8,7 @@ metadata:
   originSessionId: 2c375b96-f0ce-4915-bfbb-4b99ae514699
 ---
 
-**Percorso:** `C:\Users\pc\Documents\Web Developer\Cybersecurity\Script\Ransomware Identifier\`
+**Percorso:** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\Script\Ransomware Identifier\`
 
 **Struttura base:**
 - `ransomware_id.py` — identificazione ransomware da file cifrati (sola lettura)

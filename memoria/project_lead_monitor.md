@@ -8,7 +8,7 @@ metadata:
   modified: 2026-09-08T08:29:36.954Z
 ---
 
-**Percorso installer:** `C:\Users\pc\Documents\Web Developer\Cybersecurity\Script per server\install_lead_monitor.py`
+**Percorso installer:** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\Script per server\install_lead_monitor.py`
 
 **Struttura generata** (default: `Lead Monitor/`):
 - `lead_monitor.py` — entry point, daemon loop con --status/--check-now/--setup-telegram/--setup-reddit

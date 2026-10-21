@@ -12,7 +12,7 @@ metadata:
 
 Poi Editor CV (`Editor CV/editor-cv.html`, 2026-10-14, categoria doc: modelli classico/moderno/minimale, sezioni riordinabili, lingue QCER, IT/EN, clausola GDPR, archivio versioni in localStorage `editor-cv:*`, PDF via stampa con `@page` margin 14mm 0 e stima pagine; testato solo in jsdom perché Chrome per Playwright MCP non è installato su questo PC Linux).
 
-Poi Simulatore SMS (`Simulatore SMS/`, categoria adm: spostato dalla radice di Web Developer e ristilizzato, numeri finti e OTP simulati, nessun SMS reale).
+Poi Simulatore SMS (`Simulatore SMS/`, categoria adm: spostato dalla radice di Web Developer Claude e ristilizzato, numeri finti e OTP simulati, nessun SMS reale).
 
 Convenzioni: stile del Convertitore (token CSS chiaro/scuro, `.panel`, `.drop`, niente animazioni vistose), link "← Dashboard" (`../Dashboard.html`) nei tool nuovi, italiano. Ogni tool ha nel `<head>`, subito dopo `<title>`, la stessa favicon SVG data-URI della Dashboard (riga 7 di Dashboard.html): i tool nuovi devono averla. Librerie offline come `<script type="text/plain" id="lib-…">` in fondo al file, iniettate al primo uso (pdf.js + worker in pagina, `isEvalSupported:false`; pdf-lib; JSZip; qrcode-generator; dati comuni ISTAT `data-comuni`). AI e OCR da CDN al primo uso (ONNX Runtime Web 1.22.0, modelli Hugging Face in IndexedDB, Tesseract.js 6.0.1).
 

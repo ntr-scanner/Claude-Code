@@ -8,7 +8,7 @@ metadata:
   modified: 2026-08-03T11:50:51.192Z
 ---
 
-**Percorso:** `C:\Users\pc\Documents\Web Developer\Cybersecurity\scripts\`
+**Percorso:** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\scripts\`
 
 **File principali:**
 - `dr-audit.py` — file distribuibile (~177 KB, autogenerato da `build.py`, si auto-elimina dopo invio)

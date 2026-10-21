@@ -1,14 +1,14 @@
 # Claude — Indice centrale
 
-Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer`, poi apri solo i file pertinenti al task.
+Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer Claude`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-21 (plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
+Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
 - Prima di fare qualsiasi cosa leggi questo file. Non cercare istruzioni altrove.
 - **Non creare nuovi file `CLAUDE.md`** o altri file di istruzioni fuori da `Claude/`. Regole, skill, note e direttive nuove si aggiungono o modificano qui dentro.
-- L'unico `CLAUDE.md` del workspace è `Web Developer/CLAUDE.md`: è solo un rimando, caricato in automatico da Claude Code.
+- L'unico `CLAUDE.md` del workspace è `Web Developer Claude/CLAUDE.md`: è solo un rimando, caricato in automatico da Claude Code.
 - Eccezioni fuori dal perimetro (non toccare): `Cybersecurity/Script/PentestGPT/CLAUDE.md` (istruzioni interne di quel progetto di terzi) e `Antigravity/ANTYGRAVITY.md` (regole di un altro agente, Antigravity).
 
 ## Regole generali dell'utente (sempre valide)
@@ -50,37 +50,42 @@ Claude/
 └── memoria/            memoria persistente di Claude (MEMORY.md + file singoli; la cartella memoria di Claude Code è un collegamento)
 ```
 
-## Mappa di `Web Developer/`
+## Mappa di `Web Developer Claude/`
+
+Ogni cartella di primo livello è autonoma: si sincronizza da sola (Syncthing o git) senza dipendere dalle altre. Niente file sciolti nella radice, a parte `CLAUDE.md`.
 
 | Cartella | Contenuto |
 |---|---|
-| `Vektora Site/` | Framework WAT dell'agenzia (regole in `vektora-wat.md`): `templates/`, `workflows/`, `tools/`, `assets-vektora/`, `Clienti Vektora/` (cartelle esistenti in formato vecchio `Cliente N - nome`; le nuove `[anno]-[nome]-[tipo]`), `vektora-site-main/` (sito + blog Eleventy), `Prodotti Vektora/` |
-| `Cybersecurity/` | Script e tool di sicurezza (DR audit, Compliance Tracker, Ransomware Identifier, Scan Orchestrator, ecc.) |
+| `Vektora Site/` | Framework WAT dell'agenzia (regole in `vektora-wat.md`): `templates/`, `workflows/`, `tools/`, `assets-vektora/`, `Animazioni/`, `Clienti Vektora/` (cartelle esistenti in formato vecchio `Cliente N - nome`; le nuove `[anno]-[nome]-[tipo]`, es. `2026-mario-rossi-parrucchiere`), `vektora-site-main/` (sito + blog Eleventy), `Prodotti Vektora/` |
+| `Cybersecurity/` | `Script/` (tool di sicurezza, ognuno nella sua cartella/repo: Compliance Tracker, Ransomware Identifier, Scan Orchestrator, RepoGuard, ecc.), `Script per server/` (hardening, backup, triage), `Audit Automatico/`, `Esportazione dati server Digital Ocean/` (export del 2026-10-07: coolify, db, n8n, volumi) |
 | `Marketing/` | Costi mercato, prospecting n8n, catalogo tipologie siti, quiz |
-| `Progetti/` | Progetti vari (Sonar, Scaffale Mangawa: lettore manga con `codice/` separato da `dati/`) |
+| `Progetti/` | Progetti personali vari: `Sonar/`, `Orari Preghiera/`, `Games/` |
 | `Università/` | Materiale di studio, autoverifica |
+| `Work Tools/` | Tool da ufficio in HTML (repo git unico, `Dashboard.html` come ingresso) |
 | `Antigravity/` | Area di lavoro di un altro agente (Antigravity) con sue regole; ha una copia vecchia della skill `vektora-web-dev`, non è quella attiva |
-| `Ayanokoji/`, `Games/` | Progetti personali |
-| `Claude/` | Questa cartella |
+| `Ayanokoji/` | Ayanokoji System e Ayanokoji Tab (struttura propria, non riorganizzare) |
+| `Claude/` | Questa cartella (non riorganizzare) |
 | `.claude/` | Configurazione attiva di Claude Code: `skills/` e `agents/` (collegamenti a `Claude/`), `settings.local.json` (permessi), `launch.json` (server di sviluppo) |
+
+Riorganizzata il 2026-10-21: `Games/` → `Progetti/Games/`, `Vektora Site/2026-mario-rossi-parrucchiere/` → `Vektora Site/Clienti Vektora/`, `Esportazione dati server Digital Ocean/` → `Cybersecurity/`, `Web dev da adesso in poi/RepoGuard/` → `Cybersecurity/Script/RepoGuard/` (la cartella `Web dev da adesso in poi/` è eliminata).
 
 ## Server di sviluppo (`.claude/launch.json`)
 
 | Nome | Cosa serve | Porta |
 |---|---|---|
 | `vektora-site-main` | `Vektora Site/vektora-site-main` (python http.server) | 8080 |
-| `piccolo1929` | `start-piccolo1929.bat` | 3000 |
-| `ransomware-id-demo` | `Cybersecurity/Script/Ransomware Identifier/start-demo.bat` | 7444 |
+| `piccolo1929` | `Vektora Site/Clienti Vektora/Cliente 1 - piccolo1929/Cliente 1 - piccolo1929` (`npm run dev`, Next) | 3000 |
 | `autoverifica` | `Università/autoverifica` | 8765 |
 | `vektora-forensics` | `Vektora Site/Prodotti Vektora/vektora-forensics` | 8081 |
 | `vektora-prodotti` | `Vektora Site/Prodotti Vektora/vektora-prodotti` (`npm run dev`, Eleventy) | 8082 |
 | `vektora-order` | `Vektora Site/Prodotti Vektora/vektora-order` (`pnpm dev`, custom server Next + Socket.io) | 3000 |
 | `vektora-order-prod` | stesso progetto, `pnpm start` dopo `pnpm build` (serve `.env.production.local`) | 3001 |
 
-## Fuori da `Web Developer/`
+## Fuori da `Web Developer Claude/`
 
 - `C:\Users\pc\Documents\SyncThings\Task Manager Ayanokoji\`: progetto ATM (vedi `memoria/project_atm.md`).
 - `C:\Users\pc\Documents\SyncThings\Obsidian\`: vault Obsidian con guide (Anti-Malware, Sicurezza, ecc.).
+- `C:\Users\pc\Documents\Scaffale\Scaffale Mangawa\`: lettore manga con `codice/` separato da `dati/` (`dati/biblioteca` è una cartella Syncthing).
 - `C:\Users\pc\Documents\SyncThings\Programming\CLAUDE-programmazione.md`: vecchio file di regole per esercizi e automazioni. Non è più una fonte da leggere: le regole sugli script valgono in `SCRIPT.md`.
 
 ## Decisioni Vektora (autorevoli)

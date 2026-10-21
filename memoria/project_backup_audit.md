@@ -8,7 +8,7 @@ metadata:
   modified: 2026-09-08T13:29:28.626Z
 ---
 
-**Percorso progetto:** `C:\Users\pc\Documents\Web Developer\Cybersecurity\Script per server\Backup Audit\`
+**Percorso progetto:** `C:\Users\pc\Documents\Web Developer Claude\Cybersecurity\Script per server\Backup Audit\`
 
 > Nota: il pattern bootstrap installer (install_backup_audit.py) e' stato eliminato.
 > Il progetto esiste ora come struttura di file reali separati, pronta all'uso.

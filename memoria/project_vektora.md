@@ -18,7 +18,7 @@ Il progetto principale si chiama **Vektora**, un framework WAT (Workflows, Agent
 
 **Stack tecnico:** HTML + Tailwind CDN + JS vanilla, deploy GitHub → Netlify auto
 
-**Percorso progetto:** `c:\Users\pc\Documents\Web Developer\Vektora Site\`
+**Percorso progetto:** `c:\Users\pc\Documents\Web Developer Claude\Vektora Site\`
 
 **Why:** Separazione AI (orchestrazione) / script Python (esecuzione deterministica) per mantenere accuratezza alta su task ripetitivi.
 

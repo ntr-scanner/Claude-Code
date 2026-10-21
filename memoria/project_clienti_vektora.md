@@ -10,7 +10,7 @@ metadata:
 
 I siti web sviluppati per i clienti Vektora vanno sempre salvati in:
 
-`C:\Users\pc\Documents\Web Developer\Vektora Site\Clienti Vektora\`
+`C:\Users\pc\Documents\Web Developer Claude\Vektora Site\Clienti Vektora\`
 
 **Naming convention** (aggiornata 2026-09-30): `[anno]-[nome-cliente]-[tipo-sito]` (es. `2026-mario-rossi-parrucchiere`). Le cartelle esistenti `Cliente 1 - piccolo1929` e `Cliente 2 - vektora-ct-search` usano il vecchio formato e non si rinominano senza conferma.
 
