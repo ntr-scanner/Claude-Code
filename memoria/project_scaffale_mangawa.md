@@ -1,9 +1,11 @@
 ---
 name: project-scaffale-mangawa
-description: "Scaffale Mangawa: lettore locale manga/manhwa in Progetti/Scaffale Mangawa/ (codice/ = repo, dati/ = biblioteca 22 GB fuori dal repo), porta 8790, separato da Media Loader dal 2026-10-18"
+description: "Scaffale Mangawa: lettore locale manga/manhwa, dal 2026-10-19 in ~/Documents/Cybersecurity/Claude/Script/Scaffale Mangawa/ fuori da Syncthing (codice/ = repo, dati/ = biblioteca 22 GB fuori dal repo), porta 8790, separato da Media Loader dal 2026-10-18"
 metadata:
   type: project
 ---
+
+Spostato dall utente il 2026-10-19 in `~/Documents/Cybersecurity/Claude/Script/Scaffale Mangawa/` (troppo pesante, 69 GB, tenuto da parte, non sincronizzato).
 
 Nato il 2026-10-17 come `dashboard/` dentro Media Loader; il 2026-10-18 l'utente l'ha fatto diventare progetto separato "Scaffale Mangawa" in `Progetti/Scaffale Mangawa/`: `codice/` (server.py stdlib + Pillow + pypdfium2, `static/` vanilla JS, `avvia.sh`/`avvia.bat`, `test_dashboard.py` 39 controlli, README per GitHub) e `dati/` accanto, mai dentro il codice (`--dati` default `../dati`). Niente git iniziato: l'utente fa git e push più avanti, il repo deve contenere solo `codice/`.
 
@@ -22,5 +24,9 @@ v1.3.0 (2026-10-18): ogni serie ha `fonte` (URL mgeko/likemanga, salvato da run_
 Import da script: POST `/api/import` `{source: percorso assoluto, slug | new_series:{title,type,status}}`, poi `/api/jobs/<id>`; porta da `./avvia.sh --stato` (l'utente può riavviarlo su un'altra porta). Un'immagine da 0 byte fa fallire l'import a metà (serie creata con parte dei capitoli): reimportare nella stessa slug.
 
 Test browser: MCP Playwright cerca Chrome assente → Playwright da `~/.npm/_npx/*/node_modules/playwright-core` con `/snap/bin/brave`, screenshot in `~/` (Brave snap ha /tmp privata).
+
+v1.4.0 (2026-10-19): nuovi siti in `scarica.py` → Mgread (API WP `wp-json/initmanga/v1/chapters` per_page max 50, ricerca `initlise/v1/search`, salta `lock_type`≠none), ManhwaFan (`/api/comics/<slug>/chapters`, numero da `chapter_num` perché gli slug sono sporchi; nessuna ricerca lato server → solo link), Asura (Astro: pagine e capitoli nella pagina con `html.unescape`, ricerca `api.asurascans.com/api/search`, salta `is_premium` ed `early_access_until` futuro). Accettano anche link di un capitolo. Tappytoon e Manta rifiutati (piattaforme ufficiali a pagamento). UI: mappa host→sito in app.js da tenere allineata a `SITI`. Test 63.
+
+Ferma/Togli (2026-10-19): `FERMA` set in server.py, controllato tra un capitolo e l'altro → stato `fermato`, staging tenuto per riprendere; POST `/api/scaricamenti/<id>/ferma`, DELETE `/api/scaricamenti/<id>` (rifiutato se in corso, cancella `staging_di(url)`), solo da 127.0.0.1. Eliminare una serie c'era già: Modifica → Elimina serie. Test 66, provato in Brave headless.
 
 **Why:** l'utente vuole il lettore indipendente dal downloader e il codice pubblicabile senza la biblioteca. **How to apply:** modifiche al lettore partono da qui; i download sono in [[project-media-loader-manga]].

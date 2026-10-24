@@ -44,10 +44,10 @@ Nota sui `CLAUDE.md`: esiste un solo `CLAUDE.md` da modificare, in `Web Develope
    Su Linux, con symlink (con Claude Code chiuso; `rmdir` elimina solo cartelle vuote):
 
    ```bash
-   cd "$HOME/Web Developer Claude/.claude"
+   cd "$HOME/Vektora/.claude"
    rmdir skills agents 2>/dev/null; ln -s ../Claude/skills skills; ln -s ../Claude/agents agents
-   M="$HOME/.claude/projects/-home-joyboy-Web-Developer-Claude/memory"
-   mkdir -p "$(dirname "$M")"; rmdir "$M" 2>/dev/null; ln -s "$HOME/Web Developer Claude/Claude/memoria" "$M"
+   M="$HOME/.claude/projects/-home-joyboy-Vektora/memory"
+   mkdir -p "$(dirname "$M")"; rmdir "$M" 2>/dev/null; ln -s "$HOME/Vektora/Claude/memoria" "$M"
    ```
 
    Il nome sotto `projects/` è il percorso del progetto con `/` e spazi sostituiti da `-`.
