@@ -1,6 +1,6 @@
 ---
 name: project-katharsis
-description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 2026-10-04 fatti; manca un test VM completo; impronta manifest 40f48984891db0ed"
+description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 2026-10-04 fatti; manca un test VM completo; impronta manifest 4cf1cf9c6660ea89"
 metadata:
   node_type: memory
   type: project
@@ -12,11 +12,11 @@ Katharsis è il fork di Tron v12.0.6 (orchestratore Batch di vocatus/r/TronScrip
 
 Piano e modifiche: `ANALISI_KATHARSIS.md`, `FASE0..3_MODIFICHE.md` (tutte applicate il 2026-10-01: sicurezza S1-S7, WMIC -> `resources/functions/katharsis_sys.ps1`, log JSONL, Defender primo motore, TDSSKiller/MBAM rimossi, manifest, triage PowerShell + YARA-Forge, report HTML, regole firmate, rilevamento ransomware -> modalità IR). Confronto con Tron del 2026-10-04 in `Katharsis/CONFRONTO_TRON.md`: corretti update check verso il server di Tron (ora `UPDATE_URL` in katharsis_settings.bat, vuoto = spento; si può cambiare KATHARSIS_VERSION), downgrade di 7-Zip nello stage 5 (azione `version-older`), Windows Update online che non faceva nulla (azione `windows-update` via COM WUA), chiave SafeBoot\\MSIServer creata fuori dalla Safe Mode. Il 2026-10-05 le liste debloat non si scaricano piu' dal GitHub di Tron: impostazione `DEBLOAT_LISTS_URL` (vuota = spento, hash pinnati sempre obbligatori), punto 4 di CONFRONTO_TRON.md.
 
-Ogni modifica al pacchetto richiede di ricostruire `MANIFEST.sha256`. Da Linux: script Python che replica `katharsis_manifest.ps1 -Build` (percorsi con `\`, CRLF, UTF-8 senza BOM). Impronta attuale `40f48984891db0ed` (2026-10-05), scritta anche in `vm_test/expected_fp.txt`. I file del pacchetto sono CRLF: modificarli preservando CRLF.
+Ogni modifica al pacchetto richiede di ricostruire `MANIFEST.sha256`. Da Linux: script Python che replica `katharsis_manifest.ps1 -Build` (percorsi con `\`, CRLF, UTF-8 senza BOM). Impronta attuale `4cf1cf9c6660ea89` (2026-10-25, 1647 file; ordine delle righe non riproducibile da Python, conta solo per l'impronta che cambia comunque con la data nell'intestazione), scritta anche in `vm_test/expected_fp.txt`. I file del pacchetto sono CRLF: modificarli preservando CRLF.
 
 Test VM: ora su Linux con VirtualBox, VM "Windows " (Win10, Guest Additions). Snapshot "pulito-pre-katharsis" creato il 2026-10-04; cartelle condivise transient `katharsis_pkg` (sola lettura) e `katharsis_vmtest` -> `\\VBOXSVR\...`. Il runner `vm_test/katharsis_vm_runner.bat` riconosce VirtualBox e VMware e ha gli scenari sintassi (parser PS 5.1), stage5, dryrun, ir, ransomware, reset, full. Non ci sono credenziali del guest: il runner lo lancia l'utente, copiato sul Desktop, come amministratore. Test precedenti (VMware, 2026-10-01): prima Defender della VM bloccava la lettura di un file del pacchetto, poi con AV spento tutti fermi al gate per impronta vecchia (il gate funziona). Nessuno scenario reale è ancora stato eseguito fino in fondo.
 
-Audit del 2026-10-25 (non applicato, decide l'utente): bug ereditato in stage_1_tempclean.bat (cancellazione del task CCleanerCrashReporting dentro l'if di -scc), residui CCleaner `ccleaner/Data/` con modello del portatile dell'utente, `ccleaner.ini` escluso dal manifest, impronta -mf minima di 8 caratteri.
+Audit del 2026-10-25 APPLICATO (dettagli in CONFRONTO_TRON.md): parentesi del task CCleanerCrashReporting in stage 1, residui `ccleaner/Data/` eliminati, `ccleaner.ini` nel manifest, `-mf` minimo 16 caratteri, `-sm`/`-pmb` tolti. File solo-Tron (TDSSKiller, MBAM, upload log a vocatus) NON reintegrati di proposito.
 
 Aperti (decide l'utente): download di binari aggiornati (Stinger 2023, AdwCleaner/KVRT 2023, Sophos 2021, 7-Zip 23.01); MalwareBazaar non scaricato (decisione utente). Una run reale di Tron del 2024-03-23 su LAPTOP-FR25O2FD ha probabilmente lasciato un backup del registro esposto in C:\logs\tron. Insidia PowerShell ricorrente: nomi di variabile case-insensitive ($sev nasconde $Sev).
 
