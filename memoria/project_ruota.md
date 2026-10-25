@@ -1,8 +1,11 @@
 ---
 name: project-ruota
-description: Ruota (Porn Roulette v.3) in Intrattenimento/porn-roulette-v.3 — server Python + PWA moduli ES, Ritmo e Metriche dalla 3.8
+description: "Ruota (Porn Roulette v.3) in Intrattenimento/porn-roulette-v.3 — server Python + PWA moduli ES, Ritmo e Metriche dalla 3.8"
 metadata:
+  node_type: memory
   type: project
+  originSessionId: deaedeb1-457c-4010-b94e-7e5d351ab91b
+  modified: 2026-10-24T22:45:16.279Z
 ---
 
 App personale in `Intrattenimento/porn-roulette-v.3/`: `server.py` (stdlib, dati in `Backup/`, catalogo StashDB) + `app/` moduli ES con CSP chiusa (niente CDN, niente stili inline in HTML; `el.style` da JS va bene). README molto dettagliato: aggiornarlo a ogni modifica (sezioni d'uso, tabella moduli, numero test, storia versioni).
@@ -20,3 +23,4 @@ App personale in `Intrattenimento/porn-roulette-v.3/`: `server.py` (stdlib, dati
 - Dalla 3.17: `.stage` contiene ruota, seconda ruota, risultato e video (la seconda ruota sostituisce la prima, poi il risultato); centratura verticale con margin-top calc su ≥700px. L'utente vuole che ogni impostazione dello sfondo resti come la lascia: mai azzerare valori scelti. Non usare `py_compile` per controllare server.py (crea `__pycache__` anche con -B).
 - Dalla 3.18: sezione 💞 Coppia (`SECTIONS.coppia.real`), 40 voci in generi.json con `desc`; esclusi per richiesta utente terze persone e lui sottomesso (più soffocamento, scelta di sicurezza); fuori dal Ritmo. `migrateGenres` aggiunge le sezioni nuove anche alle liste personalizzate.
 - Esc = uscita rapida sempre, anche nelle finestre (scelta voluta).
+- Dalla 3.19 (2026-10-25): `porn-roulette-v.3/codice/` = repo git (remote `ntr-scanner/Routa-Intrattenimento`, privato, sfondi `Background/` inclusi, ~6 MB) e `dati/` accanto (`Backup/`, `Link/`, `stashdb.key`, più un .mkv da 3,4 GB tolto da Background). `DATI_DIR = BASE_DIR.parent / "dati"` in server.py. Vecchio `.git` (conteneva chiave e mkv) in `porn-roulette-v.3/_git-vecchio`. Dopo un clone: `--stashdb` poi `--scarica-cataloghi`.

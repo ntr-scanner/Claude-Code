@@ -27,6 +27,8 @@ Aggiornato: 2026-10-17
 | Code review | superpowers `requesting-code-review` / `receiving-code-review`; mattpocock `code-review`; addy `code-review-and-quality`; ponytail `ponytail-review` (over-engineering) |
 | Refactoring, architettura, debito tecnico | mattpocock `improve-codebase-architecture`, `codebase-design`, `domain-modeling`; addy `code-simplification`; ponytail `ponytail-audit`, `ponytail-debt`; caveman `safe-refactor` |
 | Capire un codebase grande / esistente | `graphify` (`/graphify .` crea il grafo, poi `graphify query`); caveman `caveman-explore`, `investigate-first` |
+| Decisione tecnica con seconde opinioni (solo se l'utente lo chiede) | `llm-council` («consult the council»: ChatGPT + Gemini via API, serve `.env` con le chiavi) |
+| Test e screenshot nel browser | server MCP `playwright` (su Brave) |
 | UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `taste-skill` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion) |
 | Redesign di una pagina esistente | taste-skill `redesign-skill`; ui-ux-pro-max `design-system` |
 | Da immagine/mockup a codice | taste-skill `image-to-code-skill` |
@@ -51,3 +53,4 @@ Aggiornato: 2026-10-17
 - **ponytail**: modalità "lazy senior dev" sempre attiva; dopo ogni turno scrive una riga di statistiche in `~/.config/ponytail/band/<progetto>.csv` (solo locale, webhook vuoto).
 - **claude-security**: banner all'apertura di `/claude-security`, contatori d'uso locali dopo i suoi script, chiude dopo 60 s la domanda di conferma prima di uno scan se resta senza risposta, suggerisce uno scan dopo `git push` / `gh pr create` (disattiva con `CLAUDE_SECURITY_SCAN_TIP=off`). Serve `python3` ≥ 3.9 nel PATH.
 - **graphify**: `graphify install` aggiunge un blocco `# graphify` in `~/.claude/CLAUDE.md` (file utente, fuori dal workspace).
+- **claude-mem**: hook a ogni sessione e a ogni uso di tool + worker in background; riassume con chiamate a Claude e reinietta il contesto all'avvio. Si spegne con `claude plugin disable claude-mem@thedotmack`.

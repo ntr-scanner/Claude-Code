@@ -18,6 +18,8 @@ metadata:
 - Sicurezza aggiunta: nome cliente validato in `client_exists` (prima `..` passava), SameSite=Strict, API solo JSON, CSP senza inline (JS in `webapp/static/*.js`), upload con whitelist e download sempre allegato, escape del testo nel PDF, `.gitignore` che esclude `clients/*` tranne il demo.
 - Test: `.venv\Scripts\python -m unittest discover -s tests` (16). Verifica visiva con playwright-core + Edge (`C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe`): Playwright MCP non trova Chrome su questo PC.
 
+**2026-10-25: integrato il vecchio progetto `Script per server/Disaster Recovery`** (poi cartella eliminata, non aveva commit né dati): pagina «Piano DR» per cliente (`/clients/<c>/piano-dr`, `piano_dr.html` + `static/piano.js`), API JSON di salvataggio e check. Codice in `core/readiness/` (backup_checker, service_checker con urllib al posto di requests, risk_scoring copiati quasi identici; `check.py` con piano per cliente in `clients/<c>/piano_dr.yaml`, `piano_dr_ultimo.json`, `piano_dr_storico.json`, validazione `normalizza_piano`, CLI `python -m core.readiness.check "Cliente" [--dry-run]`), PDF `reporter/readiness_report.py` → `Report/readiness_<data>.pdf`. Docker/restic/git leggono la macchina del tracker; restic dal web mai getpass (`interactive=False`). Test Linux: venv in scratchpad (la `.venv` del repo è Windows), 26 test.
+
 **Stato controllo:** `non_iniziato | in_corso | completato | non_applicabile`. **%:** pesi completati / pesi applicabili.
 
 **Why:** servizio di readiness per Vektora, NON certificazione.

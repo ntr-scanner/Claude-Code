@@ -339,6 +339,9 @@ esegui() {
     clone_repo agent-skills      https://github.com/addyosmani/agent-skills.git
     clone_repo caveman           https://github.com/JuliusBrussee/caveman.git
     clone_repo graphify          https://github.com/Graphify-Labs/graphify.git
+    clone_repo free-claude-code  https://github.com/Alishahryar1/free-claude-code.git
+    clone_repo llm-council       https://github.com/gcpdev/llm-council-skill.git
+    clone_repo claude-mem        https://github.com/thedotmack/claude-mem.git
 
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
@@ -347,6 +350,13 @@ esegui() {
     install_npm "typescript-language-server typescript" typescript-language-server
     install_npm pyright pyright-langserver
     install_venv graphify graphifyy graphify
+    install_venv uv uv uv
+    # free-claude-code vuole Python ==3.14.9: uv lo scarica da se', il tool resta in ~/.local/share/uv/tools
+    if [[ -x "$BIN_DIR/fcc-claude$EXE" ]]; then
+        ok "Tool installato: free-claude-code (fcc-claude, fcc-server)"
+    elif manca "installazione di free-claude-code (uv tool install dal clone)"; then
+        run env UV_TOOL_BIN_DIR="$BIN_DIR" "$TOOLS_DIR/venvs/uv/$VENV_BIN/uv$EXE" tool install --python 3.14.9 "$BASE_DIR/free-claude-code" || true
+    fi
     path_utente
 
     echo; info "STEP 3 — integrazione con Claude Code"
@@ -356,7 +366,8 @@ esegui() {
         integra_plugin "$p" claude-plugins-official anthropics/claude-plugins-official
     done
     integra_plugin mempalace mempalace MemPalace/mempalace
-    integra_mcp playwright claude mcp add -s user playwright -- npx @playwright/mcp@latest
+    # Brave al posto di Chrome (assente su questo PC); su un PC con Chrome basta togliere --executable-path
+    integra_mcp playwright claude mcp add -s user playwright -- npx @playwright/mcp@latest --executable-path /snap/bin/brave
     integra_mcp headroom "$TOOLS_DIR/venvs/headroom/$VENV_BIN/headroom$EXE" mcp install --agent claude
 
     echo; info "STEP 4 — skill (plugin da marketplace locale = clone in $BASE_DIR)"
@@ -372,6 +383,8 @@ esegui() {
     integra_plugin taste-skill            taste-skill            "$BASE_DIR/taste-skill"
     integra_plugin agent-skills           addy-agent-skills      "$BASE_DIR/agent-skills"
     integra_plugin caveman                caveman                "$BASE_DIR/caveman"
+    integra_plugin claude-mem             thedotmack             "$BASE_DIR/claude-mem"
+    link_skill "$BASE_DIR/llm-council/llm-council"
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
