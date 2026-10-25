@@ -20,7 +20,7 @@
 - [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
 - [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/
 - [Coerenza tra componenti](feedback_coerenza_componenti.md) — Un elemento nuovo ha tutto quello che hanno i suoi simili (es. dettagli a comparsa sulle schede); leggere prima come fa il programma
-- [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, exe Tron eliminato e audit applicato 2026-10-25 (in git 8eb4103, impronta 4cf1cf9c6660ea89), test VirtualBox da completare
+- [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, exe Tron eliminato e audit applicato 2026-10-25 (in git 8eb4103, impronta 222a3ab60031d4a9; KVRT/AdwCleaner/Malwarebytes aggiornati all'avvio), test VirtualBox da completare
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
 - [Generatore firma](project_generatore_firma.md) — HTML singolo offline: 3 modalità, sigla, SVG, firme salvate, firma PDF (pdf-lib+pdf.js incorporati), insidie di test
