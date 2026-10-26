@@ -39,6 +39,7 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 ## Dove stanno i tool installati
 
 - Virtualenv Python: `~/.local/share/claude-repos/venvs/{headroom,mempalace,graphify}` (niente `--break-system-packages`).
+- uv (Python 3.14.9 e tool free-claude-code): `~/.local/share/claude-repos/uv/{python,tools}`. Su Windows non in `%APPDATA%\uv`: l'app Claude (MSIX) virtualizza `%APPDATA%` e la junction di uv verso Python si rompe.
 - npm: `~/.local/share/claude-repos/npm` (niente `sudo`): omniroute, typescript-language-server, pyright.
 - Link agli eseguibili: `~/.local/bin/` (`headroom`, `mempalace`, `mempalace-mcp`, `omniroute`, `graphify`, `typescript-language-server`, `pyright-langserver`). Deve stare nel `PATH`: su Ubuntu lo aggiunge `~/.profile` al login. Serve agli hook di MemPalace.
 - Configurazione Claude Code: `~/.claude.json` (server MCP) e `~/.claude/` (plugin), scope utente: valgono in ogni progetto.

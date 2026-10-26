@@ -351,11 +351,13 @@ esegui() {
     install_npm pyright pyright-langserver
     install_venv graphify graphifyy graphify
     install_venv uv uv uv
-    # free-claude-code vuole Python ==3.14.9: uv lo scarica da se', il tool resta in ~/.local/share/uv/tools
+    # free-claude-code vuole Python ==3.14.9: uv lo scarica da se'. Python e tool stanno in $TOOLS_DIR/uv:
+    # su Windows l'app Claude (MSIX) virtualizza %APPDATA% e la junction di uv verso Python si rompe
     if [[ -x "$BIN_DIR/fcc-claude$EXE" ]]; then
         ok "Tool installato: free-claude-code (fcc-claude, fcc-server)"
     elif manca "installazione di free-claude-code (uv tool install dal clone)"; then
-        run env UV_TOOL_BIN_DIR="$BIN_DIR" "$TOOLS_DIR/venvs/uv/$VENV_BIN/uv$EXE" tool install --python 3.14.9 "$BASE_DIR/free-claude-code" || true
+        run env UV_TOOL_BIN_DIR="$BIN_DIR" UV_TOOL_DIR="$TOOLS_DIR/uv/tools" UV_PYTHON_INSTALL_DIR="$TOOLS_DIR/uv/python" \
+            "$TOOLS_DIR/venvs/uv/$VENV_BIN/uv$EXE" tool install --python 3.14.9 "$BASE_DIR/free-claude-code" || true
     fi
     path_utente
 
