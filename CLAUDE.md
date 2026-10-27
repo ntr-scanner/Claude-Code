@@ -10,4 +10,6 @@
 
 **Prima di scrivere qualsiasi script**, leggi `Claude/SCRIPT.md` e attieniti alle sue convenzioni.
 
+**Prima di creare o modificare un server locale o una web app personale** (dashboard, tool, lettori), leggi `Claude/SERVER-LOCALI.md`: fai all'utente tutte le domande iniziali insieme e non copiare la struttura di Ayanokoji System.
+
 **Nuove regole, skill, note o direttive: aggiungile o modificale dentro `Claude/`, mai in file nuovi fuori da lì.**

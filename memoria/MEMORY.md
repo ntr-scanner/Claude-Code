@@ -34,3 +34,4 @@
 - [Media Loader manga](project_media_loader_manga.md) — Download manga in cartelle JPG per capitolo, Mgeko/LikeManga (core/mgeko.py), MangaRead/Webtoons via gallery-dl, insidie episode_no/.venv-linux/0 byte, MangaDex di nuovo raggiungibile
 - [Media Loader v3](project_media_loader_v3.md) — dal 2026-10-25 codice/ (repo) + dati/ accanto, scelta lingua audio/sottotitoli; App in finestra (app.py+interfaccia/, brave --app), terminale muto, unica versione (v2 eliminata); domini da tracker VibraVid, siti personali, copertine + Sistema→Domini, yt-dlp impersonate, Link sceglie motore; dal 2026-10-25 Jable/RedTube/TnaFlix/PornTrex, Jav24 con avviso VPN Giappone
 - [Games](project_games.md) — Dashboard + 7 giochi riflessi/mente in `Progetti/Games/`, record localStorage `giochi:<id>`
+- [Carburanti Veneto](project_carburanti_veneto.md) — Dashboard prezzi Diesel/Benzina/Metano Veneto da CSV MIMIT, server stdlib 8795, in `Sincronizzazione/Progetti/`
