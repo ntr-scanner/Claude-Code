@@ -30,6 +30,7 @@ Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficial
 | Sito/blog Vektora | `memoria/project_vektora.md`, `memoria/project_vektora_blog.md` |
 | **Qualsiasi lavoro su un progetto o codice** | `SKILLS.md` (quali skill caricare per il task), poi i file specifici sotto |
 | Scrivere qualsiasi script (Python, Bash, PowerShell) | `SCRIPT.md` (obbligatorio, prima di scrivere) |
+| Creare o modificare un server locale o una web app personale (dashboard, tool, lettori) | `SERVER-LOCALI.md` (obbligatorio, prima di scrivere: domande iniziali tutte insieme, niente copie di Ayanokoji) |
 | Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
 | Audit / sicurezza | `agents/security-auditor.md`, `memoria/project_cybersecurity_*.md` e gli altri `project_*` di cybersecurity |
 | Qualsiasi altro progetto | il relativo `memoria/project_*.md` |
@@ -42,6 +43,7 @@ Claude/
 ├── DESIGN.md           direttive tecniche per piano (Starter/Standard/Pro/Premium)
 ├── SKILLS.md           quale skill esterna usare per quale task (design, TDD, debug, review, ...)
 ├── SCRIPT.md           standard per scrivere script (interattivo di default, --yes/--non-interactive, fail-safe)
+├── SERVER-LOCALI.md    regole e domande iniziali per server locali e web app personali (sicurezza, sync, backup, cifratura, interfaccia)
 ├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
 ├── README.md           documentazione del repo di backup
 ├── vektora-wat.md      regole di lavoro sui siti cliente Vektora (framework WAT): unica copia
