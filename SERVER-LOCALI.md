@@ -76,11 +76,14 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 - **Pagine con pulsanti in alto** (non una pagina lunghissima): la prima è quella che si usa ogni giorno (es. «In lettura», «Stai giocando», «Ripasso di oggi»); la pagina scelta resta nell'indirizzo (`#pagina`). I vecchi collegamenti a un riquadro aprono la sua pagina.
 - I pulsanti delle pagine dentro il contenuto sono **staccati sopra e sotto**, mai incollati ai riquadri.
+- **Pochi pulsanti in testata** (2-4). Una pagina con tanti gruppi (es. 7 gruppi di regole) non diventa 7 pulsanti in alto: resta un pulsante solo, e dentro la pagina i gruppi sono **schede sottolineate** (una barra di schede come in Galanteria), con un gruppo visibile alla volta.
+- Un elemento nuovo ha tutto quello che hanno i suoi simili (stessa disposizione, stessi controlli): prima si guarda come lo fa una sezione già esistente che l'utente indica.
 - **Elenchi lunghi compatti**: una riga per gruppo (nome, numeri, barra di avanzamento); aperto, una riga per voce che si apre per leggerla o modificarla. Mai tutte le voci aperte con tutti i pulsanti.
 - **Tabelle «piano»**: colonne raggruppate per periodo, riga corrente evidenziata, stati come piccole etichette (fatto / mancato), testo secondario sotto il titolo.
 - «Prossimo consigliato» in cima alla pagina principale quando c'è un piano da seguire, con il criterio modificabile dall'utente (es. piattaforme, generi).
 - Testo sempre con `textContent`, mai `innerHTML` con dati dell'utente o dei file importati.
 - Mobile a 390 px senza scorrimento orizzontale (attenzione ai testi lunghi in griglie: `minmax(0, 1fr)` e `min-width: 0`), pulsanti alti almeno 44 px, colori da variabili del tema (chiaro e scuro).
+- **Moduli di inserimento**: dopo «Aggiungi» riuscito i campi si svuotano per la voce successiva; con un errore il testo resta. Se la pagina ridisegna e ricopia i campi scritti (bozze), i campi si svuotano **prima** del ridisegno: `const err = azione(...); if (!err) campo.value = ''; salvaERidisegna(err)`. Mai `if (salvaERidisegna(...)) campo.value = ''`: svuota il campo vecchio, già tolto dalla pagina. Un test statico lo controlla.
 - Stati vuoti chiari («Ancora nessuna voce: aggiungila da …»), mai un riquadro vuoto o nascosto senza spiegazione.
 
 ## 7. Import ed export
