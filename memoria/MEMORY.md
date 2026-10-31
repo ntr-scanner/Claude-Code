@@ -18,7 +18,7 @@
 - [Bounty Session Assistant](project_bounty_session_assistant.md) — Assistente metodologia IDOR/business logic, mai esecutivo, scope hard-block senza override, in `Cybersecurity/Script/Bounty Session Assistant/`
 - [Simulatore Firmware + Flip](project_simulatore_firmware.md) — Tool Python multi-console per firmware in `Cybersecurity/Script/Simulatore Firmware/` + firmware Flip ESP32-S3; repo GitHub ntr-scanner
 - [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
-- [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/
+- [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/; se un file di Claude/ «manca», controllare prima `git status -sb` (il repo può essere indietro rispetto a origin)
 - [Coerenza tra componenti](feedback_coerenza_componenti.md) — Un elemento nuovo ha tutto quello che hanno i suoi simili (es. dettagli a comparsa sulle schede); leggere prima come fa il programma
 - [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, exe Tron eliminato e audit applicato 2026-10-25 (exe in _archivio, impronta 6db8a81b9ba583db, install_katharsis.py dopo il clone; KVRT/AdwCleaner/Malwarebytes aggiornati all'avvio), test VirtualBox da completare
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
@@ -35,3 +35,4 @@
 - [Media Loader v3](project_media_loader_v3.md) — dal 2026-10-25 codice/ (repo) + dati/ accanto, scelta lingua audio/sottotitoli; App in finestra (app.py+interfaccia/, brave --app), terminale muto, unica versione (v2 eliminata); domini da tracker VibraVid, siti personali, copertine + Sistema→Domini, yt-dlp impersonate, Link sceglie motore; dal 2026-10-25 Jable/RedTube/TnaFlix/PornTrex, Jav24 con avviso VPN Giappone
 - [Games](project_games.md) — Dashboard + 7 giochi riflessi/mente in `Progetti/Games/`, record localStorage `giochi:<id>`
 - [Carburanti Veneto](project_carburanti_veneto.md) — Dashboard prezzi Diesel/Benzina/Metano Veneto da CSV MIMIT, server stdlib 8795, in `Sincronizzazione/Progetti/`
+- [Folder Pull](project_folder_pull.md) — pull/push cartelle locali ↔ Syncthing con casella per PC, in `Cybersecurity/Script/Folder Pull/`, repo separata
