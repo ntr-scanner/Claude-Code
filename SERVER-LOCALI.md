@@ -39,6 +39,9 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 - **Ascolta su 127.0.0.1** salvo richiesta esplicita. Con la rete: avviso chiaro in pagina e controllo dell'host.
 - **Una sola istanza**: lockfile nella cartella temporanea del PC, mai in quella sincronizzata. Lanciatore con `--stato`, `--spegni`, `--riavvio`.
+- **Riavvia e Spegni nella pagina** (regola dell'utente, 2026-10-31): due bottoni nelle impostazioni, solo dal PC del server (mai dalla rete, nemmeno con PIN), con token. Spegni chiede conferma nella pagina (secondo clic), mai `confirm()` del browser. Riavvia riparte con il codice sul disco nello **stesso terminale** (`os.execv` su Linux/macOS, nuovo processo su Windows), stessa porta e PIN, senza riaprire il browser; la pagina aspetta il server e si ricarica da sola.
+- **Voce nel menu delle app** (regola dell'utente, 2026-11-01): ogni server locale si apre da un'icona tra le app di Ubuntu (`~/.local/share/applications/<nome>.desktop`) **e** di Windows (collegamento `.lnk` nel menu Start, creato con PowerShell `WScript.Shell`, icona `.ico` accanto alla `.svg`). L'icona lancia `--apri` senza terminale (`pythonw` su Windows; con `pythonw` `sys.stdout`/`stderr`/`stdin` sono `None`: rimetterli su `os.devnull` prima di stampare): server acceso → apre solo la pagina; spento → lo accende staccato (output in un file di log) e poi la apre. Si crea con `--icona` (o `--collegamento`) e si **toglie o rimette dalle impostazioni del server nella pagina** (solo dal PC del server), oltre che con `--togli-icona`. Codice comune in `menu_app.py`, copia identica nei progetti (Intrattenimento e Ayanokoji System `server/`).
+- **Avviso «codice aggiornato»**: `/api/ping` restituisce la versione in memoria e quella scritta nel file sul disco; se sono diverse la pagina mostra una barra «riavvia per le novità» con il bottone Riavvia (controllo all'apertura e quando la finestra torna in primo piano). Senza, le funzioni nuove della pagina ricevono «API sconosciuta» dal server vecchio. Ogni modifica al server alza `VERSION`.
 - **Controlli su ogni richiesta**: Host esatto (contro il DNS rebinding), Origin e `Sec-Fetch-Site` uguali alla propria origine, token di sessione per le API, nessun CORS. Intestazioni: CSP senza `unsafe-inline`, `frame-ancestors 'none'`, `nosniff`, `no-referrer`.
 - **Scritture atomiche**: file temporaneo, fsync, rename. Un `.tmp` rimasto da un crash si recupera all'avvio, non si butta.
 - **Conflitti**: revisione + `If-Match` → 409 se un'altra scheda ha salvato prima; la pagina offre «Unisci». Nessuna scrittura cieca.
@@ -64,12 +67,26 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 ## 5. Protezione con password e cifratura
 
+**Regole della password = quelle di Ayanokoji System** (regola dell'utente, 2026-11-01), per ogni server con password
+(oggi: Ayanokoji, Ruota, Musicoteca, Galleria, Biblioteca, Serata):
+
+- **Almeno 12 caratteri** per le password nuove o cambiate; una più corta creata prima resta valida (niente cambio forzato).
+- Impronta `scrypt` con **n=2^15**, r=8, p=1 (maxmem 64 MB) e sale casuale; il fattore `n` sta nel file accanto all'impronta, così le impronte vecchie (n=2^14) si verificano ancora.
+- Ogni password sbagliata: **1 secondo di attesa** prima di rispondere e un messaggio unico («password sbagliata», con username «username o password sbagliati»); mai dire quale parte è sbagliata. Nei progetti di Intrattenimento in più 5 errori = 60 s di blocco per quell'indirizzo.
+- **Blocco dopo 5, 10, 15, 30 o 60 minuti senza usare la pagina** (scelta nelle impostazioni, predefinito 10): attività (puntatore, tasti, rotella, tocco) condivisa tra le schede con `localStorage`, controllo ogni 20 s; scaduto il tempo la pagina chiude la sessione e mostra la finestra della password. Il server dimentica una sessione dopo 30 minuti senza richieste (o il tempo di blocco, se più lungo).
+- **Blocco quando si blocca il PC** (casella nelle impostazioni, attiva di default): il server guarda lo schermo ogni 5 s (Linux `loginctl … LockedHint`, Windows `LogonUI.exe`) e chiude tutte le sessioni; dove non si sa leggere, la casella è disattivata e lo dice.
+- **Sessioni solo in memoria**: dopo un riavvio del server si rimette la password. Cambiare la password chiude tutte le altre sessioni.
+- Password creata dalla pagina al primo avvio **solo dal PC del server**, oppure da terminale (`--password`, che la reimposta anche se dimenticata). Cambio password, impostazioni del blocco e menu delle app solo dal PC del server.
+- Impostazioni del blocco in un file a parte (`.blocco.json` / `.sicurezza.json` in Ayanokoji): non sono un segreto e si riscrivono conservando gli altri campi.
+- Username e 2FA (TOTP) e cifratura dei file restano di Ayanokoji: negli altri progetti solo se l'utente li chiede.
+
 - Se ci sono dati sensibili e i file si sincronizzano, il blocco della pagina **non basta**: servono i file cifrati su disco.
 - Crittografia collaudata, mai inventata: AES-256-GCM (libreria `cryptography`), chiave da `scrypt(password, sale)`. Sul disco solo sale e una «prova» per verificare la password, mai la password.
 - Ogni file cifrato porta il suo sale e una firma iniziale (`AYK1` in Ayanokoji): un file in chiaro si legge com'è, così l'attivazione a metà non rende nulla illeggibile.
 - La password si normalizza sempre allo stesso modo (spazi ai lati tolti, Unicode NFC): niente falsi «password sbagliata».
 - Cambio password: le chiavi vecchie restano leggibili con la nuova (avvolte nel file di configurazione), poi si ricifra tutto. Un'interruzione non rende nulla illeggibile.
-- Blocco: cookie `HttpOnly` + `SameSite=Strict` che scade dopo N minuti di inattività; la password si chiede **in una finestra sopra la pagina**, senza cambiare pagina, così le modifiche non salvate restano.
+- Blocco: cookie `HttpOnly` + `SameSite=Strict` che scade dopo N minuti di inattività (vedi le regole sopra); la password si chiede **in una finestra sopra la pagina**, senza cambiare pagina, così le modifiche non salvate restano.
+- Finché la password non è stata inserita **lo schermo resta tutto scuro** (regola dell'utente, 2026-11-01): sfondo della finestra pieno (`::backdrop` opaco, mai trasparente o sfocato), niente sfondi/wallpaper, ruota o dati visibili dietro; anche all'apertura la pagina parte oscurata. Il server non dà né dati né immagini (sfondi compresi) senza sessione.
 - Sempre l'avviso: **senza password i dati non si recuperano**, tenerla in Bitwarden.
 
 ## 6. Interfaccia
@@ -97,4 +114,4 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 - Test della logica (Node `node:test` o `unittest`) e nel browser (Playwright con Edge o Brave), su **dati di prova o una copia**, mai sui dati veri.
 - Dopo una modifica all'interfaccia: aprire la pagina, guardarla a 390 px e su desktop, nessun errore in console.
-- Le modifiche al server arrivano al server acceso solo dopo il riavvio: dirlo sempre all'utente.
+- Le modifiche al server arrivano al server acceso solo dopo il riavvio: dirlo sempre all'utente (e indicare il bottone Riavvia della pagina).
