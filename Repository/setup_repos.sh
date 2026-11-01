@@ -20,7 +20,7 @@
 
 set -euo pipefail
 
-VERSION="1.3.0"
+VERSION="1.4.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -342,6 +342,8 @@ esegui() {
     clone_repo free-claude-code  https://github.com/Alishahryar1/free-claude-code.git
     clone_repo llm-council       https://github.com/gcpdev/llm-council-skill.git
     clone_repo claude-mem        https://github.com/thedotmack/claude-mem.git
+    clone_repo awesome-claude-skills https://github.com/composiohq/awesome-claude-skills.git
+    clone_repo harvey            https://github.com/ethanplusai/harvey.git
 
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
@@ -351,6 +353,8 @@ esegui() {
     install_npm pyright pyright-langserver
     install_venv graphify graphifyy graphify
     install_venv uv uv uv
+    # editable: Harvey legge .env, harvey.yaml e data/ dalla cartella del clone, non da site-packages
+    install_venv harvey "--editable=$BASE_DIR/harvey" harvey
     # free-claude-code vuole Python ==3.14.9: uv lo scarica da se'. Python e tool stanno in $TOOLS_DIR/uv:
     # su Windows l'app Claude (MSIX) virtualizza %APPDATA% e la junction di uv verso Python si rompe
     if [[ -x "$BIN_DIR/fcc-claude$EXE" ]]; then
@@ -388,6 +392,7 @@ esegui() {
     integra_plugin claude-mem             thedotmack             "$BASE_DIR/claude-mem"
     link_skill "$BASE_DIR/llm-council/llm-council"
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
+    link_skill "$BASE_DIR/awesome-claude-skills/lead-research-assistant"
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
     elif manca "skill graphify (graphify install --platform claude)"; then

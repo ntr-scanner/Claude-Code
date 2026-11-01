@@ -2,7 +2,7 @@
 
 Cartella dei repo di terzi che l'utente integra in Claude Code. I clone **non** finiscono nel backup git di `Claude/` (sono in `.gitignore`, ~1,1 GB): nel backup restano solo questo file e `setup_repos.sh`, che li ricrea.
 
-Aggiornato: 2026-10-24 (aggiunti free-claude-code, llm-council, claude-mem; Playwright MCP su Brave)
+Aggiornato: 2026-10-31 (aggiunti harvey e lead-research-assistant da awesome-claude-skills)
 
 ## Repo integrati
 
@@ -14,6 +14,7 @@ Aggiornato: 2026-10-24 (aggiunti free-claude-code, llm-council, claude-mem; Play
 | `mempalace/` | [mempalace/mempalace](https://github.com/mempalace/mempalace) | CLI `mempalace` (venv) + plugin `mempalace@mempalace` (MCP `mempalace-mcp`, hook Stop/SessionEnd/PreCompact, skill) | `mempalace init <cartella>`, poi ricerca con i tool MCP o `/mempalace:search` |
 | (npm) language server | `typescript-language-server` + `typescript`, `pyright` | CLI in `~/.local/share/claude-repos/npm`, link in `~/.local/bin` | Usati in automatico dai plugin `typescript-lsp` e `pyright-lsp` |
 | `playwright-mcp/` | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | Server MCP `playwright` (scope utente, `npx @playwright/mcp@latest --executable-path /snap/bin/brave`: Chrome non c'è) | Tool MCP per pilotare il browser (test e screenshot dei siti). Al posto di «browse» di gstack, scartato il 2026-10-24: richiedeva tutto gstack + Bun + una sezione in CLAUDE.md |
+| `harvey/` | [ethanplusai/harvey](https://github.com/ethanplusai/harvey) | CLI `harvey` (venv, installato `--editable`: legge `.env`, `harvey.yaml`, `data/` dalla cartella del clone). **Non** attivo di default | Agente di vendita: trova attività, scrive cold email, gestisce le risposte. Configurazione da fare: `cd harvey && cp .env.example .env` (casella su dominio secondario), `harvey train <sito>`, `harvey signals`, `harvey discover`, `harvey dashboard` (127.0.0.1:5555), `harvey run`. Contiene un suo `CLAUDE.md` (wizard di setup del progetto, fuori dal perimetro come PentestGPT) |
 | `free-claude-code/` | [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | CLI `fcc-server`, `fcc-claude`, … (`uv tool install --python 3.14.9` dal clone; `uv` nel venv `uv`). **Non** attivo di default | Su richiesta: `fcc-server` apre l'Admin UI (chiave NVIDIA NIM o OpenRouter), poi `fcc-claude` lancia Claude Code verso quei modelli. Imposta le variabili solo per quel processo, non tocca la configurazione |
 
 ## Skill integrate
@@ -34,6 +35,7 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 | `caveman/` | [JuliusBrussee/caveman](https://github.com/JuliusBrussee/caveman) | Plugin `caveman@caveman` (hook: modalità compressa attiva di default) |
 | `llm-council/` | [gcpdev/llm-council-skill](https://github.com/gcpdev/llm-council-skill) | Skill `llm-council`, link in `~/.claude/skills/llm-council` | «Consult the council: …». Serve un `.env` nella cartella di lavoro con `OPENAI_API_KEY` e `GEMINI_API_KEY` (a pagamento per chiamata) |
 | `claude-mem/` | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | Plugin `claude-mem@thedotmack` (marketplace locale; hook SessionStart/PostToolUse/Stop + worker in background) | Memoria automatica tra sessioni: osserva ogni uso di tool, la comprime con l'Agent SDK (consuma utilizzo Claude) e la reinietta all'avvio. Licenza AGPL-3.0 |
+| `awesome-claude-skills/` | [composiohq/awesome-claude-skills](https://github.com/composiohq/awesome-claude-skills) | Solo `lead-research-assistant`, link in `~/.claude/skills/lead-research-assistant` |
 | `graphify/` | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | CLI `graphify` (venv, pacchetto `graphifyy`) + `graphify install --platform claude` → skill in `~/.claude/skills/graphify` e blocco in `~/.claude/CLAUDE.md` |
 
 ## Dove stanno i tool installati
@@ -65,6 +67,7 @@ Dopo `--apply` riavvia Claude Code. Su Windows lo script va eseguito da Git Bash
 - **Plugin con hook** (ponytail, superpowers, caveman, agent-skills, claude-security): eseguono codice del repo a ogni sessione. Installarli è una scelta dell'utente: Claude non li attiva da solo, si fa con `setup_repos.sh --apply`.
 - **free-claude-code** come OmniRoute: manda codice e prompt a fornitori terzi (NVIDIA NIM, OpenRouter). Solo su richiesta, mai come `ANTHROPIC_BASE_URL` globale.
 - **claude-mem** registra ogni uso di tool (anche contenuti di file letti) in un SQLite locale e lo riassume con chiamate a Claude: occhio ai progetti con dati sensibili. Si spegne con `claude plugin disable claude-mem@thedotmack`.
+- **Harvey** invia email a terzi dalla casella configurata e usa l'abbonamento Claude in loop. In Italia le email commerciali non richieste a indirizzi nominativi richiedono il consenso (art. 130 Codice Privacy, anche B2B): tenerlo in approvazione manuale (outbox) e verificare la base giuridica prima di inviare. `.env` e `data/harvey.db` (dati dei prospect) stanno nel clone: se `Claude/` è sincronizzata con Syncthing, viaggiano anche loro.
 - **MemPalace** scrive con gli hook a ogni fine sessione e prima della compattazione: i dati restano in locale.
 
 ## Aggiungere un repo

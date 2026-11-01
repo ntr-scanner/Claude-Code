@@ -28,6 +28,7 @@ Aggiornato: 2026-10-17
 | Refactoring, architettura, debito tecnico | mattpocock `improve-codebase-architecture`, `codebase-design`, `domain-modeling`; addy `code-simplification`; ponytail `ponytail-audit`, `ponytail-debt`; caveman `safe-refactor` |
 | Capire un codebase grande / esistente | `graphify` (`/graphify .` crea il grafo, poi `graphify query`); caveman `caveman-explore`, `investigate-first` |
 | Decisione tecnica con seconde opinioni (solo se l'utente lo chiede) | `llm-council` («consult the council»: ChatGPT + Gemini via API, serve `.env` con le chiavi) |
+| Trovare clienti / lead per Vektora | `lead-research-assistant` (ricerca aziende target e strategia di contatto, nessun invio); `harvey` (CLI, invio cold email: solo su richiesta, vedi avvertenze in `Repository/README.md`) |
 | Test e screenshot nel browser | server MCP `playwright` (su Brave) |
 | UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `taste-skill` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion) |
 | Redesign di una pagina esistente | taste-skill `redesign-skill`; ui-ux-pro-max `design-system` |
