@@ -68,7 +68,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 ## 5. Protezione con password e cifratura
 
 **Regole della password = quelle di Ayanokoji System** (regola dell'utente, 2026-11-01), per ogni server con password
-(oggi: Ayanokoji, Ruota, Musicoteca, Galleria, Biblioteca, Serata):
+(oggi: Ayanokoji, Ruota, Musicoteca, Galleria, Biblioteca, Serata, Videoteca):
 
 - **Almeno 12 caratteri** per le password nuove o cambiate; una più corta creata prima resta valida (niente cambio forzato).
 - Impronta `scrypt` con **n=2^15**, r=8, p=1 (maxmem 64 MB) e sale casuale; il fattore `n` sta nel file accanto all'impronta, così le impronte vecchie (n=2^14) si verificano ancora.

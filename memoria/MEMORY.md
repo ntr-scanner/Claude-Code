@@ -36,3 +36,4 @@
 - [Games](project_games.md) — Dashboard + 7 giochi riflessi/mente in `Progetti/Games/`, record localStorage `giochi:<id>`
 - [Carburanti Veneto](project_carburanti_veneto.md) — Dashboard prezzi Diesel/Benzina/Metano Veneto da CSV MIMIT, server stdlib 8795, in `Sincronizzazione/Progetti/`
 - [Folder Pull](project_folder_pull.md) — pull/push cartelle locali ↔ Syncthing con casella per PC, in `Cybersecurity/Script/Folder Pull/`, repo separata
+- [Videoteca](project_videoteca.md) — 8802, libreria video porno/hentai stile Scaffale, scene, StashDB per oshash, doppioni phash, AV1, cassaforte AES-GCM legata alla sessione
