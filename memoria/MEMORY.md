@@ -44,3 +44,4 @@
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
 - [Videoteca](project_videoteca.md) — 8802, libreria video porno/hentai stile Scaffale, scene, StashDB per oshash, doppioni phash, AV1, cassaforte AES-GCM legata alla sessione
+- [stealth_fetch](project_stealth_fetch.md) — Fetch anti-bot 4 tier in `Cybersecurity/Script/stealth/`, CLI+libreria, AsyncSession curl_cffi appesa su Windows → to_thread, tier browser mai provati dal vivo
