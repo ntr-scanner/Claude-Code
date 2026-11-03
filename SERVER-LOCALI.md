@@ -48,6 +48,8 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - **Codice e dati separati**: il codice in un repo git, i dati e i log in una cartella accanto, fuori dal repo (`.gitignore` di sicurezza).
 - **Registro dei moduli o delle sezioni** in un file solo, letto a caldo; regole di validazione anche lato server (il browser non è una garanzia).
 - **Log senza contenuti**: solo tipo di evento e motivo tecnico.
+- **Contenuti da siti esterni passano dal server** (Musicoteca Online, 2026-11-03): con la CSP `media-src`/`img-src 'self'` la pagina non parla mai con i siti; il server gira audio e copertine (`/f/online?u=`, `/f/copertina?u=`) inoltrando `Range`, e accetta **solo URL https di host in una lista fissa** (niente SSRF verso la rete di casa). Download e altre azioni che scrivono su disco solo dal PC del server.
+- **File letti dal server dentro una cartella scelta**: percorso relativo → `resolve()` + `is_relative_to(cartella)` + estensione ammessa, altrimenti errore; risposte a pezzi con `Range` (206) per audio e video.
 
 ## 3. Dati e sincronizzazione tra PC
 
@@ -57,6 +59,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Le copie arrivate da fuori diventano **copie in sospeso** che la pagina unisce; mai sovrascrivere i dati di qui.
 - Ogni impostazione modificabile dalla pagina si salva subito e **resta uguale ai riavvii**. Quando un'impostazione si riscrive, si conservano le altre (`{...vecchie, nuova}`), mai un oggetto nuovo da zero.
 - Letture e scritture dello stesso file di impostazioni da più thread passano da un lock.
+- **Una cartella scelta dall'utente si ricorda** (regola dell'utente, 2026-11-03): mai far riscegliere la cartella a ogni apertura. Il selettore del browser non può ricordarla, quindi il percorso si scrive nelle impostazioni (solo dal PC del server) e il server lo salva in `~/.cache/<app>/` (di quel PC, fuori dalla cartella sincronizzata) e la rilegge a ogni apertura. Le chiavi dei file restano quelle di prima (percorso relativo), così ascolti, preferiti e playlist non si perdono.
 
 ## 4. Backup
 
@@ -88,6 +91,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Blocco: cookie `HttpOnly` + `SameSite=Strict` che scade dopo N minuti di inattività (vedi le regole sopra); la password si chiede **in una finestra sopra la pagina**, senza cambiare pagina, così le modifiche non salvate restano.
 - Finché la password non è stata inserita **lo schermo resta tutto scuro** (regola dell'utente, 2026-11-01): sfondo della finestra pieno (`::backdrop` opaco, mai trasparente o sfocato), niente sfondi/wallpaper, ruota o dati visibili dietro; anche all'apertura la pagina parte oscurata. Il server non dà né dati né immagini (sfondi compresi) senza sessione.
 - Sempre l'avviso: **senza password i dati non si recuperano**, tenerla in Bitwarden.
+- **Finestra della password compatibile con Bitwarden** (regola dell'utente, 2026-11-03): quando Bitwarden riempie un campo lo ingrandisce per 0,2 s (`scale(1.2)`); se il campo è largo quanto la finestra, nella `<dialog>` compare per un attimo una barra di scorrimento orizzontale. Ogni `dialog` ha `overflow-x: hidden` (fatto in Intrattenimento `base.css` e Cineteca, Scaffale Mangawa, Ayanokoji System). Prova: `input.style.transform = "scale(1.2)"` e controllare che `dialog.offsetHeight - dialog.clientHeight` resti uguale ai soli bordi.
 
 ## 6. Interfaccia
 
@@ -102,6 +106,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Mobile a 390 px senza scorrimento orizzontale (attenzione ai testi lunghi in griglie: `minmax(0, 1fr)` e `min-width: 0`), pulsanti alti almeno 44 px, colori da variabili del tema (chiaro e scuro).
 - **Moduli di inserimento**: dopo «Aggiungi» riuscito i campi si svuotano per la voce successiva; con un errore il testo resta. Se la pagina ridisegna e ricopia i campi scritti (bozze), i campi si svuotano **prima** del ridisegno: `const err = azione(...); if (!err) campo.value = ''; salvaERidisegna(err)`. Mai `if (salvaERidisegna(...)) campo.value = ''`: svuota il campo vecchio, già tolto dalla pagina. Un test statico lo controlla.
 - Stati vuoti chiari («Ancora nessuna voce: aggiungila da …»), mai un riquadro vuoto o nascosto senza spiegazione.
+- **Sezioni «Online» con una vetrina** (regola dell'utente, 2026-11-03): aprendo la sezione, e a ogni cambio di fonte o filtro (es. «Classica»), si vede subito cosa c'è sui siti collegati (classifiche, più ascoltati, ultimi aggiornati) senza dover scrivere; la ricerca restringe. In fondo «Mostra altri» per le pagine dopo.
 
 ## 7. Import ed export
 
@@ -114,4 +119,5 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 - Test della logica (Node `node:test` o `unittest`) e nel browser (Playwright con Edge o Brave), su **dati di prova o una copia**, mai sui dati veri.
 - Dopo una modifica all'interfaccia: aprire la pagina, guardarla a 390 px e su desktop, nessun errore in console.
+- Test su Windows: i `subprocess.run(..., text=True)` leggono con `encoding="utf-8"` (altrimenti cp1252 fallisce su `═`, `⚙`). Dalla shell Git Bash un percorso `/c/...` passato a Python va convertito con `cygpath -w`, se no diventa `C:\c\...`.
 - Le modifiche al server arrivano al server acceso solo dopo il riavvio: dirlo sempre all'utente (e indicare il bottone Riavvia della pagina).

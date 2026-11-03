@@ -38,7 +38,7 @@
 - [Folder Pull](project_folder_pull.md) — pull/push cartelle locali ↔ Syncthing con casella per PC, in `Cybersecurity/Script/Folder Pull/`, repo separata
 - [Cineteca](project_cineteca.md) — libreria film/serie/anime in Intrattenimento/cineteca, server stdlib 8796, cartella dal browser, TMDB, ruota catalogo/PC/Da vedere, --lan con PIN
 - [Base comune Intrattenimento](project_intrattenimento_base.md) — dal 2026-11-01 tutte in `Intrattenimento/Suite Intrattenimento/` (un repo, Ruota esclusa); Musicoteca/Galleria/Biblioteca/Serata: base.py, comune.js, base.css copie identiche (sha256), password anche dal PC; insidie test Playwright
-- [Musicoteca](project_musicoteca.md) — 8798, tag ID3/MP4/FLAC nella pagina, playlist, ruota album, karaoke .lrc + telecomando
+- [Musicoteca](project_musicoteca.md) — 8798, tag ID3/MP4/FLAC nella pagina, playlist, ruota album, karaoke .lrc + telecomando; dalla 1.2 cartella ricordata, 🌐 Online (YouTube/SoundCloud/Archive + Classica, online.py), popup dettagli
 - [Galleria](project_galleria.md) — 8799, cartella letta dal server, EXIF, GPS solo in ~/.cache, duplicati e riordino con Annulla; dalla 1.1 miniature ffmpeg + bottone scarica ffmpeg
 - [Biblioteca](project_biblioteca.md) — 8800, EPUB fatto in casa + pdf.js in vendor/, segnalibri, Open Library
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice

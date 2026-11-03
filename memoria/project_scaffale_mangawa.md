@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a12f77e1-a7b4-4dd7-a489-45ff83699735
-  modified: 2026-11-02T14:33:22.168Z
+  modified: 2026-11-03T09:19:34.233Z
 ---
 
 Spostato dall utente il 2026-10-19 in `~/Documents/Cybersecurity/Claude/Script/Scaffale Mangawa/` (troppo pesante, 69 GB, tenuto da parte, non sincronizzato).
@@ -43,6 +43,8 @@ Tasti e scorrimento (2026-10-25): in Firefox PagSu/PagGiù/Spazio/frecce non sco
 Aggiornamento 2026-11-02 (altra sessione, stesso giorno): su richiesta dell'utente stealth_fetch è stato integrato in una copia `Cybersecurity/Script/Scaffale Mangawa/codice` (1.7.x: Toongod, pagina Server con «Scarica e integra», avviso «riavvia per le novità», Server.allow_reuse_address False su Windows). Claude non lancia richieste che superano Cloudflare: i download protetti li avvia l'utente. Dettagli in [[project-stealth-fetch]].
 
 2026-11-02 (1.11.0, copia `Cybersecurity/Script/Scaffale Mangawa`): «unione serie» (saga) non si salvava sulle serie con fonte likemanga.ink: Modifica rimanda sempre `fonte` e `sito_di` rifiutava il sito chiuso → PATCH 400. Ora `sito_di` solo se la fonte cambia; test 160. TSF Monogatari (ShindoL) NON scaricato: tag schoolboy/schoolgirl/bloomers = personaggi liceali; eliminata su richiesta la «Append 1.0 textless» (backup in `dati/backup/prima-di/`). Lo Scaffale ha password: per provare usare un server con `--dati` temporaneo e password di prova.
+
+2026-11-03 (copia `Cybersecurity/Script/Scaffale Mangawa`): aggiunto **Hentai20** (hentai20.io, hentai=True) come sottoclasse di `Kingofshojo` (stesso tema MangaStream; Kingofshojo ora usa `self.base` e `immagini` CDN, generi solo `rel="tag"`); `info` rifiuta generi vietati. Niente Cloudflare. Usato per «Trapped in the Academy's Eroge» (121 cap). pytest in `tests/` va lanciato col python di sistema (la .venv non ha pytest). Stesso giorno: **Hentai2Read** (rifatto 2026-10-10 come app Inertia: JSON in `<script data-page="app">`, `search?q=&without=6,23` esclude Lolicon/Shota lato sito, `isMembers` saltati, `/original/<id-slug>` rimanda al tipo giusto) e **Manga18fx** (inglese ora, versioni «Raw» tolte). Non integrati (in `NON_SUPPORTATI`): hentairead/hentai.name/hotcomics (Cloudflare, hotcomics anche a monete), nhentai.xxx/hentaihere/manga18.me/manga18.club (stesso catalogo di siti già presenti), hentai-archive (one-shot IT, categoria «studentesse»), hentaimanga.pro (immagini sciolte). Poi: risultati di Scarica come griglia di copertine uguale a Online (`onlineCard`/`wireCards` in app.js, bottone «Copia sito» con ripiego `execCommand` perché da telefono in http non c'è l'API appunti); `cerca` di Mgeko/Mgread/Asura/Madara/Mangapill/Kingofshojo ora dà `cover` (Kingofshojo: proxy Jetpack i1.wp.com dà 404 a urllib → URL originale). Online ha il bottone «Tutti» (primo e predefinito): `scarica.online("Tutti", pagina, hentai)` unisce i siti della sola modalità attiva, alternati, Toongod escluso (`pagine_ok`); la pagina manda `&hentai=`. Anche la griglia dei generi Hentai usa `onlineCard`. Dopo un riavvio del server di prova il browser può tenere app.js vecchio in cache: ricaricare. Server di prova: launch.json «scaffale-mangawa-script» porta 8892, aprire `127.0.0.1` (localhost non risponde), password di prova creata con `accesso.Accesso(dati).imposta`.
 
 **Why:** l'utente vuole il lettore indipendente dal downloader e il codice pubblicabile senza la biblioteca. **How to apply:** modifiche al lettore partono da qui; i download sono in [[project-media-loader-manga]].
 
