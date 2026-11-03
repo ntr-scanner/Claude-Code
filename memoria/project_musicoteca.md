@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: af479898-ab23-4355-adc6-16deb3fb3e3d
-  modified: 2026-11-03T10:30:24.256Z
+  modified: 2026-11-03T11:19:51.274Z
 ---
 
 Creata 2026-10-31. Base comune: [[project-intrattenimento-base]]. Fino alla 1.1 cartella solo dal selettore del browser.
@@ -18,6 +18,7 @@ Creata 2026-10-31. Base comune: [[project-intrattenimento-base]]. Fino alla 1.1 
 - **Online** (`online.py`): yt-dlp `ytsearch`/`scsearch` + API Internet Archive (`advancedsearch`; album → `/metadata/<id>` mp3). «Tutti» alterna le fonti. 🎻 Classica: Archive `collection:musopen OR subject:"classical music" OR subject:"musica classica"` (`subject:classical` da solo dava Pokémon ecc.), YT/SC aggiungono «classical music». CSP `media-src 'self'` → audio e copertine passano dal server (`/f/online?u=`, `/f/copertina?u=`) con whitelist di host https (anti-SSRF). YouTube/Archive girati con Range; SoundCloud solo HLS → scaricato in `%TEMP%/musicoteca-ascolto` (~7 s). Download solo dal PC, un lavoro alla volta in memoria, mp3 + copertina con ffmpeg; a lavoro «fatto» la pagina ricarica `/api/disco`. yt-dlp facoltativo, node passato come `js_runtimes`.
 - **Vetrina** (stesso giorno, richiesta utente «fammi vedere tutte le musiche dei siti»): senza testo `VETRINA` in online.py → YouTube playlist «Top 100 Music Videos Italy» (Classica: `ytsearch:classical music`), SoundCloud `music-charts-us/sets/all-music-genres` (charts `discover/sets/charts-*` e music-charts-it danno 404; in playlist flat SC dà solo l'URL → titolo/artista dallo slug, niente copertina), Archive `collection:audio_music` per download. `pagina` 1-10 + «Mostra altri».
 - **Bitwarden**: barra orizzontale nel login = animazione di riempimento `scale(1.2)` → `overflow-x: hidden` sulle dialog (vedi SERVER-LOCALI §5).
+- **1.2.1 ascolto online (2026-11-03, «il browser non legge»)**: (1) googlevideo dà 403 a urllib e ai formati del client TVHTML5 (la qualità alta): `Ascolto._funziona` prova 1 KB per formato solo-audio dal più alto e usa il primo che risponde (spesso il client VISIONOS); l'audio si gira con `ydl.urlopen` (curl_cffi + cookie dell'estrazione), tenendo aperto lo stesso YoutubeDL (max 40). (2) A «bytes=0-» googlevideo si blocca: `relay_ydl` chiede pezzi da 10 MB (`UPSTREAM_CHUNK`), il browser riceve 206 e chiede il successivo. (3) SoundCloud = HLS fMP4 (init.mp4 + pezzi): `stream_hls` li gira in fila (200 audio/mp4, parte in ~1 s) e intanto scrive la cache `%TEMP%/musicoteca-ascolto/<sha1>.m4a`; nel browser la durata cresce man mano → la pagina mostra max(durata browser, durata della ricerca) e salta solo dentro `a.seekable`. (4) Molti brani SoundCloud (classifiche, major) sono DRM: yt-dlp rifiuta, NON si aggira → DataError «brano protetto (DRM)» e la pagina passa al prossimo. Prima un errore di yt-dlp non preso chiudeva la connessione senza risposta.
 - **Popup dettagli**: `#pCover`/`#pInfo` sono bottoni → `#detailsDlg`.
 - Brani online fuori da preferiti/playlist/ascolti (chiave = URL): versione minima concordata con l'utente.
 - Test 15 (`python -B tests/test_server.py`; subprocess con `encoding="utf-8"` su Windows). Server di prova: launch.json «musicoteca-prova» porta 8897, dati temporanei, password con `base.Auth(...).set_password`.

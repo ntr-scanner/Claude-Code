@@ -1,9 +1,13 @@
 ---
 name: project-videoteca
-description: Videoteca 1.0 (porta 8802) in Intrattenimento/videoteca: libreria video porno/hentai stile Scaffale Mangawa, lettore con Range, scene, StashDB, doppioni oshash+phash, AV1, organizza, In arrivo, cestino, cassaforte AES-GCM
+description: "Videoteca 1.0 (porta 8802) in Intrattenimento/videoteca: libreria video porno/hentai stile Scaffale Mangawa, lettore con Range, scene, StashDB, doppioni oshash+phash, AV1, organizza, In arrivo, cestino, cassaforte AES-GCM"
 metadata:
+  node_type: memory
   type: project
+  originSessionId: af479898-ab23-4355-adc6-16deb3fb3e3d
+  modified: 2026-11-03T10:50:32.508Z
 ---
+
 Creata 2026-11-01 su richiesta («come Scaffale Mangawa ma solo per video porno e hentai, guardare nel server, organizza da metadata come Ruota» + i 5 tool: doppioni, cassaforte, schede/tag, anteprime e scene, pulizia spazio). Base comune: [[project-intrattenimento-base]] (5ª app con base.py/comune.js/base.css identici).
 
 Scelte dell'utente: **biblioteca propria** (video spostati nella libreria, non letti sul posto), **cassaforte cifrata dentro l'app**, **AV1**, rete **a scelta all'avvio** (menu 1 = PC, 2 = telefono / `--lan`).
@@ -17,6 +21,7 @@ Scelte dell'utente: **biblioteca propria** (video spostati nella libreria, non l
 - Insidie trovate: chiave `video` della risposta sovrascritta da `**self.state()` (ora `da_cercare`); pagina async (Cassaforte) che finisce dopo il cambio di pagina sovrascriveva la vista (controllo `page()` dopo await); un lavoro finito prima del primo controllo non ricaricava (`watch(after=true)`). Mai `prompt()`/`confirm()`: `ask()` della pagina con campo testo/password.
 - Test: 18 Python (`python3 -B -m unittest discover -s tests`, ~25 s con ffmpeg, video di prova `testsrc2`; `mandelbrot` vuole `-t`, non `duration=`) + 6 Node. Prova browser con server `HOME=<scratch>/home … --port 8899 --dati <scratch>/dati`, Playwright Brave, screenshot in `~/rprova/`.
 - Non provato: Windows (lanciatori, `.lnk`), conversione su video lunghi veri, StashDB reale.
+- 1.1.0 (2026-11-03): pagina 🌐 Online = wallpaper nudi da Wallhaven con `online_wall.py` (copia IDENTICA di Galleria, sha256 uguale). Reali `categories=001`, Hentai `010`, `purity=001`, chiave in `../dati/wallhaven.key` (poi `porn-roulette-v.3/dati/wallhaven.key` se c'è), POST `/api/wallhaven/chiave` solo dal PC, stato `wallhaven: {chiave, da}`; senza chiave la pagina Online la chiede subito (si vedono comunque gli scaricati). A ogni ricerca nudi (reali e hentai) si escludono nella query i tag in `VIETATI` (loli, shota, child, school, teen, petite…): Wallhaven non dà i tag nei risultati, quindi qualcosa può sfuggire. ⬇ in `../dati/wallpaper/{Reali,Hentai}/` (solo PC), chip «⬇ Scaricati» li elenca da `/f/wall/`. Visore proprio `#wallDlg`. L'elenco NSFW vero NON è stato provato (nessuna chiave dell'utente); provati chiave finta → «chiave API di Wallhaven non valida», scaricati e visore. `TestLibreria.test_percorsi_sicuri` fallisce a caso su Windows (rmtree con file aperto) anche prima.
 
 **Why:** l'utente vuole un posto unico e privato per guardare e tenere in ordine i video, senza Stash.
 **How to apply:** modifiche partono da `videoteca/codice/`; base comune va ricopiata nelle 5 app; alzare VERSION a ogni modifica al server.

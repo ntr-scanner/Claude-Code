@@ -49,6 +49,9 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - **Registro dei moduli o delle sezioni** in un file solo, letto a caldo; regole di validazione anche lato server (il browser non è una garanzia).
 - **Log senza contenuti**: solo tipo di evento e motivo tecnico.
 - **Contenuti da siti esterni passano dal server** (Musicoteca Online, 2026-11-03): con la CSP `media-src`/`img-src 'self'` la pagina non parla mai con i siti; il server gira audio e copertine (`/f/online?u=`, `/f/copertina?u=`) inoltrando `Range`, e accetta **solo URL https di host in una lista fissa** (niente SSRF verso la rete di casa). Download e altre azioni che scrivono su disco solo dal PC del server.
+- **Audio e video da YouTube/SoundCloud** (Musicoteca 1.2.1): girarli con la rete di yt-dlp (`ydl.urlopen`, stesso `YoutubeDL` dell'estrazione), mai con `urllib` (googlevideo risponde 403); scegliere il formato provando 1 KB per formato dal migliore in giù (alcuni client danno indirizzi che rispondono 403); chiedere a googlevideo pezzi da 10 MB, mai `bytes=0-` (si blocca). HLS (SoundCloud) si gira pezzo per pezzo mentre arriva, con cache per i salti. I contenuti con DRM non si aggirano: messaggio chiaro e si passa oltre. Ogni errore di yt-dlp diventa un messaggio per la pagina (un'eccezione non presa chiude la connessione senza risposta).
+- **Sezioni Online con contenuti per adulti** (Videoteca): chiave API dell'utente chiesta al primo ingresso (solo dal PC, file con permessi 600, mai mandata alla pagina) ed esclusione nella query dei tag che indicano minori (loli, shota, child, school, teen, petite…), sempre, anche per i «reali».
+- **Codice online condiviso**: un modulo usato da più app (es. `online_wall.py` in Galleria e Videoteca) è una copia identica come la base comune: si cambia in tutte e si controlla con `sha256sum`.
 - **File letti dal server dentro una cartella scelta**: percorso relativo → `resolve()` + `is_relative_to(cartella)` + estensione ammessa, altrimenti errore; risposte a pezzi con `Range` (206) per audio e video.
 
 ## 3. Dati e sincronizzazione tra PC
@@ -59,6 +62,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Le copie arrivate da fuori diventano **copie in sospeso** che la pagina unisce; mai sovrascrivere i dati di qui.
 - Ogni impostazione modificabile dalla pagina si salva subito e **resta uguale ai riavvii**. Quando un'impostazione si riscrive, si conservano le altre (`{...vecchie, nuova}`), mai un oggetto nuovo da zero.
 - Letture e scritture dello stesso file di impostazioni da più thread passano da un lock.
+- **Solo fonti legali nelle sezioni Online**: niente siti pirata (StreamingCommunity e simili, LibGen, Anna's Archive) né aggiramento di DRM o protezioni anti-bot; per libri e film: Gutenberg, Internet Archive (escludendo i prestiti `access-restricted-item`), contenuti pubblicati dai titolari.
 - **Una cartella scelta dall'utente si ricorda** (regola dell'utente, 2026-11-03): mai far riscegliere la cartella a ogni apertura. Il selettore del browser non può ricordarla, quindi il percorso si scrive nelle impostazioni (solo dal PC del server) e il server lo salva in `~/.cache/<app>/` (di quel PC, fuori dalla cartella sincronizzata) e la rilegge a ogni apertura. Le chiavi dei file restano quelle di prima (percorso relativo), così ascolti, preferiti e playlist non si perdono.
 
 ## 4. Backup
