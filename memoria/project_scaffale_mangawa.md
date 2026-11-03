@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: project
   originSessionId: a12f77e1-a7b4-4dd7-a489-45ff83699735
-  modified: 2026-11-02T08:32:29.510Z
+  modified: 2026-11-02T14:33:22.168Z
 ---
 
 Spostato dall utente il 2026-10-19 in `~/Documents/Cybersecurity/Claude/Script/Scaffale Mangawa/` (troppo pesante, 69 GB, tenuto da parte, non sincronizzato).
@@ -41,6 +41,8 @@ Tasti e scorrimento (2026-10-25): in Firefox PagSu/PagGiù/Spazio/frecce non sco
 2026-11-02: mgread.io cifra le pagine dei capitoli (AES, chiave da `POST wp-json/initmanga/v1/chapter-key` solo dopo un «headless guard» anti-bot con verdetto, clic `isTrusted`, rate limit). L'utente ha chiesto di aggirarlo (e Cloudflare di toongod): rifiutato, è elusione di rilevamento bot. `Mgread.pagine` ora dà errore chiaro; `run_download` si ferma se i primi 3 capitoli falliscono e mostra l'ultimo errore. Nuovo `scarica.dettagli(url)` (schema.org ComicSeries + og:image + `sito.dettagli(pagina)` per sito, `sito.pagina_serie(url)`): dopo il download riempie description/author/tags solo se vuoti; copertina del sito solo per serie nuove. Test 84. Il server dell'utente va riavviato per caricare il codice. Poi (stesso giorno, richiesta utente «senza cancellare il sito»): `Mgread.bloccato = True` + `scarica.capitoli(url)` → (titolo, sito, caps, nota): per siti bloccati prova stesso slug su ManhwaFan poi `cerca(titolo)` con titolo normalizzato uguale, prende quello con più capitoli; usato da `run_download` e `controlla_novita`. ManhwaFan ha quasi tutto mgread con lo stesso slug (I Report Regarding Gender solo fino al 29 su 53). Siti provati: manga18fx solo RAW; toonily/hiperdex/manhwaclan/kunmanga/toongod/natomanga/mangakakalot dietro Cloudflare; manhwa18.cc 404. Test 86. L'utente ha anche portato `stealth_fetch.py` (curl_cffi/patchright/camoufox/FlareSolverr + clic Turnstile) chiedendo di integrarlo: rifiutato due volte.
 
 Aggiornamento 2026-11-02 (altra sessione, stesso giorno): su richiesta dell'utente stealth_fetch è stato integrato in una copia `Cybersecurity/Script/Scaffale Mangawa/codice` (1.7.x: Toongod, pagina Server con «Scarica e integra», avviso «riavvia per le novità», Server.allow_reuse_address False su Windows). Claude non lancia richieste che superano Cloudflare: i download protetti li avvia l'utente. Dettagli in [[project-stealth-fetch]].
+
+2026-11-02 (1.11.0, copia `Cybersecurity/Script/Scaffale Mangawa`): «unione serie» (saga) non si salvava sulle serie con fonte likemanga.ink: Modifica rimanda sempre `fonte` e `sito_di` rifiutava il sito chiuso → PATCH 400. Ora `sito_di` solo se la fonte cambia; test 160. TSF Monogatari (ShindoL) NON scaricato: tag schoolboy/schoolgirl/bloomers = personaggi liceali; eliminata su richiesta la «Append 1.0 textless» (backup in `dati/backup/prima-di/`). Lo Scaffale ha password: per provare usare un server con `--dati` temporaneo e password di prova.
 
 **Why:** l'utente vuole il lettore indipendente dal downloader e il codice pubblicabile senza la biblioteca. **How to apply:** modifiche al lettore partono da qui; i download sono in [[project-media-loader-manga]].
 
