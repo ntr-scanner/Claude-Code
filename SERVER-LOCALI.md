@@ -108,6 +108,11 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - «Prossimo consigliato» in cima alla pagina principale quando c'è un piano da seguire, con il criterio modificabile dall'utente (es. piattaforme, generi).
 - Testo sempre con `textContent`, mai `innerHTML` con dati dell'utente o dei file importati.
 - Mobile a 390 px senza scorrimento orizzontale (attenzione ai testi lunghi in griglie: `minmax(0, 1fr)` e `min-width: 0`), pulsanti alti almeno 44 px, colori da variabili del tema (chiaro e scuro).
+- **Nessun bottone esce dal suo riquadro né va a capo da solo** (regola dell'utente, 2026-11-07), su desktop e a 390 px:
+  - Campo + bottone sulla stessa riga: `display: flex` **senza** `flex-wrap`, il campo `flex: 1 1 auto; min-width: 0` (si stringe lui), il bottone `flex: none`. Bottone di aggiunta corto («+» con `aria-label` «Aggiungi»), quadrato e alto quanto il campo (44×44).
+  - Mai `flex-basis: 100%` (o `width: 100%`) insieme a un margine laterale: la larghezza diventa 100% + margine ed esce. Usare `calc(100% - margine)` o togliere il margine.
+  - Testi lunghi vanno a capo (`overflow-wrap: anywhere`), non spingono fuori i bottoni.
+  - Prova: test nel browser che confronta `getBoundingClientRect()` del bottone con il riquadro che lo contiene, a 1280, 900 e 390 px, **con le parti richiudibili aperte** (sottoattività, dettagli): a 390 px i margini spesso sono 0 e l'errore non si vede.
 - **Moduli di inserimento**: dopo «Aggiungi» riuscito i campi si svuotano per la voce successiva; con un errore il testo resta. Se la pagina ridisegna e ricopia i campi scritti (bozze), i campi si svuotano **prima** del ridisegno: `const err = azione(...); if (!err) campo.value = ''; salvaERidisegna(err)`. Mai `if (salvaERidisegna(...)) campo.value = ''`: svuota il campo vecchio, già tolto dalla pagina. Un test statico lo controlla.
 - Stati vuoti chiari («Ancora nessuna voce: aggiungila da …»), mai un riquadro vuoto o nascosto senza spiegazione.
 - **Sezioni «Online» con una vetrina** (regola dell'utente, 2026-11-03): aprendo la sezione, e a ogni cambio di fonte o filtro (es. «Classica»), si vede subito cosa c'è sui siti collegati (classifiche, più ascoltati, ultimi aggiornati) senza dover scrivere; la ricerca restringe. In fondo «Mostra altri» per le pagine dopo.
@@ -125,3 +130,43 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Dopo una modifica all'interfaccia: aprire la pagina, guardarla a 390 px e su desktop, nessun errore in console.
 - Test su Windows: i `subprocess.run(..., text=True)` leggono con `encoding="utf-8"` (altrimenti cp1252 fallisce su `═`, `⚙`). Dalla shell Git Bash un percorso `/c/...` passato a Python va convertito con `cygpath -w`, se no diventa `C:\c\...`.
 - Le modifiche al server arrivano al server acceso solo dopo il riavvio: dirlo sempre all'utente (e indicare il bottone Riavvia della pagina).
+
+## 9. Download dalla rete locale (regola dell'utente, 2026-11-07)
+
+**Regola.** I download avviati da qualsiasi dispositivo della rete locale (telefono, tablet, altro PC) vengono eseguiti
+sul PC host del server; i file vengono salvati nella libreria del PC; l'archivio è unico e deriva dal server, quindi dopo
+il download la serie compare nell'archivio sia del telefono sia del PC senza ricaricare la pagina.
+Implementazione di riferimento: Vivlío 3.1 (`Free Claude Code/Vivlos/codice/`).
+
+- **Avvio per la rete**: il server ascolta su `0.0.0.0` solo se scelto (domanda all'avvio, `--rete` o `"rete_locale": true`
+  in `dati/impostazioni.json`) e stampa nel terminale l'indirizzo da aprire dal telefono, `http://IP-DEL-PC:PORTA/`
+  (es. `http://192.168.1.20:8790/`). L'IP si aggiunge all'elenco degli Host ammessi; il telefono entra con la password.
+- **Firewall**: se il telefono non apre l'indirizzo, la porta è bloccata. Ubuntu: `sudo ufw status`, poi
+  `sudo ufw allow <porta>/tcp`. Windows: «Consenti accesso» per Python sulle reti private, oppure da PowerShell
+  amministratore `New-NetFirewallRule -DisplayName <app> -Direction Inbound -Protocol TCP -LocalPort <porta> -Action Allow -Profile Private`.
+  macOS: Impostazioni → Rete → Firewall → Opzioni. Mai cambiare il firewall senza dirlo all'utente.
+- **Dove vanno i file**: nella stessa cartella e struttura di quando si scarica dal PC (Vivlío: pagine parziali in
+  `dati/caricati/.scarica-<hash>/`, poi importate in `dati/biblioteca/<serie>/capitoli/`).
+- **Lavoro in background**: il server crea un job (id, stato `in_corso`/`ok`/`errore`/`fermato`, avanzamento) in un thread
+  suo; il client chiede solo di avviarlo e ne legge lo stato. Telefono bloccato, disconnesso o pagina chiusa: il download
+  continua. Al massimo 2 download in parallelo (semaforo), gli altri «In coda».
+- **Tempo reale**: ogni pagina aperta chiede l'elenco dei job ogni 10 s (ogni 2 s con download attivi) e, quando cambia
+  l'insieme dei download attivi o uno finisce, ricarica l'archivio dal server. La serie compare subito «In download» con
+  l'avanzamento, poi completa con i capitoli, su tutti i dispositivi. Polling e non SSE/WebSocket: il server è
+  `http.server` della libreria standard e il polling basta; passare a SSE solo se servono aggiornamenti sotto il secondo.
+- **Duplicati**: controllo «stesso URL già in corso» e creazione del job sotto lo stesso lock; da due dispositivi insieme
+  parte uno solo, l'altro riceve «questa serie si sta già scaricando».
+- **Errori**: un capitolo rotto non ferma gli altri; un errore lascia le pagine già scaricate e il job mostra **Riprova**,
+  che riparte senza riscaricarle. Spazio libero sotto 500 MB: errore «spazio su disco insufficiente», poi Riprova.
+- **Riavvio o crash del server**: la richiesta del download si salva su disco appena accettata (anche se resta in coda);
+  all'avvio i job non finiti ricompaiono «Interrotto» con Riprendi. Mai persi in silenzio.
+- **Elaborazione sul PC host**: anche le conversioni (es. copertine in PNG con Pillow) si fanno sul server, così funzionano
+  allo stesso modo dal PC e dal telefono, senza dipendere da funzioni del browser.
+
+**Da non rompere**
+- Niente `localhost` o `127.0.0.1` scritti nel client: solo URL relativi (`/api/...`, `/media/...`), anche per immagini,
+  pagine dei capitoli e copertine.
+- Niente archivio salvato solo nel browser (localStorage, IndexedDB, cache): il browser tiene solo preferenze di vista;
+  una cache, se c'è, è solo di velocità e si riallinea al server.
+- Niente download eseguiti dal client: il browser non scarica le pagine, non deve restare aperto e non salva file.
+- Niente blocchi «solo da questo computer» sui download: restano solo per spegni, riavvia, password e installazioni.
