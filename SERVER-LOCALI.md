@@ -62,7 +62,6 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 - Le copie arrivate da fuori diventano **copie in sospeso** che la pagina unisce; mai sovrascrivere i dati di qui.
 - Ogni impostazione modificabile dalla pagina si salva subito e **resta uguale ai riavvii**. Quando un'impostazione si riscrive, si conservano le altre (`{...vecchie, nuova}`), mai un oggetto nuovo da zero.
 - Letture e scritture dello stesso file di impostazioni da più thread passano da un lock.
-- **Solo fonti legali nelle sezioni Online**: niente siti pirata (StreamingCommunity e simili, LibGen, Anna's Archive) né aggiramento di DRM o protezioni anti-bot; per libri e film: Gutenberg, Internet Archive (escludendo i prestiti `access-restricted-item`), contenuti pubblicati dai titolari.
 - **Una cartella scelta dall'utente si ricorda** (regola dell'utente, 2026-11-03): mai far riscegliere la cartella a ogni apertura. Il selettore del browser non può ricordarla, quindi il percorso si scrive nelle impostazioni (solo dal PC del server) e il server lo salva in `~/.cache/<app>/` (di quel PC, fuori dalla cartella sincronizzata) e la rilegge a ogni apertura. Le chiavi dei file restano quelle di prima (percorso relativo), così ascolti, preferiti e playlist non si perdono.
 
 ## 4. Backup
