@@ -45,3 +45,4 @@
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
 - [Videoteca](project_videoteca.md) — 8802, libreria video porno/hentai stile Scaffale, scene, StashDB per oshash, doppioni phash, AV1, cassaforte AES-GCM legata alla sessione
 - [stealth_fetch](project_stealth_fetch.md) — Fetch anti-bot 4 tier in `Cybersecurity/Script/stealth/`, copiato dentro Scaffale Mangawa (Script/, Toongod + pagina Server) e Media Loader (_get_chrome); toongod/Cloudflare da Claude negato
+- [App Android Apk-TV e Apk-Telefono](project_apk_android.md) — `Free Claude Code/Apk/`, rifatti 2026-11-07 secondo `Apk-&-Apps.md`; verificati solo risorse + kotlinc + JUnit (manca JDK con javac), integrazione Cineteca futura
