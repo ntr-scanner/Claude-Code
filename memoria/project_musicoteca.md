@@ -1,6 +1,6 @@
 ---
 name: project-musicoteca
-description: "Musicoteca 1.2 (porta 8798) in Intrattenimento/Suite-Intrattenimento/musicoteca: tag, playlist, ruota, karaoke .lrc; dalla 1.2 cartella ricordata dal server, sezione Online (YouTube/SoundCloud/Archive + Classica), popup dettagli"
+description: "Musicoteca 1.3 (porta 8798) in Intrattenimento/Suite-Intrattenimento/musicoteca: tag, playlist, ruota, karaoke .lrc; dalla 1.2 cartella ricordata dal server, sezione Online (YouTube/SoundCloud/Archive + Classica), popup dettagli"
 metadata:
   node_type: memory
   type: project
@@ -23,6 +23,9 @@ Creata 2026-10-31. Base comune: [[project-intrattenimento-base]]. Fino alla 1.1 
 - Brani online fuori da preferiti/playlist/ascolti (chiave = URL): versione minima concordata con l'utente.
 - Test 15 (`python -B tests/test_server.py`; subprocess con `encoding="utf-8"` su Windows). Server di prova: launch.json «musicoteca-prova» porta 8897, dati temporanei, password con `base.Auth(...).set_password`.
 - Insidia: in Git Bash un percorso `/c/...` dentro una stringa raw di Python diventa `C:\c\...` → usare `cygpath -w`.
+- **1.3.0 (2026-11-07, richiesta utente)**: ⚙ → Pacchetti (`strumenti.py`, `/api/pacchetti` + `/api/pacchetti/scarica` solo dal PC): `pip install -U --target ~/.local/share/vektora-musicoteca/pacchetti-pyX.Y` (Windows `%LOCALAPPDATA%`) di `yt-dlp[default,curl-cffi]`, + `deno` solo senza node, + `imageio-ffmpeg` (ffmpeg con libmp3lame dentro il wheel) solo senza ffmpeg di sistema; 40-350 MB. `--target` salta il blocco PEP 668 di Ubuntu, niente sudo; server.py mette la cartella in testa a sys.path. `strumenti.ffmpeg()`/`js_runtimes()` usati da online.py (`ffmpeg_location`, deno via `deno.find_deno_bin()`). Su questo PC mancava yt-dlp-ejs. Versioni PyPI una volta per avvio.
+- **Musica e blocco**: al blocco `/f/...` dà 401, `<audio>` lo vedeva come errore → «Il browser non legge… passo al prossimo» a catena. Ora l'handler `error` chiede `/api/sessione`: se fuori, `login()` e poi `a.load()` + stesso punto (`loadedmetadata`). Provato con Chromium di Playwright (playwright-core in ~/.npm/_npx, chromium-1254; il MCP Playwright può essere occupato da un'altra sessione).
+- Test 22.
 
 **Why:** l'utente voleva Online «come Scaffale Mangawa ma con ascolto, un po' come Spotify», una sezione Classica e non riscegliere la cartella ogni volta.
 **How to apply:** ricerca e download stanno in `online.py`; le correzioni ai siti valgono solo qui (Media Loader ha le sue).
