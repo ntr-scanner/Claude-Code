@@ -2,7 +2,7 @@
 
 Cartella dei repo di terzi che l'utente integra in Claude Code. I clone **non** finiscono nel backup git di `Claude/` (sono in `.gitignore`, ~1,1 GB): nel backup restano solo questo file e `setup_repos.sh`, che li ricrea.
 
-Aggiornato: 2026-10-31 (aggiunti harvey e lead-research-assistant da awesome-claude-skills)
+Aggiornato: 2026-11-07 (aggiunta skill animate da delphi-ai/animate-skill)
 
 ## Repo integrati
 
@@ -36,6 +36,7 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 | `llm-council/` | [gcpdev/llm-council-skill](https://github.com/gcpdev/llm-council-skill) | Skill `llm-council`, link in `~/.claude/skills/llm-council` | «Consult the council: …». Serve un `.env` nella cartella di lavoro con `OPENAI_API_KEY` e `GEMINI_API_KEY` (a pagamento per chiamata) |
 | `claude-mem/` | [thedotmack/claude-mem](https://github.com/thedotmack/claude-mem) | Plugin `claude-mem@thedotmack` (marketplace locale; hook SessionStart/PostToolUse/Stop + worker in background) | Memoria automatica tra sessioni: osserva ogni uso di tool, la comprime con l'Agent SDK (consuma utilizzo Claude) e la reinietta all'avvio. Licenza AGPL-3.0 |
 | `awesome-claude-skills/` | [composiohq/awesome-claude-skills](https://github.com/composiohq/awesome-claude-skills) | Solo `lead-research-assistant`, link in `~/.claude/skills/lead-research-assistant` |
+| `animate/` | [delphi-ai/animate-skill](https://github.com/delphi-ai/animate-skill) | Skill `animate`, link in `~/.claude/skills/animate` (CSS + Framer Motion per React/Next.js) |
 | `graphify/` | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | CLI `graphify` (venv, pacchetto `graphifyy`) + `graphify install --platform claude` → skill in `~/.claude/skills/graphify` e blocco in `~/.claude/CLAUDE.md` |
 
 ## Dove stanno i tool installati

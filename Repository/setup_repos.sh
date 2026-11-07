@@ -85,6 +85,7 @@ Esecuzione:
   agent-skills     addyosmani/agent-skills           plugin agent-skills@addy-agent-skills
   caveman          JuliusBrussee/caveman             plugin caveman@caveman (hook)
   graphify         Graphify-Labs/graphify            CLI 'graphify' (venv) + skill /graphify
+  animate          delphi-ai/animate-skill           skill animate (link in ~/.claude/skills)
 
 ═══ ESEMPI ═══
   Nuovo dispositivo, guidato:        ./setup_repos.sh
@@ -343,6 +344,7 @@ esegui() {
     clone_repo llm-council       https://github.com/gcpdev/llm-council-skill.git
     clone_repo claude-mem        https://github.com/thedotmack/claude-mem.git
     clone_repo awesome-claude-skills https://github.com/composiohq/awesome-claude-skills.git
+    clone_repo animate           https://github.com/delphi-ai/animate-skill.git
     clone_repo harvey            https://github.com/ethanplusai/harvey.git
 
     echo; info "STEP 2 — installazione dei tool"
@@ -393,6 +395,7 @@ esegui() {
     link_skill "$BASE_DIR/llm-council/llm-council"
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
     link_skill "$BASE_DIR/awesome-claude-skills/lead-research-assistant"
+    link_skill "$BASE_DIR/animate"
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
     elif manca "skill graphify (graphify install --platform claude)"; then

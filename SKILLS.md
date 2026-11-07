@@ -30,7 +30,7 @@ Aggiornato: 2026-10-17
 | Decisione tecnica con seconde opinioni (solo se l'utente lo chiede) | `llm-council` («consult the council»: ChatGPT + Gemini via API, serve `.env` con le chiavi) |
 | Trovare clienti / lead per Vektora | `lead-research-assistant` (ricerca aziende target e strategia di contatto, nessun invio); `harvey` (CLI, invio cold email: solo su richiesta, vedi avvertenze in `Repository/README.md`) |
 | Test e screenshot nel browser | server MCP `playwright` (su Brave) |
-| UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `taste-skill` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion) |
+| UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `taste-skill` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion); `animate` per animazioni e transizioni (CSS, Framer Motion) |
 | Redesign di una pagina esistente | taste-skill `redesign-skill`; ui-ux-pro-max `design-system` |
 | Da immagine/mockup a codice | taste-skill `image-to-code-skill` |
 | Brand, design system, banner, slide | ui-ux-pro-max `brand`, `design-system`, `banner-design`, `slides`; anthropic `brand-guidelines`, `theme-factory` |
