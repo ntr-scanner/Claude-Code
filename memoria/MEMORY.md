@@ -51,3 +51,4 @@
 - [App Android Apk-TV e Apk-Telefono](project_apk_android.md) — `Free Claude Code/Apk/`, rifatti 2026-11-07 secondo `Apk-&-Apps.md`; verificati solo risorse + kotlinc + JUnit (manca JDK con javac), integrazione Cineteca futura
 - [stealth_fetch](project_stealth_fetch.md) — Fetch anti-bot 4 tier in `Cybersecurity/Script/stealth/`, copiato dentro Scaffale Mangawa (Script/, Toongod + pagina Server) e Media Loader (_get_chrome); toongod/Cloudflare da Claude negato
 - [Aurum](project_aurum.md) — PAC disciplinato a fasi di rischio in `Free Claude Code/Aurum/`, porta 10000, decisioni nel README, prossimo passo prompt_1 (ricerca)
+- [Attrezzi File](project_attrezzi_file.md) — app Android in `Progetti/Attrezzi File/`, solo piano.md (2026-11-08), Svuota Cartella sul telefono, prima prova Termux
