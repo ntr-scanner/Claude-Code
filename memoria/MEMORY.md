@@ -41,14 +41,15 @@
 - [Musicoteca](project_musicoteca.md) — 8798, tag ID3/MP4/FLAC nella pagina, playlist, ruota album, karaoke .lrc + telecomando; dalla 1.2 cartella ricordata, 🌐 Online (YouTube/SoundCloud/Archive + Classica, online.py), popup dettagli
 - [Musicoteca Android](project_musicoteca_android.md) — APK senza server in `Suite Intrattenimento/musicoteca-android`, cartella SAF, Media3, preferiti/playlist/ruota; verificato su emulatore
 - [Galleria](project_galleria.md) — 8799, cartella letta dal server, EXIF, GPS solo in ~/.cache, duplicati e riordino con Annulla; dalla 1.1 miniature ffmpeg + bottone scarica ffmpeg
+- [Galleria Android](project_galleria_android.md) — APK senza server in `Suite Intrattenimento/galleria-android`, tutto il telefono da MediaStore, minSdk 30, cestino/riordino/duplicati, EXIF letto da sé
 - [Biblioteca](project_biblioteca.md) — 8800, EPUB fatto in casa + pdf.js in vendor/, segnalibri, Open Library
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
-- [Videoteca](project_videoteca.md) — 8802, libreria video porno/hentai stile Scaffale, scene, StashDB per oshash, doppioni phash, AV1, cassaforte AES-GCM legata alla sessione
+- [Videoteca](project_videoteca.md) — 8802, dalla 1.2 come Cineteca (Continua/Riprendi/Anno/Ruota, Porno e Hentai separati), Galleria immagini, Online siti + scaricamenti sul PC (§9), selettore cartelle; cassaforte AES-GCM, StashDB, doppioni
 - [Organizza Cartella](project_organizza_cartella.md) — script file di primo livello → sottocartelle per tipo, anteprima di default, in `Cybersecurity/Script/Organizza Cartella/`
 - [Sipario](project_sipario.md) — progetto unico Intrattenimento/Sipario (copia Scaffale+Suite+Media Loader), dashboard 8780, repo privato da creare, prossimi Film&Serie/Anime + Scarica
-- [Vivlío](project_vivlio.md) — cartella `Free Claude Code/Vivlos/codice`, 8790; 3.1 download dal telefono eseguiti sul PC (SERVER-LOCALI §9), copertine PNG; server.py CRLF
+- [Vivlío](project_vivlio.md) — cartella `Free Claude Code/Vivlos/codice`, 8790; 3.1 download dal telefono eseguiti sul PC (SERVER-LOCALI §9), copertine PNG; server.py CRLF; 3.3 PIN telefono + blocco PC solo sessioni locali
 - [App Android Apk-TV e Apk-Telefono](project_apk_android.md) — `Free Claude Code/Apk/`, rifatti 2026-11-07 secondo `Apk-&-Apps.md`; verificati solo risorse + kotlinc + JUnit (manca JDK con javac), integrazione Cineteca futura
 - [stealth_fetch](project_stealth_fetch.md) — Fetch anti-bot 4 tier in `Cybersecurity/Script/stealth/`, copiato dentro Scaffale Mangawa (Script/, Toongod + pagina Server) e Media Loader (_get_chrome); toongod/Cloudflare da Claude negato
-- [Aurum](project_aurum.md) — PAC disciplinato a fasi di rischio in `Free Claude Code/Aurum/`, porta 10000, decisioni nel README, prossimo passo prompt_1 (ricerca)
+- [Aurum](project_aurum.md) — PAC disciplinato a fasi di rischio in `Free Claude Code/Aurum/`, porta 10000, decisioni nel README, ricerca + server 1.0.0 fatti 2026-11-08 (segnali NON SUPERA), prossimi prompt_3/4 (controllo, correzioni)
 - [Attrezzi File](project_attrezzi_file.md) — app Android in `Progetti/Attrezzi File/`, solo piano.md (2026-11-08), Svuota Cartella sul telefono, prima prova Termux
