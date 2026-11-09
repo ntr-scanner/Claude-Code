@@ -91,7 +91,44 @@ Nel report va scritto chiaramente che `assembleDebug`, `lint` e `test` via Gradl
 - Tema chiaro/scuro: `isSystemInDarkTheme()` in Compose più temi XML `values` / `values-night` per la finestra di avvio.
 - Navigazione indietro sia col tasto di sistema sia con la freccia nella `TopAppBar`.
 
-## 8. Report finale (in italiano, per ogni progetto)
+## 8. Aggiornamenti senza disinstallare (regola dell'utente, 2026-11-09)
+
+**Regola.** Ogni app si aggiorna da sola dal PC, senza disinstallarla e senza perdere i dati: dopo una modifica si
+compila sul PC e l'app, collegandosi al server, scarica e installa l'APK nuovo. Si installa a mano solo la prima
+versione che ha l'aggiornamento.
+
+Due casi, secondo da dove arriva l'app:
+- **App senza server (Galleria Android)**: sul PC si accende `aggiorna.py` solo quando c'è un APK nuovo (chiede se
+  compilare se l'APK è più vecchio dei sorgenti); nell'app «Strumenti → Cerca aggiornamenti» manda l'impronta e il
+  server si spegne dopo l'invio, dopo «uguale» o dopo 15 minuti. Porta di `aggiorna.py`: **8803**, solo client con IP
+  privato. Musicoteca Android non ce l'ha ancora: va aggiunta alla prossima modifica.
+- **App installata dal sito del server (Theca TV, Cineteca-FCC TV)**: l'aggiornamento arriva **dallo stesso server**.
+  `./gradlew nelServer` mette l'APK in `dati/<app>-tv.apk`; all'apertura l'app chiama `/api/apk-tv?sha=<impronta>`
+  (libero dal PIN come l'APK, nessun dato privato) e, se l'APK del server è diverso, chiede «Installa / Più tardi»
+  (fuoco su Installa per il telecomando). Una volta per apertura dell'app.
+
+Come si fa (codice di riferimento: `galleria-android/.../data/Aggiornamento.kt`, `theca/codice/apk-tv/.../Aggiornamento.kt`):
+- Confronto con l'**impronta SHA-256 dell'APK installato** (`applicationInfo.sourceDir`), non con `versionCode`: ogni
+  build nuova è un aggiornamento anche senza cambiare versione (Android accetta lo stesso `versionCode`). Alzare comunque
+  `versionName` quando cambia qualcosa che l'utente vede.
+- L'APK si scarica **dentro la sessione di `PackageInstaller`** (nessun file in giro), controllando dimensione e impronta
+  prima del `commit`; impronta diversa = `abandon()` e messaggio. Redirect non seguiti.
+- Manifest: `REQUEST_INSTALL_PACKAGES` + receiver non esportato per l'esito; su `STATUS_PENDING_USER_ACTION` si apre la
+  finestra di Android (la prima volta «Installa app sconosciute» per l'app). Android 12+: `USER_ACTION_NOT_REQUIRED`,
+  che vale solo quando l'app è già stata installata da se stessa: la prima volta (installata con adb o dal browser)
+  Android chiede comunque «Aggiorna questa app?».
+- **Google Play Protect** può bloccare l'aggiornamento di un'app non dello Store («App blocked to protect your device»,
+  visto sull'emulatore Android TV 14): «Altri dettagli → Installa comunque» lo fa l'utente sul dispositivo. Non si
+  disattiva Play Protect al posto suo.
+- Stessa firma: Android sostituisce l'app solo con un APK firmato con la stessa chiave → compilare sempre sullo stesso PC
+  (build debug con la chiave di quel PC: vedi il commento `shortcut` in `build.gradle.kts`).
+- Errori tradotti per l'utente: server spento = «nessun aggiornamento» (non un errore), timeout, APK rovinato,
+  installazione rifiutata (con il motivo di Android).
+- Prova: emulatore con la versione A installata, versione B sul server, `adb reverse tcp:<porta> tcp:<porta>` e indirizzo
+  `127.0.0.1:<porta>` (la NAT dell'emulatore su Windows tronca le risposte grandi), poi controllare
+  `dumpsys package <id> | grep versionName`.
+
+## 9. Report finale (in italiano, per ogni progetto)
 
 - Problemi divisi in: errori di build, bug di runtime, problemi di configurazione; per ciascuno file e riga, causa, correzione.
 - Cosa è stato verificato davvero (build, lint, test) e cosa no, con il motivo.

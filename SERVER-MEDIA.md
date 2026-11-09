@@ -12,13 +12,13 @@ Scritto il 2026-11-09 su richiesta dell'utente.
 
 | Progetto | Dove | Porta | Da guardare per |
 |---|---|---|---|
-| Theca (ex Cineteca, con Anime) | `Cybersecurity/Script/Intrattenimento/Suite-Intrattenimento/theca/` | 8803 | libreria film/serie dal nome dei file, TMDB, lettore con «visto»/riprendi, sottotitoli OpenSubtitles, Online + Download (FCC), app TV |
+| Theca (ex Cineteca, con Anime) | `Cybersecurity/Script/Intrattenimento/Suite-Intrattenimento/theca/` | 8804 | libreria film/serie dal nome dei file, TMDB, lettore con «visto»/riprendi, sottotitoli OpenSubtitles, Online + Download (FCC), app TV |
 | Cineteca-FCC (senza Anime) | `Free-Claude-Code-Regole/Cineteca-FCC/` | 8796 | come Theca, repo a sé: le correzioni comuni vanno portate in tutte e due |
 | Videoteca | `Suite-Intrattenimento/videoteca/` | 8802 | libreria propria (file spostati), oshash/phash, anteprime e scene con ffmpeg, cassaforte cifrata, doppioni, AV1 |
 | Musicoteca | `Suite-Intrattenimento/musicoteca/` | 8798 | tag ID3/MP4/FLAC letti nella pagina, cartella ricordata, ascolto online girato dal server (Range, HLS), karaoke |
 | Galleria | `Suite-Intrattenimento/galleria/` | 8799 | EXIF e GPS, miniature ffmpeg, duplicati, riordino con Annulla |
 | Biblioteca | `Suite-Intrattenimento/biblioteca/` | 8800 | EPUB fatto in casa, pdf.js, `RemoteFile` con Range |
-| Suite Intrattenimento | `Suite-Intrattenimento/` (un repo) | 8798-8803 | base comune: `base.py`, `comune.js`, `base.css`, `dipendenze.py`, `menu_app.py` |
+| Suite Intrattenimento | `Suite-Intrattenimento/` (un repo) | 8798-8804 | base comune: `base.py`, `comune.js`, `base.css`, `dipendenze.py`, `menu_app.py` |
 | Vivlío | `Vivlio/` e `Free-Claude-Code-Regole/Coding/Vivlio/` | 8790 | manga: download dal telefono eseguiti sul PC (§9), copertine PNG, cartelle su HDD |
 | Media Loader | `Cybersecurity/Script/Media Loader/` | 8800+ | motori di download (yt-dlp, HLS, resolver), domini dei siti, pausa/ripresa, programmi esterni |
 

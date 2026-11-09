@@ -107,6 +107,17 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 ## 6. Interfaccia
 
 - **Pagine con pulsanti in alto** (non una pagina lunghissima): la prima è quella che si usa ogni giorno (es. «In lettura», «Stai giocando», «Ripasso di oggi»); la pagina scelta resta nell'indirizzo (`#pagina`). I vecchi collegamenti a un riquadro aprono la sua pagina.
+- **Testata che si stringe senza rompersi** (regola dell'utente, 2026-11-09): le schede e i bottoni «emoji + parola»
+  (🌐 Online, 📅 Uscite, 📁 Cartella…) mostrano la parola solo quando c'è spazio; quando brand, schede e strumenti non
+  stanno su una riga (telefono, finestra ridotta) resta **solo l'emoji**. Le schede che sono solo parola (Continua, Film,
+  Serie, Da vedere) restano sempre. Mai la casella di ricerca che scende su una seconda riga lasciando un buco.
+  - Markup: `🌐 <span class="lbl">Online</span>` con `title="Online"` sul link o bottone.
+  - CSS: `.top.compatta .lbl` nascosto **solo alla vista** (`position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%)`), così i lettori di schermo leggono ancora la parola; mai `display: none`.
+  - JS `testataCompatta()`: toglie la classe, misura (schede che scorrono, oppure `.tools` andata sotto le schede) e la
+    rimette se serve; si rimisura su `resize`, sui cambi di testo delle schede (contatori, `MutationObserver`) e dopo i font.
+    Non una soglia fissa in px: ogni app ha schede diverse.
+  - Fatto in Intrattenimento (`base.css`/`comune.js`, copie identiche), Theca, Cineteca-FCC. Prova a 1900, 1280 e 375 px.
 - I pulsanti delle pagine dentro il contenuto sono **staccati sopra e sotto**, mai incollati ai riquadri.
 - **Pochi pulsanti in testata** (2-4). Una pagina con tanti gruppi (es. 7 gruppi di regole) non diventa 7 pulsanti in alto: resta un pulsante solo, e dentro la pagina i gruppi sono **schede sottolineate** (una barra di schede come in Galanteria), con un gruppo visibile alla volta.
 - Un elemento nuovo ha tutto quello che hanno i suoi simili (stessa disposizione, stessi controlli): prima si guarda come lo fa una sezione già esistente che l'utente indica.
@@ -220,9 +231,9 @@ Implementazione di riferimento: Suite Intrattenimento (`dipendenze.py`, copia id
   indirizzo stampato per il telefono, riavvio (`os.execv` con `--porta p`).
 - **Una seconda istanza dello stesso server** non deve finire sulla porta dopo: prima del ciclo il lockfile e `/api/ping`
   (che risponde con il nome dell'app) dicono se è già acceso, e allora si apre quello.
-- Progetti diversi hanno **porte di default diverse** (tabella nel README della Suite: Theca 8803, Cineteca-FCC 8796,
+- Progetti diversi hanno **porte di default diverse** (tabella nel README della Suite: Theca 8804, Cineteca-FCC 8796,
   Musicoteca 8798…): la porta successiva è un ripiego, non il modo normale di farli convivere. App per TV o telefono che
-  cercano il server su una porta fissa (Apk TV di Theca: 8803) vanno aggiornate se cambia il default.
+  cercano il server su una porta fissa (Apk TV di Theca: 8804) vanno aggiornate se cambia il default.
 - Implementazioni: `base.py` della Suite (`PORTS_TO_TRY = 20`), Theca/Cineteca-FCC `serve()`, Scaffale Mangawa e
   Vivlío (`PORTE_DA_PROVARE`), Media Loader (`TENTATIVI_PORTA`), Ayanokoji, Compliance Tracker, Carburanti Veneto,
   Cyber Quiz (dal 2026-11-09).
