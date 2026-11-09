@@ -27,3 +27,5 @@ metadata:
 **How to apply:** nuovi controlli = YAML in `checklists/` + guida con stesso id in `guida/`. I clienti vecchi ricevono controlli/framework nuovi all'apertura (`refresh_client_from_template`). Il demo ha descrizioni salvate più vecchie dei YAML (es. gdpr-02).
 
 [[project-cybersecurity-dr-audit]] [[project-ayanokoji-system]] [[project-ransomware-identifier]]
+
+- 2026-11-09: pagina **Server** (menu, `/server`, `templates/server.html`): pacchetti di requirements.txt con versione installata e «Scarica e integra» (`dipendenze.py` copia identica della Suite, solo da 127.0.0.1 e stessa Origin). `avvia.sh`/`avvia.bat` ora creano la `.venv` al primo avvio e reinstallano solo se requirements cambia (`.venv/.req-ok`). Test 18.

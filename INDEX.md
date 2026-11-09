@@ -31,6 +31,7 @@ Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficial
 | **Qualsiasi lavoro su un progetto o codice** | `SKILLS.md` (quali skill caricare per il task), poi i file specifici sotto |
 | Scrivere qualsiasi script (Python, Bash, PowerShell) | `SCRIPT.md` (obbligatorio, prima di scrivere) |
 | Creare o modificare un server locale o una web app personale (dashboard, tool, lettori) | `SERVER-LOCALI.md` (obbligatorio, prima di scrivere: domande iniziali tutte insieme, niente copie di Ayanokoji) |
+| Server o web app con video, musica, immagini, libri o manga (lettori, librerie, download, Online) | `SERVER-LOCALI.md` **e** `SERVER-MEDIA.md` (cartelle dei media, lettore, copertine via server, siti, download, programmi esterni, copie identiche) |
 | Creare, controllare o correggere un'app Android (APK telefono, Android TV) | `Apk-&-Apps.md` (obbligatorio: perimetro, ambiente JDK/SDK, build, rete solo LAN, focus TV, insets telefono, report) |
 | Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
 | Audit / sicurezza | `agents/security-auditor.md`, `memoria/project_cybersecurity_*.md` e gli altri `project_*` di cybersecurity |
@@ -45,6 +46,7 @@ Claude/
 ├── SKILLS.md           quale skill esterna usare per quale task (design, TDD, debug, review, ...)
 ├── SCRIPT.md           standard per scrivere script (interattivo di default, --yes/--non-interactive, fail-safe)
 ├── SERVER-LOCALI.md    regole e domande iniziali per server locali e web app personali (sicurezza, sync, backup, cifratura, interfaccia)
+├── SERVER-MEDIA.md     regole in più per server con video/audio/immagini (Theca, Cineteca-FCC, Suite Intrattenimento, Vivlío, Media Loader)
 ├── Apk-&-Apps.md       regole per app Android (APK telefono e TV): procedura di revisione, build, rete, focus/insets, report
 ├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
 ├── README.md           documentazione del repo di backup

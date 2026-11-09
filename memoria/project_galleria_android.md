@@ -1,6 +1,6 @@
 ---
 name: project-galleria-android
-description: APK Galleria senza server in Suite Intrattenimento/galleria-android: tutto il telefono da MediaStore, minSdk 30, cestino/riordino con richieste di sistema; verificato su emulatore 2026-11-08
+description: APK Galleria senza server (dalla 1.1 aggiornamento dal PC con aggiorna.py) in Suite Intrattenimento/galleria-android: tutto il telefono da MediaStore, minSdk 30, cestino/riordino con richieste di sistema; verificato su emulatore 2026-11-08
 metadata:
   type: project
 ---
@@ -14,6 +14,8 @@ Creata 2026-11-08 su richiesta («apk del progetto galleria»), stessa base di [
 - Preferite per id MediaStore (resta uguale dopo uno spostamento).
 - Test emulatore: push file con `adb push` uno per volta (con `-a` fallisce), poi `content call --uri content://media/ --method scan_volume --arg external_primary`; dialoghi di sistema in inglese (ALLOW/DENY/ALLOW ALL). VideoView va dimensionato con aspectRatio (non ingrandisce da solo).
 - APK debug ~55 MB: con minSdk ≥ 28 i dex sono salvati non compressi, normale.
+
+- 1.1.0 (2026-11-09, fatta su Windows senza JDK/SDK: build e test JVM NON eseguiti): video assenti su telefono vero Android 14+ → lettura da raccolte Images+Video separate invece di MediaStore.Files (causa probabile, non provata); avviso SenzaVideo/SenzaFoto; vista Mese/Album in Foto (`Dati.album`); «Cerca aggiornamenti» in Strumenti + `aggiorna.py` (porta 8803, confronto SHA-256 dell'APK installato, PackageInstaller con USER_ACTION_NOT_REQUIRED, server si spegne dopo l'invio/«uguale»/15 min). Aggiunti INTERNET + REQUEST_INSTALL_PACKAGES (solo IP LAN, `indirizzoPc`). L'utente chiama «Impostazioni» la scheda Strumenti.
 
 **Why:** l'utente vuole un'app galleria vera sul telefono, non un client del PC.
 **How to apply:** prima di modifiche rileggere `Claude/Apk-&-Apps.md`; `./gradlew assembleDebug test lint`; non provati: telefono vero, migliaia di foto, SD, accesso parziale. Codice non committato.

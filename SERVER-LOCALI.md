@@ -1,5 +1,7 @@
 # Server in locale e web app personali: regole
 
+> Server con video, musica, immagini, libri o manga: leggere anche `SERVER-MEDIA.md`.
+
 Da leggere **prima** di creare o modificare un server locale (Python o Node) o una web app personale: dashboard, tool,
 lettori, tracciatori. Per i siti dei clienti Vektora valgono `DESIGN.md` e `vektora-wat.md`; per gli script `SCRIPT.md`.
 
@@ -175,3 +177,52 @@ Implementazione di riferimento: Vivlío 3.1 (`Free Claude Code/Vivlos/codice/`).
   una cache, se c'è, è solo di velocità e si riallinea al server.
 - Niente download eseguiti dal client: il browser non scarica le pagine, non deve restare aperto e non salva file.
 - Niente blocchi «solo da questo computer» sui download: restano solo per spegni, riavvia, password e installazioni.
+
+## 10. Dipendenze: `.venv` al primo avvio e pagina Server (regola dell'utente, 2026-11-09)
+
+**Regola.** Ogni server locale che usa pacchetti fuori dalla libreria standard (`requirements.txt`) si installa da solo
+al primo avvio e si aggiorna dalla pagina, senza comandi a mano.
+Implementazione di riferimento: Suite Intrattenimento (`dipendenze.py`, copia identica in ogni app, controllo
+`sha256sum */codice/dipendenze.py`), Theca e Cineteca-FCC; Compliance Tracker (Flask, pagina «Server»).
+
+- **Lanciatori** (`avvia.sh`, `avvia.bat`, `apri.bat` = `call avvia.bat --apri`): se manca `.venv/bin/python`
+  (`.venv\Scripts\python.exe`) creano la `.venv` accanto al codice con `--clear` (una `.venv` rotta o di un altro Python
+  si rifà da zero, non basta controllare che la cartella esista), aggiornano pip e installano `requirements.txt`.
+  Reinstallano solo se `requirements.txt` cambia (copia in `.venv/.req-ok`, Windows `.venv\req-ok.txt`, confronto con
+  `cmp -s` / `fc /b`). Poi lanciano il server con il Python della `.venv`, mai quello di sistema.
+  Nel `.bat` il Python si cerca fuori dai blocchi `( )` (con `goto`): dentro un blocco `%PY%` resta vuoto.
+  `.gitattributes`: `*.sh text eol=lf`, `*.bat text eol=crlf` (bash su Ubuntu non accetta CRLF). `.venv/` nel `.gitignore`.
+- **Pagina ⚙ → Server → Dipendenze**: tabella dei pacchetti di `requirements.txt` con la versione installata
+  («non installato» in evidenza) e dei programmi esterni («trovato»), più il bottone **Scarica e integra**:
+  `pip install -U <righe>` in un thread, nello stesso Python del server; lo stato (`in corso`/`fatto`/`errore`) si rilegge
+  ogni 2 s. Rifiuta se il server non gira in una `.venv` e lo dice («spegnilo e riaccendilo con avvia.sh/avvia.bat»).
+  Solo dal PC del server (installa programmi: 403 dalla rete) e con token/Origin come le altre azioni.
+- Messaggi di funzione mancante («ricerca non disponibile: manca httpx») rimandano a ⚙ → Server → Scarica e integra,
+  non a `pip install`.
+- **Una `.venv` nuova non ha i pacchetti «di passaggio» del Python di sistema**: provare le funzioni di rete nella
+  `.venv` vera, non solo i test. Esempio (Theca, 2026-11-09): `Accept-Encoding: br` senza il pacchetto `brotli` → httpx
+  restituisce byte compressi e la pagina Online resta vuota; fix `httpx[http2,brotli]` in requirements. Se il codice chiede
+  una codifica, un protocollo o un estrattore, il pacchetto che lo fa va negli extra.
+- La voce del menu delle app creata prima della `.venv` punta al Python di sistema: all'avvio `voce_da_rifare()` la rifà.
+- Server **solo libreria standard** (Carburanti Veneto, Ayanokoji): niente `.venv` né pagina Dipendenze, non servono.
+
+## 11. Porta occupata: si prova la successiva (regola dell'utente, 2026-11-09)
+
+**Regola.** Se la porta scelta è occupata, il server non si ferma: prova la successiva finché ne trova una libera
+(fino a 20 tentativi), poi la dice nel terminale. Si ferma con un errore chiaro solo se sono tutte occupate.
+
+- Ciclo sul **bind vero** (`ThreadingHTTPServer((host, p), …)` dentro `try/except OSError`), non su un controllo fatto
+  prima: tra il controllo e il bind un altro programma può prendere la porta. Con Flask (`app.run`) si prova il bind con
+  un socket e si passa la porta trovata.
+- Messaggi: `Porta 8796 occupata: uso la 8797` e, se finiscono, `Nessuna porta libera tra 8796 e 8815 (motivo).
+  Prova --porta 9000`.
+- La porta usata davvero va dove la cercano gli altri: lockfile/`--stato`/`--apri` (scrivono `{"port": p}`),
+  indirizzo stampato per il telefono, riavvio (`os.execv` con `--porta p`).
+- **Una seconda istanza dello stesso server** non deve finire sulla porta dopo: prima del ciclo il lockfile e `/api/ping`
+  (che risponde con il nome dell'app) dicono se è già acceso, e allora si apre quello.
+- Progetti diversi hanno **porte di default diverse** (tabella nel README della Suite: Theca 8803, Cineteca-FCC 8796,
+  Musicoteca 8798…): la porta successiva è un ripiego, non il modo normale di farli convivere. App per TV o telefono che
+  cercano il server su una porta fissa (Apk TV di Theca: 8803) vanno aggiornate se cambia il default.
+- Implementazioni: `base.py` della Suite (`PORTS_TO_TRY = 20`), Theca/Cineteca-FCC `serve()`, Scaffale Mangawa e
+  Vivlío (`PORTE_DA_PROVARE`), Media Loader (`TENTATIVI_PORTA`), Ayanokoji, Compliance Tracker, Carburanti Veneto,
+  Cyber Quiz (dal 2026-11-09).

@@ -36,12 +36,12 @@
 - [Games](project_games.md) — Dashboard + 7 giochi riflessi/mente in `Progetti/Games/`, record localStorage `giochi:<id>`
 - [Carburanti Veneto](project_carburanti_veneto.md) — Dashboard prezzi Diesel/Benzina/Metano Veneto da CSV MIMIT, server stdlib 8795, in `Sincronizzazione/Progetti/`
 - [Folder Pull](project_folder_pull.md) — pull/push cartelle locali ↔ Syncthing con casella per PC, in `Cybersecurity/Script/Folder Pull/`, repo separata
-- [Cineteca](project_cineteca.md) — libreria film/serie/anime in Intrattenimento/cineteca, server stdlib 8796, cartella dal browser, TMDB, ruota catalogo/PC/Da vedere, --lan con PIN
-- [Base comune Intrattenimento](project_intrattenimento_base.md) — dal 2026-11-01 tutte in `Intrattenimento/Suite Intrattenimento/` (un repo, Ruota esclusa); Musicoteca/Galleria/Biblioteca/Serata: base.py, comune.js, base.css copie identiche (sha256), password anche dal PC; insidie test Playwright
+- [Theca e Cineteca-FCC](project_cineteca.md) — dal 2026-11-09 la cineteca della Suite è Theca (`Suite-Intrattenimento/theca/`, Anime, 8803, greco-romana); Cineteca-FCC (`Free-Claude-Code-Regole/`, 8796) senza Anime; stesso motore, correzioni in tutte e due; dati `cineteca.json` invariati
+- [Base comune Intrattenimento](project_intrattenimento_base.md) — dal 2026-11-01 tutte in `Intrattenimento/Suite Intrattenimento/` (un repo, Ruota esclusa); Musicoteca/Galleria/Biblioteca/Serata: base.py, comune.js, base.css copie identiche (sha256), password anche dal PC; insidie test Playwright; dal 2026-11-09 .venv nei lanciatori + ⚙ → Server → Dipendenze (dipendenze.py, 6 copie)
 - [Musicoteca](project_musicoteca.md) — 8798, tag ID3/MP4/FLAC nella pagina, playlist, ruota album, karaoke .lrc + telecomando; dalla 1.2 cartella ricordata, 🌐 Online (YouTube/SoundCloud/Archive + Classica, online.py), popup dettagli
 - [Musicoteca Android](project_musicoteca_android.md) — APK senza server in `Suite Intrattenimento/musicoteca-android`, cartella SAF, Media3, preferiti/playlist/ruota; verificato su emulatore
 - [Galleria](project_galleria.md) — 8799, cartella letta dal server, EXIF, GPS solo in ~/.cache, duplicati e riordino con Annulla; dalla 1.1 miniature ffmpeg + bottone scarica ffmpeg
-- [Galleria Android](project_galleria_android.md) — APK senza server in `Suite Intrattenimento/galleria-android`, tutto il telefono da MediaStore, minSdk 30, cestino/riordino/duplicati, EXIF letto da sé
+- [Galleria Android](project_galleria_android.md) — APK senza server in `Suite Intrattenimento/galleria-android`, tutto il telefono da MediaStore, minSdk 30, cestino/riordino/duplicati, EXIF letto da sé; dalla 1.1 Album, video da raccolte separate, aggiornamento via `aggiorna.py` (build non verificata)
 - [Biblioteca](project_biblioteca.md) — 8800, EPUB fatto in casa + pdf.js in vendor/, segnalibri, Open Library
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
