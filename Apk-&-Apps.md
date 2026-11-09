@@ -98,10 +98,11 @@ compila sul PC e l'app, collegandosi al server, scarica e installa l'APK nuovo. 
 versione che ha l'aggiornamento.
 
 Due casi, secondo da dove arriva l'app:
-- **App senza server (Galleria Android)**: sul PC si accende `aggiorna.py` solo quando c'è un APK nuovo (chiede se
-  compilare se l'APK è più vecchio dei sorgenti); nell'app «Strumenti → Cerca aggiornamenti» manda l'impronta e il
-  server si spegne dopo l'invio, dopo «uguale» o dopo 15 minuti. Porta di `aggiorna.py`: **8803**, solo client con IP
-  privato. Musicoteca Android non ce l'ha ancora: va aggiunta alla prossima modifica.
+- **App senza server (Galleria Android, Musicoteca Android)**: sul PC si accende `aggiorna.py` (nella cartella dell'app)
+  solo quando c'è un APK nuovo (chiede se compilare se l'APK è più vecchio dei sorgenti); nell'app «Cerca aggiornamenti»
+  (Galleria: Strumenti; Musicoteca: ⚙ Impostazioni) manda l'impronta e il server si spegne dopo l'invio, dopo «uguale» o
+  dopo 15 minuti. **Una porta per app**, uguale in `aggiorna.py` e in `PORTA_PC` dell'app: Galleria 8803, Musicoteca
+  8806 (con la stessa porta un'app riceverebbe l'APK dell'altra). Solo client con IP privato.
 - **App installata dal sito del server (Theca TV, Cineteca-FCC TV)**: l'aggiornamento arriva **dallo stesso server**.
   `./gradlew nelServer` mette l'APK in `dati/<app>-tv.apk`; all'apertura l'app chiama `/api/apk-tv?sha=<impronta>`
   (libero dal PIN come l'APK, nessun dato privato) e, se l'APK del server è diverso, chiede «Installa / Più tardi»
