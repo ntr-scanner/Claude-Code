@@ -2,7 +2,7 @@
 
 Cartella dei repo di terzi che l'utente integra in Claude Code. I clone **non** finiscono nel backup git di `Claude/` (sono in `.gitignore`, ~1,1 GB): nel backup restano solo questo file e `setup_repos.sh`, che li ricrea.
 
-Aggiornato: 2026-11-07 (aggiunta skill animate da delphi-ai/animate-skill)
+Aggiornato: 2026-11-10 (aggiunto plugin rea da morluto/rea: reverse engineering)
 
 ## Repo integrati
 
@@ -38,6 +38,7 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 | `awesome-claude-skills/` | [composiohq/awesome-claude-skills](https://github.com/composiohq/awesome-claude-skills) | Solo `lead-research-assistant`, link in `~/.claude/skills/lead-research-assistant` |
 | `animate/` | [delphi-ai/animate-skill](https://github.com/delphi-ai/animate-skill) | Skill `animate`, link in `~/.claude/skills/animate` (CSS + Framer Motion per React/Next.js) |
 | `graphify/` | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | CLI `graphify` (venv, pacchetto `graphifyy`) + `graphify install --platform claude` → skill in `~/.claude/skills/graphify` e blocco in `~/.claude/CLAUDE.md` |
+| `rea/` | [morluto/rea](https://github.com/morluto/rea) | Plugin `rea@rea` (marketplace locale, ma il plugin arriva dal pacchetto npm `rea-agents`, versione fissata nel `marketplace.json` del clone): server MCP `rea` (Node) + skill `reverse-engineer-anything` | Reverse engineering di binari nativi, .NET, Electron/JS, APK, firmware e siti senza sorgente. L’analisi nativa usa Ghidra/Hopper/IDA se installati (`npx rea-agents setup` o `rea doctor`); il JS statico no. Non serve per una codebase di cui hai il sorgente |
 
 ## Dove stanno i tool installati
 
@@ -66,6 +67,7 @@ Dopo `--apply` riavvia Claude Code. Su Windows lo script va eseguito da Git Bash
 
 - **OmniRoute** instrada le richieste verso provider terzi e può far passare per il gateway anche l'abbonamento Claude: va usato solo su richiesta esplicita, mai impostato come `ANTHROPIC_BASE_URL` globale. Leggere i suoi avvisi sui provider con `tos: avoid` prima di collegarne uno.
 - **Plugin con hook** (ponytail, superpowers, caveman, agent-skills, claude-security): eseguono codice del repo a ogni sessione. Installarli è una scelta dell'utente: Claude non li attiva da solo, si fa con `setup_repos.sh --apply`.
+- **rea** avvia un server MCP Node a ogni sessione e può lanciare decompilatori sui file indicati: analizzare solo software su cui si ha diritto (EULA, `DISCLAIMER.md` del repo).
 - **free-claude-code** come OmniRoute: manda codice e prompt a fornitori terzi (NVIDIA NIM, OpenRouter). Solo su richiesta, mai come `ANTHROPIC_BASE_URL` globale.
 - **claude-mem** registra ogni uso di tool (anche contenuti di file letti) in un SQLite locale e lo riassume con chiamate a Claude: occhio ai progetti con dati sensibili. Si spegne con `claude plugin disable claude-mem@thedotmack`.
 - **Harvey** invia email a terzi dalla casella configurata e usa l'abbonamento Claude in loop. In Italia le email commerciali non richieste a indirizzi nominativi richiedono il consenso (art. 130 Codice Privacy, anche B2B): tenerlo in approvazione manuale (outbox) e verificare la base giuridica prima di inviare. `.env` e `data/harvey.db` (dati dei prospect) stanno nel clone: se `Claude/` è sincronizzata con Syncthing, viaggiano anche loro.

@@ -86,6 +86,7 @@ Esecuzione:
   caveman          JuliusBrussee/caveman             plugin caveman@caveman (hook)
   graphify         Graphify-Labs/graphify            CLI 'graphify' (venv) + skill /graphify
   animate          delphi-ai/animate-skill           skill animate (link in ~/.claude/skills)
+  rea              morluto/rea                       plugin rea@rea (MCP rea + skill reverse-engineer-anything)
 
 ═══ ESEMPI ═══
   Nuovo dispositivo, guidato:        ./setup_repos.sh
@@ -345,6 +346,7 @@ esegui() {
     clone_repo claude-mem        https://github.com/thedotmack/claude-mem.git
     clone_repo awesome-claude-skills https://github.com/composiohq/awesome-claude-skills.git
     clone_repo animate           https://github.com/delphi-ai/animate-skill.git
+    clone_repo rea               https://github.com/morluto/rea.git
     clone_repo harvey            https://github.com/ethanplusai/harvey.git
 
     echo; info "STEP 2 — installazione dei tool"
@@ -392,6 +394,8 @@ esegui() {
     integra_plugin agent-skills           addy-agent-skills      "$BASE_DIR/agent-skills"
     integra_plugin caveman                caveman                "$BASE_DIR/caveman"
     integra_plugin claude-mem             thedotmack             "$BASE_DIR/claude-mem"
+    # il marketplace locale punta al pacchetto npm rea-agents (versione fissata in .claude-plugin/marketplace.json)
+    integra_plugin rea                    rea                    "$BASE_DIR/rea"
     link_skill "$BASE_DIR/llm-council/llm-council"
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
     link_skill "$BASE_DIR/awesome-claude-skills/lead-research-assistant"
