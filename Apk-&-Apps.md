@@ -14,6 +14,11 @@ Origine: richiesta dell'utente del 2026-11-07 (revisione di `Free Claude Code/Ap
 ## 2. Ambiente (verificare prima di tutto)
 
 - **JDK 17 o 21 completo, con `javac`.** Su questo PC (Ubuntu) ci sono solo i JRE `openjdk-21-jre` e `openjdk-25-jre`, senza `javac`: AGP non configura nemmeno la compilazione Kotlin (`Toolchain installation ... does not provide the required capabilities: [JAVA_COMPILER]`). Serve `sudo apt install openjdk-21-jdk-headless` (lo fa l'utente: sudo non è disponibile a Claude e il download di un JDK è stato negato dai permessi). Con JDK 25 Gradle 8.10 non parte.
+- **Windows** (dal 2026-11-10): JDK 21 installato con `winget install Microsoft.OpenJDK.21` in
+  `C:\Program Files\Microsoft\jdk-21.0.13.21-hotspot` (in Git Bash: `export JAVA_HOME="/c/Program Files/Microsoft/jdk-21.0.13.21-hotspot"`
+  e `PATH="$JAVA_HOME/bin:$PATH"`), SDK in `%LOCALAPPDATA%\Android\Sdk` (`sdk.dir` in `local.properties`).
+  Emulatori: `CinetecaTV` (Android TV 14) e `telefono` (Android 14 google_apis x86_64). L'immagine TV **non ha
+  DocumentsUI**: `OpenDocumentTree`/`OpenDocument` non si aprono, le app con cartella SAF si provano sull'AVD telefono.
 - **Android SDK** in `~/Android/Sdk` (installato il 2026-11-07): `cmdline-tools/latest`, `platforms;android-35`, `build-tools;34.0.0`, `platform-tools`. Esportare `ANDROID_HOME=~/Android/Sdk` (oppure `sdk.dir` in `local.properties`, che non va nel repo).
 - **Gradle wrapper ufficiale**: `gradlew`, `gradlew.bat`, `gradle/wrapper/gradle-wrapper.jar` e `.properties`. Un `gradlew` scritto a mano o senza il `.jar` non parte: si rigenera con `gradle wrapper --gradle-version <x>` in una cartella vuota (così i file di build rotti del progetto non bloccano) e si copiano i file.
 - Disco: il PC è al 97%. SDK + Gradle + cache occupano circa 4-6 GB: dirlo prima di scaricare.
@@ -74,6 +79,14 @@ Nel report va scritto chiaramente che `assembleDebug`, `lint` e `test` via Gradl
 - Funzioni `suspend` chiamate solo da coroutine.
 - **Impostazioni**: il campo di testo è collegato al ViewModel (stato che sopravvive alla rotazione); «Testa connessione» prova **l'indirizzo scritto**, non quello salvato; «Salva» valida, normalizza, salva e conferma, oppure mostra il motivo del rifiuto; al primo avvio c'è un valore di default chiaro.
 - Un solo tipo di stato condiviso per l'esito della connessione (es. `ui/common/ConnectionStatus.kt`), non copie identiche in ogni ViewModel.
+- **Media3**: le API marcate `@UnstableApi` (`ExoPlayer.audioSessionId`, `MediaItemsWithStartPosition`,
+  `onPlaybackResumption`) sono un **errore** di lint (`UnsafeOptInUsageError`): `@OptIn(UnstableApi::class)` di
+  `androidx.annotation` sulla classe, con un commento. Lettori musicali: stato del lettore (coda, indice, posizione)
+  salvato dal servizio e ripreso in `onCreate` + `onPlaybackResumption` con `MediaButtonReceiver` nel manifest.
+- **Lavori lunghi (lettura di una cartella, indici)**: mai bloccare la schermata; i dati già noti restano visibili,
+  i nuovi arrivano a blocchi (StateFlow aggiornato ogni N elementi, `debounce` sui calcoli derivati), indicatore sottile.
+- **Righe di pulsanti**: mai `OutlinedButton` con testo in una `Row` stretta (il testo va a capo lettera per lettera):
+  pulsanti con `Modifier.weight(1f)`, icona sopra e nome sotto con `maxLines = 1`.
 - Compose: le API devono esistere nella versione della BOM (es. `TvMaterialTheme`, `TvLazyColumn`, `ButtonColors(a, b)`, `ListItem(onClick)`, `outlinedTextFieldColors`, `foundation.layout.CardDefaults` non esistono o non sono più così); niente liste lazy annidate nello stesso verso; `TopAppBar` richiede `@OptIn(ExperimentalMaterial3Api::class)`; un solo tema applicato nell'Activity, non di nuovo dentro ogni schermata.
 
 ## 7. Specifiche per tipo di dispositivo
