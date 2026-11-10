@@ -104,6 +104,27 @@ Nel report va scritto chiaramente che `assembleDebug`, `lint` e `test` via Gradl
 - Tema chiaro/scuro: `isSystemInDarkTheme()` in Compose più temi XML `values` / `values-night` per la finestra di avvio.
 - Navigazione indietro sia col tasto di sistema sia con la freccia nella `TopAppBar`.
 
+### App musicali (lista dell'utente, 2026-11-10)
+Ogni lettore musicale deve avere tutto questo; si confronta l'app con la lista e si integrano solo i punti mancanti.
+Codice di riferimento: `Suite-Intrattenimento/musicoteca-android` 1.2.0 (copiare, mai condividere).
+- **Indispensabili**: play/pausa/avanti/indietro e seek; coda da vedere, riordinare, svuotare; casuale e ripeti
+  (brano, coda); libreria per brani, album, artisti, generi, cartelle; ricerca su titolo/artista/album; playlist da
+  creare, modificare, rinominare, eliminare; controlli in notifica e schermata di blocco (MediaSession); sottofondo con
+  focus audio (pausa e ripresa in telefonata) e pausa se si staccano le cuffie; copertine e metadati; accesso ai file
+  spiegato chiaramente (con SAF: «l'app vede solo la cartella che scegli»).
+- **Molto utili**: preferiti e cronologia; equalizzatore (`audiofx.Equalizer` nel servizio, impostazioni in
+  SharedPreferences ascoltate dal servizio); timer di spegnimento nel servizio (funziona ad app chiusa); gapless
+  (ExoPlayer da solo) e dissolvenza (secondo ExoPlayer senza focus audio); widget Home (tasti = `ACTION_MEDIA_BUTTON`
+  al servizio, come la notifica); mp3/flac/aac/ogg/wav; tag modificabili **solo nell'app** salvo richiesta esplicita
+  (scrivere nei file rischia di rovinarli); tema chiaro/scuro e dimensione del testo; **stato salvato** (coda, brano,
+  posizione, casuale, velocità) ripreso all'apertura e con `onPlaybackResumption`; tasti di cuffie e auto Bluetooth.
+- **Per rifinire**: testi `.lrc` sincronizzati; velocità di riproduzione; statistiche; import/export `.m3u` con i
+  percorsi relativi alla cartella; condivisione di brano e playlist; accessibilità (`contentDescription` su ogni
+  icona, aree di tocco ≥ 48 dp, alternative ai gesti come ↑ ↓ per riordinare). Telecomando/TV: progetto TV a parte.
+- Prova sull'AVD telefono con brani generati da ffmpeg (tag, generi, un `.lrc`, una cartella senza tag): cartella,
+  ripresa dopo `kill -9` del processo (`run-as <id> kill -9 <pid>`, non `force-stop` che annulla i PendingIntent del
+  widget), coda, dissolvenza al cambio brano, widget aggiunto con `input draganddrop` dal selettore dei widget.
+
 ## 8. Aggiornamenti senza disinstallare (regola dell'utente, 2026-11-09)
 
 **Regola.** Ogni app si aggiorna da sola dal PC, senza disinstallarla e senza perdere i dati: dopo una modifica si
