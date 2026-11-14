@@ -2,7 +2,7 @@
 
 Cartella dei repo di terzi che l'utente integra in Claude Code. I clone **non** finiscono nel backup git di `Claude/` (sono in `.gitignore`, ~1,1 GB): nel backup restano solo questo file e `setup_repos.sh`, che li ricrea.
 
-Aggiornato: 2026-11-10 (aggiunto plugin rea da morluto/rea: reverse engineering)
+Aggiornato: 2026-11-14 (skill di design: 10 di emil-skills, diagram-design, 7 di gstack con Bun)
 
 ## Repo integrati
 
@@ -13,7 +13,7 @@ Aggiornato: 2026-11-10 (aggiunto plugin rea da morluto/rea: reverse engineering)
 | `headroom/` | [chopratejas/headroom](https://github.com/chopratejas/headroom) | CLI `headroom` (venv) + server MCP `headroom` (`headroom mcp install --agent claude`) | Tool MCP `headroom_compress`/`headroom_retrieve`; oppure `headroom wrap claude` per lanciare Claude Code con il proxy di compressione |
 | `mempalace/` | [mempalace/mempalace](https://github.com/mempalace/mempalace) | CLI `mempalace` (venv) + plugin `mempalace@mempalace` (MCP `mempalace-mcp`, hook Stop/SessionEnd/PreCompact, skill) | `mempalace init <cartella>`, poi ricerca con i tool MCP o `/mempalace:search` |
 | (npm) language server | `typescript-language-server` + `typescript`, `pyright` | CLI in `~/.local/share/claude-repos/npm`, link in `~/.local/bin` | Usati in automatico dai plugin `typescript-lsp` e `pyright-lsp` |
-| `playwright-mcp/` | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | Server MCP `playwright` (scope utente, `npx @playwright/mcp@latest --executable-path /snap/bin/brave`: Chrome non c'è) | Tool MCP per pilotare il browser (test e screenshot dei siti). Al posto di «browse» di gstack, scartato il 2026-10-24: richiedeva tutto gstack + Bun + una sezione in CLAUDE.md |
+| `playwright-mcp/` | [microsoft/playwright-mcp](https://github.com/microsoft/playwright-mcp) | Server MCP `playwright` (scope utente, `npx @playwright/mcp@latest --executable-path /snap/bin/brave`: Chrome non c'è) | Tool MCP per pilotare il browser (test e screenshot dei siti). Il `browse` di gstack resta solo per le skill gstack che lo chiamano |
 | `harvey/` | [ethanplusai/harvey](https://github.com/ethanplusai/harvey) | CLI `harvey` (venv, installato `--editable`: legge `.env`, `harvey.yaml`, `data/` dalla cartella del clone). **Non** attivo di default | Agente di vendita: trova attività, scrive cold email, gestisce le risposte. Configurazione da fare: `cd harvey && cp .env.example .env` (casella su dominio secondario), `harvey train <sito>`, `harvey signals`, `harvey discover`, `harvey dashboard` (127.0.0.1:5555), `harvey run`. Contiene un suo `CLAUDE.md` (wizard di setup del progetto, fuori dal perimetro come PentestGPT) |
 | `free-claude-code/` | [Alishahryar1/free-claude-code](https://github.com/Alishahryar1/free-claude-code) | CLI `fcc-server`, `fcc-claude`, … (`uv tool install --python 3.14.9` dal clone; `uv` nel venv `uv`). **Non** attivo di default | Su richiesta: `fcc-server` apre l'Admin UI (chiave NVIDIA NIM o OpenRouter), poi `fcc-claude` lancia Claude Code verso quei modelli. Imposta le variabili solo per quel processo, non tocca la configurazione |
 
@@ -23,7 +23,9 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 
 | Cartella | Sorgente | Integrazione in Claude Code |
 |---|---|---|
-| `emil-skills/` | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Solo `skills/apple-design`, link in `~/.claude/skills/apple-design` |
+| `emil-skills/` | [emilkowalski/skills](https://github.com/emilkowalski/skills) | Link in `~/.claude/skills/<nome>` per `apple-design`, `mobile-native`, `learn-taste`, `choreograph`, `animation-performance`, `review-animations`, `improve-animations`, `find-animation-opportunities`, `remove-animations`, `animation-vocabulary`, `animate-expo`. Non collegati: il suo `animate` (si usa quello di `animate/`), `prototype`, `gestures`, `break-ui`, `pick-ui-library`, `ask-sonner`, `emil-design-eng` |
+| `diagram-design/` | [cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design) | Skill `diagram-design`, link in `~/.claude/skills/diagram-design` |
+| `gstack/` | [garrytan/gstack](https://github.com/garrytan/gstack) | **Niente `./setup`** (registrerebbe ~50 skill). `setup_repos.sh` fa `bun install` + `bun run build` (programmi `design/dist/design` e `browse/dist/browse`) + Chromium di Playwright; link `~/.claude/skills/gstack` → clone (le skill chiamano `~/.claude/skills/gstack/bin/*`, ed espone anche la skill router `gstack`) e link delle sole 7 skill di design: `design-consultation`, `design-review`, `plan-design-review`, `design-shotgun`, `design-html`, `ios-design-review`, `diagram`. Bun è in `~/.local/share/claude-repos/npm` (npm, link in `~/.local/bin/bun`). Chiave OpenAI per le immagini: vedi `SKILLS.md`. Dopo un pull di gstack: `bun run build` nel clone |
 | `ui-ux-pro-max/` | [nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill) | Plugin `ui-ux-pro-max@ui-ux-pro-max-skill` (7 skill di design) |
 | `ponytail/` | [DietrichGebert/ponytail](https://github.com/DietrichGebert/ponytail) | Plugin `ponytail@ponytail` (hook: modalità sempre attiva + statistiche locali) |
 | `anthropic-skills/` | [anthropics/skills](https://github.com/anthropics/skills) | Plugin `document-skills`, `example-skills`, `claude-api` @`anthropic-agent-skills` (nome riservato: marketplace da GitHub `anthropics/skills`, non dal clone) |

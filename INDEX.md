@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer Claude`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
+Aggiornato: 2026-11-14 (skill di design emil-skills, diagram-design, gstack: elenco in `SKILLS.md`); 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
@@ -33,7 +33,7 @@ Aggiornato: 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficial
 | Creare o modificare un server locale o una web app personale (dashboard, tool, lettori) | `SERVER-LOCALI.md` (obbligatorio, prima di scrivere: domande iniziali tutte insieme, niente copie di Ayanokoji) |
 | Server o web app con video, musica, immagini, libri o manga (lettori, librerie, download, Online) | `SERVER-LOCALI.md` **e** `SERVER-MEDIA.md` (cartelle dei media, lettore, copertine via server, siti, download, programmi esterni, copie identiche) |
 | Creare, controllare o correggere un'app Android (APK telefono, Android TV) | `Apk-&-Apps.md` (obbligatorio: perimetro, ambiente JDK/SDK, build, rete solo LAN, focus TV, insets telefono, report) |
-| Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
+| Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design, gstack, diagram-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
 | Audit / sicurezza | `agents/security-auditor.md`, `memoria/project_cybersecurity_*.md` e gli altri `project_*` di cybersecurity |
 | Qualsiasi altro progetto | il relativo `memoria/project_*.md` |
 
@@ -112,5 +112,5 @@ Riorganizzata il 2026-10-21: `Games/` → `Progetti/Games/`, `Vektora Site/2026-
 
 - Windows (junction): `Web Developer Claude\.claude\skills` → `Claude\skills`, `Web Developer Claude\.claude\agents` → `Claude\agents`, `C:\Users\pc\.claude\projects\C--Users-pc-Documents-Web-Developer-Claude\memory` → `Claude\memoria` (ricreate il 2026-10-20: dopo il rinomino della cartella in `Web Developer Claude` mancavano, e al loro posto c'erano `.claude\_backup_claude_skills` e `_backup_claude_agents`, copie vecchie).
 - Esiste una sola copia di ogni file: modificare in `Claude/` equivale a modificare la configurazione attiva. Non ci sono copie da sincronizzare.
-- Linux (dispositivo attuale): dal 2026-10-24 la cartella madre è `/home/joyboy/Vektora` (su Windows resta `Web Developer Claude`). Symlink `Vektora/.claude/skills` → `../Claude/skills`, `.claude/agents` → `../Claude/agents`, `~/.claude/projects/-home-joyboy-Vektora/memory` → `Claude/memoria`. Marketplace dei plugin (`~/.claude/plugins/known_marketplaces.json`, `~/.claude/settings.json`) e `~/.claude/skills/apple-design` puntano a `Vektora/Claude/Repository/`. Migrazione completata e verificata il 2026-10-24, cartella di log `~/Vektora-migrazione/` eliminata.
+- Linux (dispositivo attuale): dal 2026-10-24 la cartella madre è `/home/joyboy/Vektora` (su Windows resta `Web Developer Claude`). Symlink `Vektora/.claude/skills` → `../Claude/skills`, `.claude/agents` → `../Claude/agents`, `~/.claude/projects/-home-joyboy-Vektora/memory` → `Claude/memoria`. Marketplace dei plugin (`~/.claude/plugins/known_marketplaces.json`, `~/.claude/settings.json`) e i link delle skill singole in `~/.claude/skills/` (apple-design, animazioni di emil, diagram-design, gstack) puntano a `Vektora/Claude/Repository/`. Migrazione completata e verificata il 2026-10-24, cartella di log `~/Vektora-migrazione/` eliminata.
 - Se un collegamento sparisce (ripristino, cancellazione, nuovo dispositivo), ricrearlo con i comandi in `README.md`. Verifica: `ls -la .claude` deve mostrare `skills -> ../Claude/skills`.

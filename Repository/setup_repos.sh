@@ -20,7 +20,7 @@
 
 set -euo pipefail
 
-VERSION="1.4.0"
+VERSION="1.5.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -74,7 +74,9 @@ Esecuzione:
   playwright-mcp   microsoft/playwright-mcp          MCP 'playwright' (npx @playwright/mcp@latest)
 
 ═══ SKILL GESTITE ═══
-  emil-skills      emilkowalski/skills               skill apple-design (link in ~/.claude/skills)
+  emil-skills      emilkowalski/skills               skill apple-design + 10 skill di animazione/mobile (link in ~/.claude/skills)
+  diagram-design   cathrynlavery/diagram-design      skill diagram-design (link in ~/.claude/skills)
+  gstack           garrytan/gstack                   7 skill di design (link) + programmi design/browse (Bun) + Chromium
   ui-ux-pro-max    nextlevelbuilder/ui-ux-pro-max-skill plugin ui-ux-pro-max@ui-ux-pro-max-skill
   ponytail         DietrichGebert/ponytail           plugin ponytail@ponytail (hook)
   anthropic-skills anthropics/skills                 plugin document-skills, example-skills, claude-api
@@ -102,7 +104,7 @@ Esecuzione:
   $BIN_DIR/                          link a headroom, mempalace, mempalace-mcp, omniroute, graphify,
                                      typescript-language-server, pyright-langserver
                                      (Windows: shim bash + .cmd; il PATH utente include questa cartella)
-  ~/.claude/skills/                  link apple-design (Windows: junction), skill graphify
+  ~/.claude/skills/                  link alle skill singole (Windows: junction), skill graphify
                                      (+ blocco in ~/.claude/CLAUDE.md)
   ~/.claude.json, ~/.claude/         configurazione MCP e plugin di Claude Code (scope utente)
 
@@ -348,6 +350,8 @@ esegui() {
     clone_repo animate           https://github.com/delphi-ai/animate-skill.git
     clone_repo rea               https://github.com/morluto/rea.git
     clone_repo harvey            https://github.com/ethanplusai/harvey.git
+    clone_repo diagram-design    https://github.com/cathrynlavery/diagram-design.git
+    clone_repo gstack            https://github.com/garrytan/gstack.git
 
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
@@ -355,6 +359,14 @@ esegui() {
     install_npm omniroute omniroute
     install_npm "typescript-language-server typescript" typescript-language-server
     install_npm pyright pyright-langserver
+    install_npm bun bun
+    # gstack: solo i programmi design/browse e Chromium; ./setup no, registrerebbe ~50 skill
+    # shortcut: dopo un pull di gstack i programmi restano quelli vecchi, ricompilare con bun run build se una skill lo chiede
+    if [[ -x "$BASE_DIR/gstack/design/dist/design$EXE" && -x "$BASE_DIR/gstack/browse/dist/browse$EXE" ]]; then
+        ok "Tool compilato: gstack design + browse"
+    elif manca "build di gstack (bun install, bun run build, Chromium di Playwright)"; then
+        run env PATH="$TOOLS_DIR/npm$NPM_BIN:$PATH" bash -c "cd '$BASE_DIR/gstack' && bun install --frozen-lockfile && bun run build && bunx playwright install chromium" || true
+    fi
     install_venv graphify graphifyy graphify
     install_venv uv uv uv
     # editable: Harvey legge .env, harvey.yaml e data/ dalla cartella del clone, non da site-packages
@@ -400,6 +412,16 @@ esegui() {
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
     link_skill "$BASE_DIR/awesome-claude-skills/lead-research-assistant"
     link_skill "$BASE_DIR/animate"
+    for s in mobile-native learn-taste choreograph animation-performance review-animations improve-animations \
+             find-animation-opportunities remove-animations animation-vocabulary animate-expo; do
+        link_skill "$BASE_DIR/emil-skills/skills/$s"
+    done
+    link_skill "$BASE_DIR/diagram-design/skills/diagram-design"
+    # ~/.claude/skills/gstack: le skill di gstack chiamano ~/.claude/skills/gstack/bin/*
+    link_skill "$BASE_DIR/gstack"
+    for s in design-consultation design-review plan-design-review design-shotgun design-html ios-design-review diagram; do
+        link_skill "$BASE_DIR/gstack/$s"
+    done
     if [[ -f "$HOME/.claude/skills/graphify/SKILL.md" ]]; then
         ok "Skill installata: graphify"
     elif manca "skill graphify (graphify install --platform claude)"; then

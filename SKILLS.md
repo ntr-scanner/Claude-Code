@@ -2,7 +2,7 @@
 
 Leggi questo file **prima di lavorare su qualsiasi progetto o codice** e carica le skill pertinenti al task (tool `Skill`), senza aspettare che l'utente le nomini. Elenco, sorgenti e installazione: `Repository/README.md` e `Repository/setup_repos.sh`.
 
-Aggiornato: 2026-11-14
+Aggiornato: 2026-11-14 (skill di design: emil-skills, diagram-design, gstack)
 
 ## Priorità in caso di conflitto
 
@@ -20,7 +20,7 @@ Aggiornato: 2026-11-14
 |---|---|
 | Qualsiasi modifica al codice (sempre) | `karpathy-guidelines` (pensa prima, semplicità, modifiche chirurgiche); `ponytail` (soluzione più corta che funziona, YAGNI) |
 | Nuova feature / progetto nuovo | superpowers `brainstorming` → `writing-plans` → `executing-plans`; addy `spec-driven-development`, `planning-and-task-breakdown`; mattpocock `to-spec`, `to-tickets`, `grill-me` per chiarire i requisiti |
-| **Fare un'app** (web, Android, desktop, con Claude) | sempre `karpathy-guidelines`; progetto: engineering `system-design`; UI: `ui-ux-pro-max`, ui-ux-pro-max `ui-styling`, `frontend-design`, taste-skill `design-taste-frontend`, `animate`, `apple-design`; test: anthropic `webapp-testing`; bug: superpowers `systematic-debugging`; velocità: addy `performance-optimization`; app con Claude: `claude-api`, agent-sdk-dev `/new-sdk-app`. Il plugin `engineering` arriva dall'account claude.ai (`~/.claude/plugins/synced/`), non da `Repository/` |
+| **Fare un'app** (web, Android, desktop, con Claude) | sempre `karpathy-guidelines`; progetto: engineering `system-design`; UI: `ui-ux-pro-max`, ui-ux-pro-max `ui-styling`, `frontend-design`, taste-skill `design-taste-frontend`, `animate`, `apple-design`, `mobile-native` (app web sul telefono), `animate-expo` (React Native/Expo); test: anthropic `webapp-testing`; bug: superpowers `systematic-debugging`; velocità: addy `performance-optimization`; app con Claude: `claude-api`, agent-sdk-dev `/new-sdk-app`. Il plugin `engineering` arriva dall'account claude.ai (`~/.claude/plugins/synced/`), non da `Repository/` |
 | Implementazione incrementale | addy `incremental-implementation`; superpowers `subagent-driven-development` per piani lunghi |
 | Test / TDD | superpowers `test-driven-development`; mattpocock `tdd`; anthropic `webapp-testing` (Playwright) per app web |
 | Bug e debugging | superpowers `systematic-debugging`; mattpocock `diagnosing-bugs`; addy `debugging-and-error-recovery` |
@@ -31,9 +31,15 @@ Aggiornato: 2026-11-14
 | Decisione tecnica con seconde opinioni (solo se l'utente lo chiede) | `llm-council` («consult the council»: ChatGPT + Gemini via API, serve `.env` con le chiavi) |
 | Trovare clienti / lead per Vektora | `lead-research-assistant` (ricerca aziende target e strategia di contatto, nessun invio); `harvey` (CLI, invio cold email: solo su richiesta, vedi avvertenze in `Repository/README.md`) |
 | Test e screenshot nel browser | server MCP `playwright` (su Brave) |
-| UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `taste-skill` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion); `animate` per animazioni e transizioni (CSS, Framer Motion) |
-| Redesign di una pagina esistente | taste-skill `redesign-skill`; ui-ux-pro-max `design-system` |
-| Da immagine/mockup a codice | taste-skill `image-to-code-skill` |
+| UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `design-taste-frontend` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion); `mobile-native` per app web e PWA sul telefono (100vh, notch, tap, zoom degli input) |
+| Design system di un prodotto nuovo | gstack `design-consultation` (estetica, font, colori, spazi, motion + anteprima); ui-ux-pro-max `design-system` |
+| Piano con parte grafica, prima di scrivere codice | gstack `plan-design-review` (le varianti grafiche vogliono la chiave OpenAI, vedi sotto) |
+| Varianti grafiche da confrontare / mockup → HTML | gstack `design-shotgun` (varianti + tavola di confronto), poi `design-html` (HTML/CSS di produzione dal mockup scelto). Tutte e due vogliono la chiave OpenAI |
+| Controllo visivo di una pagina esistente (spaziature, gerarchia, “AI slop”) e redesign | gstack `design-review` (apre la pagina con `browse` e corregge); ui-ux-pro-max `design-system` |
+| App iOS su iPhone vero | gstack `ios-design-review` |
+| Animazioni | da zero: `animate` (React/Next, CSS, Framer Motion); più elementi insieme (stagger, entrate, cambi di vista): `choreograph`; scatti e frame persi: `animation-performance`; dove aggiungerle: `find-animation-opportunities`; troppe: `remove-animations`; piano di miglioramento di tutto il codice: `improve-animations`; revisione di un diff: `review-animations` (*); nome di un effetto: `animation-vocabulary`; React Native/Expo: `animate-expo` |
+| Diagrammi | `diagram-design` (architettura, flowchart, ER, sequenza, Gantt, … in HTML/SVG/PNG con brand); gstack `diagram` (da testo o Mermaid a .excalidraw + SVG/PNG) |
+| Correzioni di design dell'utente da non ripetere | `learn-taste` (*): le trasforma in regole; nei progetti Vektora scrivile in `Claude/` (DESIGN.md o memoria), non in file nuovi |
 | Brand, design system, banner, slide | ui-ux-pro-max `brand`, `design-system`, `banner-design`, `slides`; anthropic `brand-guidelines`, `theme-factory` |
 | API e interfacce | addy `api-and-interface-design`; anthropic `mcp-builder` per server MCP |
 | App con Claude API | anthropic `claude-api`; `agent-sdk-dev` (`/new-sdk-app` crea un progetto Agent SDK, agent verifier Python/TS) |
@@ -47,6 +53,10 @@ Aggiornato: 2026-11-14
 | Configurare Claude Code su un progetto (hook, MCP, skill, agent consigliati) | `claude-code-setup` (`claude-automation-recommender`) |
 | Revisionare file di istruzioni (CLAUDE.md, `Claude/*.md`) | `claude-md-management` (`claude-md-improver`, `/revise-claude-md`): nel workspace le regole stanno in `Claude/`, non creare altri CLAUDE.md |
 | Navigazione del codice TS/JS e Python (definizioni, riferimenti, errori) | `typescript-lsp`, `pyright-lsp`: language server automatici, nessun comando |
+
+(*) `learn-taste` e `review-animations` hanno `disable-model-invocation: true` (scelta dell'autore): il tool Skill non le carica. Quando servono, Claude legge `~/.claude/skills/<nome>/SKILL.md` con Read e la segue; l'utente può anche scrivere `/learn-taste` o `/review-animations`.
+
+**gstack** (7 skill di design): chiamano `~/.claude/skills/gstack/bin/*` e i programmi `design` e `browse` compilati con Bun (`setup_repos.sh` li prepara, Chromium di Playwright incluso). `design-shotgun`, `design-html` e le varianti di `plan-design-review` generano immagini con l'API OpenAI, a pagamento: senza chiave si fermano. La chiave si salva con `~/.claude/skills/gstack/design/dist/design setup` (`~/.gstack/openai.json`) o con la variabile `OPENAI_API_KEY`; chiedi all'utente prima di usarla. Dove una skill gstack propone `codex` (seconda opinione), saltalo: non è installato. Stato e preferenze di gstack in `~/.gstack/`.
 
 ## Note sui plugin con hook
 
