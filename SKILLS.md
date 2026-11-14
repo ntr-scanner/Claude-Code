@@ -2,7 +2,7 @@
 
 Leggi questo file **prima di lavorare su qualsiasi progetto o codice** e carica le skill pertinenti al task (tool `Skill`), senza aspettare che l'utente le nomini. Elenco, sorgenti e installazione: `Repository/README.md` e `Repository/setup_repos.sh`.
 
-Aggiornato: 2026-10-17
+Aggiornato: 2026-11-14
 
 ## Priorità in caso di conflitto
 
@@ -20,6 +20,7 @@ Aggiornato: 2026-10-17
 |---|---|
 | Qualsiasi modifica al codice (sempre) | `karpathy-guidelines` (pensa prima, semplicità, modifiche chirurgiche); `ponytail` (soluzione più corta che funziona, YAGNI) |
 | Nuova feature / progetto nuovo | superpowers `brainstorming` → `writing-plans` → `executing-plans`; addy `spec-driven-development`, `planning-and-task-breakdown`; mattpocock `to-spec`, `to-tickets`, `grill-me` per chiarire i requisiti |
+| **Fare un'app** (web, Android, desktop, con Claude) | sempre `karpathy-guidelines`; progetto: engineering `system-design`; UI: `ui-ux-pro-max`, ui-ux-pro-max `ui-styling`, `frontend-design`, taste-skill `design-taste-frontend`, `animate`, `apple-design`; test: anthropic `webapp-testing`; bug: superpowers `systematic-debugging`; velocità: addy `performance-optimization`; app con Claude: `claude-api`, agent-sdk-dev `/new-sdk-app`. Il plugin `engineering` arriva dall'account claude.ai (`~/.claude/plugins/synced/`), non da `Repository/` |
 | Implementazione incrementale | addy `incremental-implementation`; superpowers `subagent-driven-development` per piani lunghi |
 | Test / TDD | superpowers `test-driven-development`; mattpocock `tdd`; anthropic `webapp-testing` (Playwright) per app web |
 | Bug e debugging | superpowers `systematic-debugging`; mattpocock `diagnosing-bugs`; addy `debugging-and-error-recovery` |
