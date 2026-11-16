@@ -106,7 +106,7 @@ Nel report va scritto chiaramente che `assembleDebug`, `lint` e `test` via Gradl
 
 ### App musicali (lista dell'utente, 2026-11-10)
 Ogni lettore musicale deve avere tutto questo; si confronta l'app con la lista e si integrano solo i punti mancanti.
-Codice di riferimento: `Suite-Intrattenimento/musicoteca-android` 1.2.0 (copiare, mai condividere).
+Codice di riferimento: `Suite Intrattenimento/musicoteca/android` 1.3.0 (copiare, mai condividere).
 - **Indispensabili**: play/pausa/avanti/indietro e seek; coda da vedere, riordinare, svuotare; casuale e ripeti
   (brano, coda); libreria per brani, album, artisti, generi, cartelle; ricerca su titolo/artista/album; playlist da
   creare, modificare, rinominare, eliminare; controlli in notifica e schermata di blocco (MediaSession); sottofondo con
@@ -135,12 +135,15 @@ Due casi, secondo da dove arriva l'app:
 - **App senza server (Galleria Android, Musicoteca Android)**: sul PC si accende `aggiorna.py` (nella cartella dell'app)
   solo quando c'è un APK nuovo (chiede se compilare se l'APK è più vecchio dei sorgenti); nell'app «Cerca aggiornamenti»
   (Galleria: Strumenti; Musicoteca: ⚙ Impostazioni) manda l'impronta e il server si spegne dopo l'invio, dopo «uguale» o
-  dopo 15 minuti. **Una porta per app**, uguale in `aggiorna.py` e in `PORTA_PC` dell'app: Galleria 8803, Musicoteca
+  dopo 15 minuti. Dal 2026-11-15 l'app **controlla da sola a ogni apertura** (in silenzio se il PC è spento o l'APK è
+  uguale; se c'è un APK nuovo lo installa sopra). **Una porta per app**, uguale in `aggiorna.py` e in `PORTA_PC` dell'app: Galleria 8803, Musicoteca
   8806 (con la stessa porta un'app riceverebbe l'APK dell'altra). Solo client con IP privato.
 - **App installata dal sito del server (Theca TV, Cineteca-FCC TV)**: l'aggiornamento arriva **dallo stesso server**.
   `./gradlew nelServer` mette l'APK in `dati/<app>-tv.apk`; all'apertura l'app chiama `/api/apk-tv?sha=<impronta>`
   (libero dal PIN come l'APK, nessun dato privato) e, se l'APK del server è diverso, chiede «Installa / Più tardi»
-  (fuoco su Installa per il telecomando). Una volta per apertura dell'app.
+  (fuoco su Installa per il telecomando). All'apertura e poi ogni 6 ore (la TV resta aperta per giorni). Dal
+  2026-11-15 `/api/ping` manda anche `pagina` (ultima modifica dei file in `app/`): se cambia, l'app ricarica la
+  WebView (mai durante lo schermo intero), così la TV non resta sul codice vecchio della pagina.
 
 Come si fa (codice di riferimento: `galleria-android/.../data/Aggiornamento.kt`, `theca/codice/apk-tv/.../Aggiornamento.kt`):
 - Confronto con l'**impronta SHA-256 dell'APK installato** (`applicationInfo.sourceDir`), non con `versionCode`: ogni
@@ -149,14 +152,17 @@ Come si fa (codice di riferimento: `galleria-android/.../data/Aggiornamento.kt`,
 - L'APK si scarica **dentro la sessione di `PackageInstaller`** (nessun file in giro), controllando dimensione e impronta
   prima del `commit`; impronta diversa = `abandon()` e messaggio. Redirect non seguiti.
 - Manifest: `REQUEST_INSTALL_PACKAGES` + receiver non esportato per l'esito; su `STATUS_PENDING_USER_ACTION` si apre la
-  finestra di Android (la prima volta «Installa app sconosciute» per l'app). Android 12+: `USER_ACTION_NOT_REQUIRED`,
-  che vale solo quando l'app è già stata installata da se stessa: la prima volta (installata con adb o dal browser)
-  Android chiede comunque «Aggiorna questa app?».
+  finestra di Android (la prima volta «Installa app sconosciute» per l'app). Android 12+: `USER_ACTION_NOT_REQUIRED`
+  funziona **solo con il permesso `UPDATE_PACKAGES_WITHOUT_USER_ACTION`** nel manifest (senza, Android chiede sempre
+  «Update?»). Limite di Android: al massimo un aggiornamento silenzioso ogni 30 s per la stessa app (nelle prove
+  aspettare 35 s tra un aggiornamento e l'altro).
 - **Google Play Protect** può bloccare l'aggiornamento di un'app non dello Store («App blocked to protect your device»,
   visto sull'emulatore Android TV 14): «Altri dettagli → Installa comunque» lo fa l'utente sul dispositivo. Non si
   disattiva Play Protect al posto suo.
-- Stessa firma: Android sostituisce l'app solo con un APK firmato con la stessa chiave → compilare sempre sullo stesso PC
-  (build debug con la chiave di quel PC: vedi il commento `shortcut` in `build.gradle.kts`).
+- Stessa firma: Android sostituisce l'app solo con un APK firmato con la stessa chiave. Dal 2026-11-15 tutte le app della
+  Suite firmano con **`Suite Intrattenimento/firma/vektora.keystore`** (`signingConfigs.debug` in `app/build.gradle.kts`;
+  la chiave debug di Linux, SHA-256 `cc978e45…`). È fuori da git (`.gitignore`): su un PC nuovo si copia a mano, se manca
+  la build si ferma con il percorso atteso. Mai compilare con la chiave debug del PC: obbligherebbe a disinstallare.
 - Errori tradotti per l'utente: server spento = «nessun aggiornamento» (non un errore), timeout, APK rovinato,
   installazione rifiutata (con il motivo di Android).
 - Prova: emulatore con la versione A installata, versione B sul server, `adb reverse tcp:<porta> tcp:<porta>` e indirizzo

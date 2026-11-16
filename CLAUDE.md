@@ -4,11 +4,13 @@
 
 **Prima di fare qualsiasi cosa, leggi `Claude/INDEX.md`** e poi i file che indica come pertinenti. Tutto ciò che Claude deve sapere (regole, skill, agent, memoria, standard script, direttive Vektora) sta nella cartella `Claude/`.
 
-**Prima di iniziare a programmare (anche su un dispositivo nuovo)**, verifica che i repo esterni elencati in `Claude/Repository/README.md` (omni-route, frontend-design, headroom, mempalace, playwright-mcp e le skill di terzi: emil-skills (apple-design e animazioni), diagram-design, gstack (skill di design), ui-ux-pro-max, ponytail, anthropic skills, karpathy, mattpocock, superpowers, taste-skill, agent-skills, caveman, graphify, free-claude-code, llm-council, claude-mem) siano clonati e integrati in Claude Code: esegui `Claude/Repository/setup_repos.sh --check`. Se manca qualcosa, segnalalo all'utente e proponi `setup_repos.sh --apply` prima di procedere.
+**Prima di iniziare a programmare (anche su un dispositivo nuovo)**, verifica che i repo esterni elencati in `Claude/Repository/README.md` (omni-route, frontend-design, headroom, mempalace, playwright-mcp e le skill di terzi: emil-skills (apple-design e animazioni), diagram-design, gstack (skill di design), ui-ux-pro-max, ponytail, anthropic skills, karpathy, mattpocock, superpowers, taste-skill, agent-skills, caveman, graphify, free-claude-code, llm-council, claude-mem, marketingskills, investskill, personal-trainer, cognitive-toolkit, scientific-agent-skills, browser-use) siano clonati e integrati in Claude Code: esegui `Claude/Repository/setup_repos.sh --check`. Se manca qualcosa, segnalalo all'utente e proponi `setup_repos.sh --apply` prima di procedere.
 
 **Prima di lavorare su qualsiasi progetto o codice**, leggi `Claude/SKILLS.md` e carica le skill adatte al task (design, animazioni, diagrammi, pianificazione, TDD, debug, review, refactoring, ...), senza aspettare che l'utente le nomini. Le skill marcate (*) in `SKILLS.md` non si caricano col tool Skill: leggi il loro `SKILL.md` e seguilo.
 
 **Prima di creare o modificare un server locale o una web app personale** (dashboard, tool, lettori), leggi `Claude/SERVER-LOCALI.md`: fai all'utente tutte le domande iniziali insieme e non copiare la struttura di Ayanokoji System.
+
+**Skill scaricate = skill integrate.** Un repo o una skill in `Claude/Repository/` conta solo se è installata come plugin o collegata in `~/.claude/skills/<nome>/SKILL.md`, elencata in `Claude/SKILLS.md` e verificata in una sessione nuova (procedura in `Claude/Repository/README.md` › «Aggiungere un repo»). Mai lasciare un clone senza integrazione: o si integra o si elimina. `setup_repos.sh --check` segnala in rosso ogni «Clone NON integrato»: se compare, dillo all'utente. Regola completa in `Claude/SKILLS.md`.
 
 **Prima di costruire o modificare un'app** (web, Android, desktop o con Claude API), carica le skill della riga «Fare un'app» in `Claude/SKILLS.md`.
 

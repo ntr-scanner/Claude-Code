@@ -2,7 +2,15 @@
 
 Leggi questo file **prima di lavorare su qualsiasi progetto o codice** e carica le skill pertinenti al task (tool `Skill`), senza aspettare che l'utente le nomini. Elenco, sorgenti e installazione: `Repository/README.md` e `Repository/setup_repos.sh`.
 
-Aggiornato: 2026-11-14 (skill di design: emil-skills, diagram-design, gstack)
+Aggiornato: 2026-11-15 (coach corpo/mente, marketing, investimenti); 2026-11-14 (skill di design: emil-skills, diagram-design, gstack)
+
+## Regola: niente skill scaricate e non usate
+
+1. **Mai un clone senza integrazione.** Chi scarica un repo in `Repository/` lo integra nella stessa sessione: plugin installato o cartella `~/.claude/skills/<nome>/SKILL.md` (maiuscolo), riga `clone_repo` + integrazione in `setup_repos.sh`, riga in `Repository/README.md`, riga in questa tabella, nome nell'elenco di `CLAUDE.md`. Se non va integrato, si elimina il clone.
+2. **Verifica obbligatoria** prima di dire «fatto»: `setup_repos.sh --check` senza «Manca» e una sessione nuova (`cd /tmp && claude -p "Senza tool: quali di queste skill hai? <nomi>"`) che risponde sì.
+3. **Controllo automatico:** `setup_repos.sh --check` segnala in rosso ogni cartella di `Repository/` che lo script non gestisce («Clone NON integrato»). Va eseguito prima di programmare (lo dice `CLAUDE.md`); se compare, dillo all'utente e proponi di integrarlo o eliminarlo.
+4. **Repo con molte skill** (es. scientific-agent-skills, 177): si collegano solo quelle utili, elencate in `SKILLS_SCIENTIFIC` in `setup_repos.sh`. **Su richiesta:** se un task chiede una competenza che c'è in `Repository/scientific-agent-skills/skills/` (o in un altro clone parziale) ma non è collegata, collegala subito con `ln -sfn <clone>/skills/<nome> ~/.claude/skills/<nome>` (Claude Code la vede nella stessa sessione), usala, poi aggiungila a `SKILLS_SCIENTIFIC` e alla riga qui sotto, senza aspettare che l'utente lo chieda.
+5. Plugin di memoria con hook: ne bastano claude-mem e MemPalace. Un terzo (es. agentmemory, eliminato il 2026-11-15) non si integra senza chiedere.
 
 ## Priorità in caso di conflitto
 
@@ -29,6 +37,12 @@ Aggiornato: 2026-11-14 (skill di design: emil-skills, diagram-design, gstack)
 | Refactoring, architettura, debito tecnico | mattpocock `improve-codebase-architecture`, `codebase-design`, `domain-modeling`; addy `code-simplification`; ponytail `ponytail-audit`, `ponytail-debt`; caveman `safe-refactor` |
 | Capire un codebase grande / esistente | `graphify` (`/graphify .` crea il grafo, poi `graphify query`); caveman `caveman-explore`, `investigate-first` |
 | Decisione tecnica con seconde opinioni (solo se l'utente lo chiede) | `llm-council` («consult the council»: ChatGPT + Gemini via API, serve `.env` con le chiavi) |
+| Allenamento fisico e alimentazione | personal-trainer `exercise-science` (programmazione, progressione, recupero), comandi `/workout-program`, `/nutrition-plan`, `/progress-report`. Dolori, infortuni o patologie: consiglia un medico o un fisioterapista |
+| Mente, emozioni, «psicologo» | `cognitive-toolkit` (`/cbt`: thought record, opposite action, DEAR MAN, TIPP, wise mind). È esercizio guidato, non terapia né diagnosi. **Correzioni per l'utente:** sessioni salvate solo se l'utente lo chiede (non in `~/Brains/`); in caso di crisi o pensieri suicidi ferma l'esercizio e dai i numeri italiani: **112** (emergenza), **Telefono Amico Italia 02 2327 2327**; per un percorso vero suggerisci uno psicologo |
+| Marketing (Vektora e prodotti) | marketing-skills: `copywriting`, `copy-editing`, `seo-audit`, `ai-seo`, `programmatic-seo`, `marketing-plan`, `marketing-ideas`, `content-strategy`, `pricing`, `offers`, `launch`, `cro`, `ads`, `ad-creative`, `social`, `emails`, `competitors`, `customer-research`. Siti Vektora: `DESIGN.md` e `vektora-web-dev` prevalgono. `cold-email`/`prospecting`: solo bozze, vedi art. 130 Codice Privacy in `Repository/README.md` |
+| Investimenti (azioni, ETF, portafoglio) | us-stock-analysis: `stock-eval`, `fundamental-analysis`, `dcf-valuation`, `stock-valuation`, `etf-analysis`, `portfolio-review`, `risk-stress-test`, `dividend-analysis`, `bear-case`, `thesis-tracker`, `learning-coach`. Mercato USA e fisco USA (`tax-lens` non vale in Italia). Solo analisi, mai ordini; non è consulenza finanziaria. Progetto PAC: `memoria/project_aurum.md` |
+| Ricerca, articoli scientifici, dati | scientific-agent-skills (link singoli): `literature-review`, `paper-lookup`, `citation-management`, `peer-review`, `market-research-reports` (dimensione del mercato, TAM/SAM/SOM), `markitdown` (documenti → Markdown), `polars`, `matplotlib`, `exploratory-data-analysis`. Altre 168 nel clone: collegale su richiesta (regola 4 sopra) |
+| Pilotare il browser locale (automazione, scraping, screenshot) | `browser-use` (CLI `browser-use`, Chrome/Brave locale via CDP); `open-source` per scrivere codice con la libreria `browser_use`. Per i test resta prima scelta il server MCP `playwright`. Escluse `qa`, `cloud`, `remote-browser`, `x402`: browser cloud a pagamento, chiave API auto-registrata o wallet crypto |
 | Trovare clienti / lead per Vektora | `lead-research-assistant` (ricerca aziende target e strategia di contatto, nessun invio); `harvey` (CLI, invio cold email: solo su richiesta, vedi avvertenze in `Repository/README.md`) |
 | Test e screenshot nel browser | server MCP `playwright` (su Brave) |
 | UI, siti, landing page (design) | `ui-ux-pro-max` (stili, palette, font, UX per stack); taste-skill `design-taste-frontend` (art direction, anti-“AI slop”); anthropic `frontend-design`; `apple-design` per interfacce stile Apple (HIG, materiali, motion); `mobile-native` per app web e PWA sul telefono (100vh, notch, tap, zoom degli input) |

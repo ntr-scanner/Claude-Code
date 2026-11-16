@@ -2,7 +2,7 @@
 
 Cartella dei repo di terzi che l'utente integra in Claude Code. I clone **non** finiscono nel backup git di `Claude/` (sono in `.gitignore`, ~1,1 GB): nel backup restano solo questo file e `setup_repos.sh`, che li ricrea.
 
-Aggiornato: 2026-11-14 (skill di design: 10 di emil-skills, diagram-design, 7 di gstack con Bun)
+Aggiornato: 2026-11-15 (skill coach/marketing/investimenti: marketingskills, investskill, cowork-plugins personal-trainer, glebis cognitive-toolkit); 2026-11-14 (skill di design: 10 di emil-skills, diagram-design, 7 di gstack con Bun)
 
 ## Repo integrati
 
@@ -40,11 +40,17 @@ Quando usarle: `Claude/SKILLS.md`. Ogni repo con `marketplace.json` è registrat
 | `awesome-claude-skills/` | [composiohq/awesome-claude-skills](https://github.com/composiohq/awesome-claude-skills) | Solo `lead-research-assistant`, link in `~/.claude/skills/lead-research-assistant` |
 | `animate/` | [delphi-ai/animate-skill](https://github.com/delphi-ai/animate-skill) | Skill `animate`, link in `~/.claude/skills/animate` (CSS + Framer Motion per React/Next.js) |
 | `graphify/` | [Graphify-Labs/graphify](https://github.com/Graphify-Labs/graphify) | CLI `graphify` (venv, pacchetto `graphifyy`) + `graphify install --platform claude` → skill in `~/.claude/skills/graphify` e blocco in `~/.claude/CLAUDE.md` |
+| `marketingskills/` | [coreyhaines31/marketingskills](https://github.com/coreyhaines31/marketingskills) (MIT) | Plugin `marketing-skills@marketingskills` (marketplace locale, ~50 skill: copywriting, seo-audit, ai-seo, marketing-plan, pricing, ads, cold-email, …) |
+| `investskill/` | [yennanliu/InvestSkill](https://github.com/yennanliu/InvestSkill) (MIT) | Plugin `us-stock-analysis@invest-skill` (marketplace locale, 39 skill: stock-eval, dcf-valuation, etf-analysis, portfolio-review, risk-stress-test, tax-lens, …). Pensato per il mercato USA |
+| `cowork-plugins/` | [alexclowe/awesome-claude-cowork-plugins](https://github.com/alexclowe/awesome-claude-cowork-plugins) (MIT, sparse: `personal-trainer .claude-plugin`) | Plugin `personal-trainer@awesome-claude-cowork-plugins`: skill `exercise-science` (+ `fitness-business`), comandi `/workout-program`, `/nutrition-plan`, `/progress-report`. Gli altri 52 plugin del marketplace non sono scaricati |
+| `glebis-skills/` | [glebis/claude-skills](https://github.com/glebis/claude-skills) (MIT, sparse: `cognitive-toolkit`) | Skill `cognitive-toolkit` (`/cbt`): cartella `~/.claude/skills/cognitive-toolkit` con `SKILL.md` → `skill.md` del clone e `references/` (il repo usa il nome minuscolo, Claude Code non lo vedrebbe). Su Windows `SKILL.md` è una copia |
+| `scientific-agent-skills/` | [K-Dense-AI/scientific-agent-skills](https://github.com/K-Dense-AI/scientific-agent-skills) (MIT, 521 MB, 177 skill) | Link singoli in `~/.claude/skills/` solo per l'elenco `SKILLS_SCIENTIFIC` di `setup_repos.sh` (9 skill: ricerca, paper, citazioni, dati). Le altre si collegano su richiesta (regola in `SKILLS.md`) |
+| `browser-use/` | [browser-use/browser-use](https://github.com/browser-use/browser-use) (MIT) | CLI `browser-use` (venv `browser-use`, link in `~/.local/bin`) + link delle skill `browser-use` e `open-source`. Non collegate: `qa`, `cloud`, `remote-browser`, `x402` (cloud a pagamento / crypto) |
 | `rea/` | [morluto/rea](https://github.com/morluto/rea) | Plugin `rea@rea` (marketplace locale, ma il plugin arriva dal pacchetto npm `rea-agents`, versione fissata nel `marketplace.json` del clone): server MCP `rea` (Node) + skill `reverse-engineer-anything` | Reverse engineering di binari nativi, .NET, Electron/JS, APK, firmware e siti senza sorgente. L’analisi nativa usa Ghidra/Hopper/IDA se installati (`npx rea-agents setup` o `rea doctor`); il JS statico no. Non serve per una codebase di cui hai il sorgente |
 
 ## Dove stanno i tool installati
 
-- Virtualenv Python: `~/.local/share/claude-repos/venvs/{headroom,mempalace,graphify}` (niente `--break-system-packages`).
+- Virtualenv Python: `~/.local/share/claude-repos/venvs/{headroom,mempalace,graphify,browser-use}` (niente `--break-system-packages`).
 - uv (Python 3.14.9 e tool free-claude-code): `~/.local/share/claude-repos/uv/{python,tools}`. Su Windows non in `%APPDATA%\uv`: l'app Claude (MSIX) virtualizza `%APPDATA%` e la junction di uv verso Python si rompe.
 - npm: `~/.local/share/claude-repos/npm` (niente `sudo`): omniroute, typescript-language-server, pyright.
 - Link agli eseguibili: `~/.local/bin/` (`headroom`, `mempalace`, `mempalace-mcp`, `omniroute`, `graphify`, `typescript-language-server`, `pyright-langserver`). Deve stare nel `PATH`: su Ubuntu lo aggiunge `~/.profile` al login. Serve agli hook di MemPalace.
@@ -73,10 +79,15 @@ Dopo `--apply` riavvia Claude Code. Su Windows lo script va eseguito da Git Bash
 - **free-claude-code** come OmniRoute: manda codice e prompt a fornitori terzi (NVIDIA NIM, OpenRouter). Solo su richiesta, mai come `ANTHROPIC_BASE_URL` globale.
 - **claude-mem** registra ogni uso di tool (anche contenuti di file letti) in un SQLite locale e lo riassume con chiamate a Claude: occhio ai progetti con dati sensibili. Si spegne con `claude plugin disable claude-mem@thedotmack`.
 - **Harvey** invia email a terzi dalla casella configurata e usa l'abbonamento Claude in loop. In Italia le email commerciali non richieste a indirizzi nominativi richiedono il consenso (art. 130 Codice Privacy, anche B2B): tenerlo in approvazione manuale (outbox) e verificare la base giuridica prima di inviare. `.env` e `data/harvey.db` (dati dei prospect) stanno nel clone: se `Claude/` è sincronizzata con Syncthing, viaggiano anche loro.
+- **cognitive-toolkit** è un allenamento CBT/DBT tra una seduta e l'altra, non una terapia. Il testo originale salva le sessioni in `~/Brains/brain/...` e dà numeri di crisi tedeschi: le correzioni valgono da `SKILLS.md`.
+- **InvestSkill** e **marketingskills** `cold-email`/`prospecting`: analisi e bozze, nessun ordine né invio. Per le email commerciali vale l'avvertenza di Harvey (art. 130 Codice Privacy).
 - **MemPalace** scrive con gli hook a ogni fine sessione e prima della compattazione: i dati restano in locale.
 
 ## Aggiungere un repo
 
 1. Clona in `Claude/Repository/<nome>`.
 2. Aggiungi la riga nella tabella sopra e le funzioni corrispondenti in `setup_repos.sh` (clone, installazione, integrazione).
-3. Verifica con `./setup_repos.sh --check` e fai commit/push di `Claude/`.
+3. **Integra davvero** (regola completa in `SKILLS.md`; `--check` segnala «Clone NON integrato» ogni cartella non gestita dallo script): plugin installato (`claude plugin list`) o cartella in `~/.claude/skills/<nome>` con un file `SKILL.md` (maiuscolo). Un clone senza integrazione non viene mai usato.
+4. Aggiungi la riga in `Claude/SKILLS.md` (quando usarla) e il nome nell'elenco di `CLAUDE.md`.
+5. Verifica con `./setup_repos.sh --check` **e** in una sessione nuova: `cd /tmp && claude -p "Senza tool: quali di queste skill hai? <nomi>"`. Solo se risponde sì è integrata.
+6. Fai commit/push di `Claude/`.

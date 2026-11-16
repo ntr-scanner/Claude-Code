@@ -106,6 +106,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 
 ## 6. Interfaccia
 
+- **Bottoni e azioni** (🗑 al posto di «Elimina», ✕ rosso al posto di «Togli», ✓ e Rischedula sulle attività, registrazioni uguali mai fuse): regole in `SERVER-INTERFACCIA.md`, da leggere sempre insieme a questo file.
 - **Pagine con pulsanti in alto** (non una pagina lunghissima): la prima è quella che si usa ogni giorno (es. «In lettura», «Stai giocando», «Ripasso di oggi»); la pagina scelta resta nell'indirizzo (`#pagina`). I vecchi collegamenti a un riquadro aprono la sua pagina.
 - **Testata che si stringe senza rompersi** (regola dell'utente, 2026-11-09): le schede e i bottoni «emoji + parola»
   (🌐 Online, 📅 Uscite, 📁 Cartella…) mostrano la parola solo quando c'è spazio; quando brand, schede e strumenti non

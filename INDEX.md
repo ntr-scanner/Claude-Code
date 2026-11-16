@@ -2,7 +2,7 @@
 
 Punto d'ingresso per Claude Code. Leggi questo file **prima di ogni task** nella cartella `Web Developer Claude`, poi apri solo i file pertinenti al task.
 
-Aggiornato: 2026-11-14 (skill di design emil-skills, diagram-design, gstack: elenco in `SKILLS.md`); 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
+Aggiornato: 2026-11-15 (skill coach corpo/mente, marketing, investimenti + regola «scaricata = integrata e verificata» in `SKILLS.md`); 2026-11-14 (skill di design emil-skills, diagram-design, gstack: elenco in `SKILLS.md`); 2026-10-21 (riorganizzazione cartelle del workspace; plugin ufficiali claude-security, claude-code-setup, claude-md-management, agent-sdk-dev, typescript-lsp, pyright-lsp in `Repository/`)
 
 ## Regola d'oro: tutto sta in `Claude/`
 
@@ -30,10 +30,11 @@ Aggiornato: 2026-11-14 (skill di design emil-skills, diagram-design, gstack: ele
 | Sito/blog Vektora | `memoria/project_vektora.md`, `memoria/project_vektora_blog.md` |
 | **Qualsiasi lavoro su un progetto o codice** | `SKILLS.md` (quali skill caricare per il task), poi i file specifici sotto |
 | Scrivere qualsiasi script (Python, Bash, PowerShell) | `SCRIPT.md` (obbligatorio, prima di scrivere) |
-| Creare o modificare un server locale o una web app personale (dashboard, tool, lettori) | `SERVER-LOCALI.md` (obbligatorio, prima di scrivere: domande iniziali tutte insieme, niente copie di Ayanokoji) |
+| Creare o modificare un server locale o una web app personale (dashboard, tool, lettori) | `SERVER-LOCALI.md` (obbligatorio, prima di scrivere: domande iniziali tutte insieme, niente copie di Ayanokoji) e `SERVER-INTERFACCIA.md` (bottoni e azioni) |
 | Server o web app con video, musica, immagini, libri o manga (lettori, librerie, download, Online) | `SERVER-LOCALI.md` **e** `SERVER-MEDIA.md` (cartelle dei media, lettore, copertine via server, siti, download, programmi esterni, copie identiche) |
 | Creare, controllare o correggere un'app Android (APK telefono, Android TV) | `Apk-&-Apps.md` (obbligatorio: perimetro, ambiente JDK/SDK, build, rete solo LAN, focus TV, insets telefono, report) |
 | Iniziare a programmare, nuovo dispositivo, repo esterni (OmniRoute, Headroom, MemPalace, Playwright MCP, frontend-design, gstack, diagram-design) | `Repository/README.md`, poi `Repository/setup_repos.sh --check` |
+| Allenamento, mente/psicologo, marketing, investimenti | `SKILLS.md` (righe dedicate, con le correzioni per l'utente) |
 | Audit / sicurezza | `agents/security-auditor.md`, `memoria/project_cybersecurity_*.md` e gli altri `project_*` di cybersecurity |
 | Qualsiasi altro progetto | il relativo `memoria/project_*.md` |
 
@@ -46,6 +47,7 @@ Claude/
 ├── SKILLS.md           quale skill esterna usare per quale task (design, TDD, debug, review, ...)
 ├── SCRIPT.md           standard per scrivere script (interattivo di default, --yes/--non-interactive, fail-safe)
 ├── SERVER-LOCALI.md    regole e domande iniziali per server locali e web app personali (sicurezza, sync, backup, cifratura, interfaccia)
+├── SERVER-INTERFACCIA.md regole dei bottoni e delle azioni nei server locali (🗑, ✕ rosso, ✓/Rischedula, ricorrenze, registrazioni uguali)
 ├── SERVER-MEDIA.md     regole in più per server con video/audio/immagini (Theca, Cineteca-FCC, Suite Intrattenimento, Vivlío, Media Loader)
 ├── Apk-&-Apps.md       regole per app Android (APK telefono e TV): procedura di revisione, build, rete, focus/insets, report
 ├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git

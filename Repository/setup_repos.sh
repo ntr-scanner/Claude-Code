@@ -20,7 +20,7 @@
 
 set -euo pipefail
 
-VERSION="1.5.0"
+VERSION="1.6.0"
 BASE_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TOOLS_DIR="${CLAUDE_REPOS_HOME:-$HOME/.local/share/claude-repos}"
 BIN_DIR="$HOME/.local/bin"
@@ -43,7 +43,8 @@ err()  { echo "${ROSSO}[ERR]${RESET} $*" >&2; }
 warn() { echo "${GIALLO}[!]${RESET} $*"; }
 info() { echo "${CIANO}>>${RESET} $*"; }
 
-MODE="check"; YES=0; NON_INTERACTIVE=0; MANCANTI=0; ERRORI=0
+SKILLS_SCIENTIFIC="literature-review paper-lookup citation-management market-research-reports markitdown polars matplotlib exploratory-data-analysis peer-review"
+MODE="check"; YES=0; NON_INTERACTIVE=0; MANCANTI=0; ERRORI=0; GESTITI=" "
 [[ -t 0 ]] || NON_INTERACTIVE=1
 
 # ═══ HELP ═══
@@ -89,6 +90,12 @@ Esecuzione:
   graphify         Graphify-Labs/graphify            CLI 'graphify' (venv) + skill /graphify
   animate          delphi-ai/animate-skill           skill animate (link in ~/.claude/skills)
   rea              morluto/rea                       plugin rea@rea (MCP rea + skill reverse-engineer-anything)
+  marketingskills  coreyhaines31/marketingskills     plugin marketing-skills@marketingskills (marketing, SEO, copy, ads)
+  investskill      yennanliu/InvestSkill             plugin us-stock-analysis@invest-skill (analisi azioni/ETF, DCF, portafoglio)
+  cowork-plugins   alexclowe/awesome-claude-cowork-plugins  plugin personal-trainer (allenamento, nutrizione)
+  glebis-skills    glebis/claude-skills (sparse)     skill cognitive-toolkit (CBT/DBT guidati, cartella in ~/.claude/skills)
+  scientific-agent-skills K-Dense-AI/scientific-agent-skills  9 skill su 177 (link): ricerca, paper, dati; le altre su richiesta
+  browser-use      browser-use/browser-use           CLI 'browser-use' (venv) + skill browser-use, open-source (niente cloud/qa/x402)
 
 ═══ ESEMPI ═══
   Nuovo dispositivo, guidato:        ./setup_repos.sh
@@ -185,6 +192,21 @@ link_skill() {
     fi
 }
 
+link_cognitive_toolkit() {
+    # il repo chiama il file skill.md (minuscolo): Claude Code cerca SKILL.md, quindi cartella propria con link/copia
+    local src="$BASE_DIR/glebis-skills/cognitive-toolkit" dst="$HOME/.claude/skills/cognitive-toolkit"
+    if [[ -f "$dst/SKILL.md" && -e "$dst/references" ]]; then ok "Skill collegata: cognitive-toolkit"; return; fi
+    manca "skill cognitive-toolkit ($dst)" || return 0
+    run mkdir -p "$dst" || return 0
+    if [[ $WINDOWS -eq 1 ]]; then
+        # shortcut: copia di skill.md, dopo un pull del clone va ricopiata (rifai --apply dopo aver tolto $dst/SKILL.md)
+        run cp "$src/skill.md" "$dst/SKILL.md" || true
+        run powershell.exe -NoProfile -Command "New-Item -ItemType Junction -Path '$(cygpath -w "$dst/references")' -Target '$(cygpath -w "$src/references")' | Out-Null" || true
+    else
+        run ln -sfn "$src/skill.md" "$dst/SKILL.md" && run ln -sfn "$src/references" "$dst/references" || true
+    fi
+}
+
 claude_home() {
     # cd $HOME: evita che Claude legga .mcp.json della cartella corrente
     # insteadOf: i plugin con sorgente github si clonano via HTTPS anche senza chiave SSH
@@ -212,6 +234,7 @@ check_deps() {
 clone_repo() {
     local nome="$1" url="$2" sparse="${3:-}"
     local dir="$BASE_DIR/$nome"
+    GESTITI+="$nome "
     if [[ -d "$dir/.git" ]]; then
         ok "Clone presente: $nome"
         # Windows: i bit di esecuzione non esistono, senza questo ogni script risulta modificato e il pull fallisce
@@ -228,6 +251,17 @@ clone_repo() {
     else
         run git clone --depth 1 "$url" "$dir" || true
     fi
+}
+
+# regola (SKILLS.md): ogni clone in Repository/ deve avere il suo clone_repo e la sua integrazione qui
+clone_orfani() {
+    local d nome
+    for d in "$BASE_DIR"/*/; do
+        nome="$(basename "$d")"
+        [[ "$GESTITI" == *" $nome "* ]] && continue
+        err "Clone NON integrato: $nome (scaricato ma Claude non lo usa). Integralo in setup_repos.sh, README.md e SKILLS.md, oppure eliminalo"
+        MANCANTI=$((MANCANTI + 1))
+    done
 }
 
 # ═══ STEP 2 — installazione tool ═══
@@ -352,6 +386,14 @@ esegui() {
     clone_repo harvey            https://github.com/ethanplusai/harvey.git
     clone_repo diagram-design    https://github.com/cathrynlavery/diagram-design.git
     clone_repo gstack            https://github.com/garrytan/gstack.git
+    clone_repo marketingskills   https://github.com/coreyhaines31/marketingskills.git
+    clone_repo investskill       https://github.com/yennanliu/InvestSkill.git
+    clone_repo cowork-plugins    https://github.com/alexclowe/awesome-claude-cowork-plugins.git "personal-trainer .claude-plugin"
+    clone_repo glebis-skills     https://github.com/glebis/claude-skills.git "cognitive-toolkit"
+    clone_repo scientific-agent-skills https://github.com/K-Dense-AI/scientific-agent-skills.git
+    clone_repo browser-use       https://github.com/browser-use/browser-use.git
+
+    clone_orfani
 
     echo; info "STEP 2 — installazione dei tool"
     install_venv mempalace mempalace mempalace mempalace-mcp
@@ -368,6 +410,7 @@ esegui() {
         run env PATH="$TOOLS_DIR/npm$NPM_BIN:$PATH" bash -c "cd '$BASE_DIR/gstack' && bun install --frozen-lockfile && bun run build && bunx playwright install chromium" || true
     fi
     install_venv graphify graphifyy graphify
+    install_venv browser-use browser-use browser-use
     install_venv uv uv uv
     # editable: Harvey legge .env, harvey.yaml e data/ dalla cartella del clone, non da site-packages
     install_venv harvey "--editable=$BASE_DIR/harvey" harvey
@@ -408,6 +451,15 @@ esegui() {
     integra_plugin claude-mem             thedotmack             "$BASE_DIR/claude-mem"
     # il marketplace locale punta al pacchetto npm rea-agents (versione fissata in .claude-plugin/marketplace.json)
     integra_plugin rea                    rea                    "$BASE_DIR/rea"
+    integra_plugin marketing-skills       marketingskills        "$BASE_DIR/marketingskills"
+    integra_plugin us-stock-analysis      invest-skill           "$BASE_DIR/investskill"
+    # sparse: il marketplace elenca 53 plugin ma nel clone c'e' solo personal-trainer
+    integra_plugin personal-trainer       awesome-claude-cowork-plugins "$BASE_DIR/cowork-plugins"
+    link_cognitive_toolkit
+    # SKILLS_SCIENTIFIC: le 9 utili; un'altra delle 177 si aggiunge qui quando una richiesta la usa (regola in SKILLS.md)
+    for s in $SKILLS_SCIENTIFIC; do link_skill "$BASE_DIR/scientific-agent-skills/skills/$s"; done
+    # qa, cloud, remote-browser, x402: browser cloud a pagamento o wallet crypto, esclusi
+    for s in browser-use open-source; do link_skill "$BASE_DIR/browser-use/skills/$s"; done
     link_skill "$BASE_DIR/llm-council/llm-council"
     link_skill "$BASE_DIR/emil-skills/skills/apple-design"
     link_skill "$BASE_DIR/awesome-claude-skills/lead-research-assistant"

@@ -1,6 +1,6 @@
 ---
 name: project-katharsis
-description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 2026-10-04 fatti; manca un test VM completo; impronta manifest 6db8a81b9ba583db; repo GitHub privato ntr-scanner/Katharsis; tool AV aggiornati all'avvio"
+description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 2026-10-04 fatti; manca un test VM completo; impronta manifest 498ab1e0f36682f7 (2026-11-15); repo GitHub privato ntr-scanner/Katharsis; tool AV aggiornati all'avvio"
 metadata:
   node_type: memory
   type: project
@@ -12,7 +12,7 @@ Katharsis è il fork di Tron v12.0.6 (orchestratore Batch di vocatus/r/TronScrip
 
 Piano e modifiche: `ANALISI_KATHARSIS.md`, `FASE0..3_MODIFICHE.md` (tutte applicate il 2026-10-01: sicurezza S1-S7, WMIC -> `resources/functions/katharsis_sys.ps1`, log JSONL, Defender primo motore, TDSSKiller/MBAM rimossi, manifest, triage PowerShell + YARA-Forge, report HTML, regole firmate, rilevamento ransomware -> modalità IR). Confronto con Tron del 2026-10-04 in `Katharsis/CONFRONTO_TRON.md`: corretti update check verso il server di Tron (ora `UPDATE_URL` in katharsis_settings.bat, vuoto = spento; si può cambiare KATHARSIS_VERSION), downgrade di 7-Zip nello stage 5 (azione `version-older`), Windows Update online che non faceva nulla (azione `windows-update` via COM WUA), chiave SafeBoot\\MSIServer creata fuori dalla Safe Mode. Il 2026-10-05 le liste debloat non si scaricano piu' dal GitHub di Tron: impostazione `DEBLOAT_LISTS_URL` (vuota = spento, hash pinnati sempre obbligatori), punto 4 di CONFRONTO_TRON.md.
 
-Ogni modifica al pacchetto richiede di ricostruire `MANIFEST.sha256`. Da Linux: script Python che replica `katharsis_manifest.ps1 -Build` (percorsi con `\`, CRLF, UTF-8 senza BOM). Impronta attuale `6db8a81b9ba583db` (2026-10-25, 1647 file, KVRT.exe escluso; ordine delle righe non riproducibile da Python, conta solo per l'impronta che cambia comunque con la data nell'intestazione), scritta anche in `vm_test/expected_fp.txt`. I file del pacchetto sono CRLF: modificarli preservando CRLF.
+Ogni modifica al pacchetto richiede di ricostruire `MANIFEST.sha256`. Da Linux: script Python che replica `katharsis_manifest.ps1 -Build` (percorsi con `\`, CRLF, UTF-8 senza BOM). Impronta attuale `498ab1e0f36682f7` (2026-11-15; prima `6db8a81b9ba583db` del 2026-10-25), 1647 file, KVRT.exe escluso; ordine delle righe non riproducibile da Python, conta solo per l'impronta che cambia comunque con la data nell'intestazione), scritta anche in `vm_test/expected_fp.txt`. I file del pacchetto sono CRLF: modificarli preservando CRLF.
 
 Test VM: ora su Linux con VirtualBox, VM "Windows " (Win10, Guest Additions). Snapshot "pulito-pre-katharsis" creato il 2026-10-04; cartelle condivise transient `katharsis_pkg` (sola lettura) e `katharsis_vmtest` -> `\\VBOXSVR\...`. Il runner `vm_test/katharsis_vm_runner.bat` riconosce VirtualBox e VMware e ha gli scenari sintassi (parser PS 5.1), stage5, dryrun, ir, ransomware, reset, full. Non ci sono credenziali del guest: il runner lo lancia l'utente, copiato sul Desktop, come amministratore. Test precedenti (VMware, 2026-10-01): prima Defender della VM bloccava la lettura di un file del pacchetto, poi con AV spento tutti fermi al gate per impronta vecchia (il gate funziona). Nessuno scenario reale è ancora stato eseguito fino in fondo.
 
@@ -22,3 +22,5 @@ Aperti (decide l'utente): download di binari aggiornati (Stinger 2023, AdwCleane
 
 **Why:** l'utente vuole decidere lui le tecniche e i download; il pacchetto gira come amministratore sui PC dei clienti.
 **How to apply:** nuove funzionalità o download solo dopo conferma esplicita; dopo ogni modifica ricostruire il manifest e aggiornare expected_fp.txt; testare in VM su snapshot e poi ripristinarlo. Collegamento possibile con [[project-ransomware-identifier]].
+
+Revisione del 2026-11-15 (solo statica, niente Windows): tolto `Set-ExecutionPolicy Unrestricted` dello Stage 2 (mai ripristinato), due `%ERRORLEVEL%` dentro blocchi (Stage 2 OneDrive, Stage 7 fc), `powershell` senza percorso nel gate e nel prerun, `::` consecutivi in blocco nella telemetria. Dettagli in CONFRONTO_TRON.md. Insidia della replica Python del manifest: leggere con `newline=''` (CRLF). Lo scanner per variabili/`::` nei blocchi stava nello scratchpad di quella sessione.
