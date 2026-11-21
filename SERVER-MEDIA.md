@@ -54,6 +54,12 @@ Memoria di ogni progetto: `memoria/project_<nome>.md`.
   - **I file spostati non perdono il progresso**: una chiave senza file segue l'unico file con lo stesso nome tra le
     cartelle collegate (omonimi = si lascia stare). Era la causa dei «visti dimenticati» in Cineteca-FCC (film messi in
     sottocartelle sul disco).
+  - **Cancellazioni**: una voce tolta a mano resta segnata con la data e va nella copia; una copia più vecchia non la
+    riporta (Cineteca/Theca `cancellati` nell'archivio, Videoteca `videoteca-cancellati.json`, Vivlos in stato.json;
+    Vivlos anche `segni` per letto/da leggere). **File rinominati** (Cineteca/Theca): la dimensione salvata col progresso.
+  - **Contenuti per adulti (Videoteca, Vivlos)**: la copia è cifrata (`cronologia_cifrata.py`, AES-GCM + scrypt della
+    password dell'app, chiave locale in `dati/.chiave-cronologia.json`); senza chiave non si scrive mai in chiaro.
+  - La pagina mostra quando è stata scritta l'ultima copia o perché no.
   - **Ogni app vede solo il suo file**: nome proprio (`.<app>.json`) e campo `"app": APP_NAME` dentro; un file senza
     quel campo o di un'altra app si ignora (`di_questa_app`). Gli altri programmi leggono solo le loro estensioni e
     saltano i nascosti (verificato in Videoteca, Musicoteca, Galleria, Biblioteca e Organizza Cartella).
