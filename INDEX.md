@@ -48,7 +48,7 @@ Claude/
 ├── SCRIPT.md           standard per scrivere script (interattivo di default, --yes/--non-interactive, fail-safe)
 ├── SERVER-LOCALI.md    regole e domande iniziali per server locali e web app personali (sicurezza, sync, backup, cifratura, interfaccia)
 ├── SERVER-INTERFACCIA.md regole dei bottoni e delle azioni nei server locali (🗑, ✕ rosso, ✓/Rischedula, ricorrenze, registrazioni uguali)
-├── SERVER-MEDIA.md     regole in più per server con video/audio/immagini (Theca, Cineteca-FCC, Suite Intrattenimento, Vivlío, Media Loader)
+├── SERVER-MEDIA.md     regole in più per server con video/audio/immagini (Theca, Cineteca-FCC, Suite Intrattenimento, Vivlos, Media Loader)
 ├── Apk-&-Apps.md       regole per app Android (APK telefono e TV): procedura di revisione, build, rete, focus/insets, report
 ├── Repository/         repo esterni e skill di terzi integrati in Claude Code: README.md (elenco) + setup_repos.sh; i clone non sono nel backup git
 ├── README.md           documentazione del repo di backup

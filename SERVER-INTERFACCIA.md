@@ -1,6 +1,6 @@
 # Server locali: regole dei bottoni e delle azioni (regola dell'utente, 2026-11-14)
 
-File separato da `SERVER-LOCALI.md` per non allungarlo: vale per ogni server locale e web app personale (Ayanokoji System, Suite Intrattenimento, Theca, Vivlío, …). Leggerlo insieme a `SERVER-LOCALI.md` §6 «Interfaccia».
+File separato da `SERVER-LOCALI.md` per non allungarlo: vale per ogni server locale e web app personale (Ayanokoji System, Suite Intrattenimento, Theca, Vivlos, …). Leggerlo insieme a `SERVER-LOCALI.md` §6 «Interfaccia».
 
 ## Cancellare e togliere
 

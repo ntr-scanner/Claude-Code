@@ -19,7 +19,7 @@ Scritto il 2026-11-09 su richiesta dell'utente.
 | Galleria | `Suite-Intrattenimento/galleria/` | 8799 | EXIF e GPS, miniature ffmpeg, duplicati, riordino con Annulla |
 | Biblioteca | `Suite-Intrattenimento/biblioteca/` | 8800 | EPUB fatto in casa, pdf.js, `RemoteFile` con Range |
 | Suite Intrattenimento | `Suite-Intrattenimento/` (un repo) | 8798-8804 | base comune: `base.py`, `comune.js`, `base.css`, `dipendenze.py`, `menu_app.py` |
-| Vivlío | `Vivlio/` e `Free-Claude-Code-Regole/Coding/Vivlio/` | 8790 | manga: download dal telefono eseguiti sul PC (§9), copertine PNG, cartelle su HDD |
+| Vivlos | `Vivlos/` e `Free-Claude-Code-Regole/Coding/Vivlio/` | 8790 | manga: download dal telefono eseguiti sul PC (§9), copertine PNG, cartelle su HDD |
 | Media Loader | `Cybersecurity/Script/Media Loader/` | 8800+ | motori di download (yt-dlp, HLS, resolver), domini dei siti, pausa/ripresa, programmi esterni |
 
 Memoria di ogni progetto: `memoria/project_<nome>.md`.
@@ -27,7 +27,7 @@ Memoria di ogni progetto: `memoria/project_<nome>.md`.
 ## 2. Dove stanno i media
 
 - **I media non si copiano nel progetto.** O si leggono sul posto (Theca, Galleria, Musicoteca, Biblioteca) o stanno
-  in una libreria scelta dall'utente (Videoteca, Vivlío). Mai dentro `codice/`, mai nella cartella `dati/` se è
+  in una libreria scelta dall'utente (Videoteca, Vivlos). Mai dentro `codice/`, mai nella cartella `dati/` se è
   sincronizzata (Syncthing): i video pesano decine di GB.
 - **Due modi di aprire una cartella**, da dire all'utente:
   1. selettore del browser (`<input webkitdirectory>`): i file restano nel browser, va riscelta a ogni apertura e non
@@ -38,11 +38,33 @@ Memoria di ogni progetto: `memoria/project_<nome>.md`.
      `RemoteFile` imita `File` (`slice` → fetch con Range) così parser, lettore e karaoke restano uguali; la chiave di un
      file è «NomeCartella/percorso», la stessa del selettore del browser (visti e playlist non si perdono).
 - Più cartelle (HDD, NAS): elenco ricordato, ognuna con il suo nome; **un disco staccato nasconde i suoi file senza
-  errori e senza svuotare l'indice salvato** (Videoteca `ricollega()`, Vivlío `biblioteche_extra`).
+  errori e senza svuotare l'indice salvato** (Videoteca `ricollega()`, Vivlos `biblioteche_extra`).
 - **Percorsi sicuri**: ogni file chiesto dalla pagina → `resolve()` + `is_relative_to(cartella)` + estensione ammessa,
   altrimenti 404. Niente `..`, niente percorsi assoluti, niente symlink fuori.
 - Cartelle e file nascosti (`.qualcosa`) esclusi dalla lettura; anche le cartelle di lavoro dell'app (`_Duplicati/`,
   `.scaricamenti/`, `.cassaforte/`).
+- **I progressi stanno anche nella cartella dei media** (regola dell'utente, 2026-11-21): ogni cartella ricordata dal
+  server riceve `.<app>.json` (nascosto: `.cineteca.json`, `.theca.json`, `.musicoteca.json`…) con tutto ciò che
+  riguarda i file (punti raggiunti, visti, cronologia, abbinamenti, liste). Così cancellando il progetto, clonandolo
+  altrove e ricondividendo la stessa cartella si ritrova tutto. `dati/` resta la copia di riserva con i backup.
+  - All'avvio e quando si aggiunge una cartella: il file si **unisce** ai dati (per voce vince la più recente, i
+    registri si sommano), ogni voce **validata** come se arrivasse dalla pagina (la cartella può essere condivisa).
+  - Scrittura atomica rimandata (~10 s dopo l'ultima modifica) e allo spegnimento; disco staccato o in sola lettura =
+    avviso nel log, si salva solo in `dati/`. `chmod` tollerante (NTFS/exFAT).
+  - **I file spostati non perdono il progresso**: una chiave senza file segue l'unico file con lo stesso nome tra le
+    cartelle collegate (omonimi = si lascia stare). Era la causa dei «visti dimenticati» in Cineteca-FCC (film messi in
+    sottocartelle sul disco).
+  - **Ogni app vede solo il suo file**: nome proprio (`.<app>.json`) e campo `"app": APP_NAME` dentro; un file senza
+    quel campo o di un'altra app si ignora (`di_questa_app`). Gli altri programmi leggono solo le loro estensioni e
+    saltano i nascosti (verificato in Videoteca, Musicoteca, Galleria, Biblioteca e Organizza Cartella).
+  - Codice di riferimento: `Suite Intrattenimento/cineteca/codice/server.py` (`unisci_sezione`, `unisci`,
+    `segui_spostati`, `Archive.collega`/`specchia`), test `tests/test_cartella.py`; Theca (3.5) unisce anche
+    `profili`/`personali`. Videoteca (1.8) ha una sola libreria e chiavi oshash: `ArchivioLibreria` in `server.py`
+    (sottoclasse di `base.Archive`, sostituita dopo `super().__init__`: `base.py` è comune a 5 app e non si tocca), solo
+    le sezioni della cronologia dei media (`FOLDER_SECTIONS`, niente impostazioni), scrittura propria con `chmod`
+    tollerante. Vivlos (3.6, `~/Vektora/Vivlos`): `.vivlos.json` solo nelle «Cartelle in più» (la biblioteca principale
+    sta già in `dati/`), sezioni `progress` e `registro`, chiavi slug. Da portare uno alla volta in Musicoteca,
+    Galleria, Biblioteca (copia adattata, mai codice condiviso).
 
 ## 3. Riconoscere i file
 
@@ -83,7 +105,7 @@ Memoria di ogni progetto: `memoria/project_<nome>.md`.
   vogliono il `Referer` del sito, altrimenti 403.
 - Miniature con ffmpeg (320 px, `-noautorotate` + rotazione da EXIF Orientation) in `~/.cache/<app>/mini/`; la pagina
   chiede la miniatura con un parametro diverso dall'immagine intera, così la cache del browser non le confonde.
-- Copertine salvate in un formato solo (Vivlío: `cover.png`, lato massimo 1200), convertite sul server così sono uguali
+- Copertine salvate in un formato solo (Vivlos: `cover.png`, lato massimo 1200), convertite sul server così sono uguali
   da PC e telefono.
 - **EXIF GPS è un dato personale**: indice con le posizioni solo in `~/.cache` del PC, mai nella cartella sincronizzata,
   niente mappa online (link OSM a richiesta).

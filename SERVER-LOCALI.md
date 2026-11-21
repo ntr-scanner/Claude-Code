@@ -69,7 +69,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
   - Sul PC del server il bottone «📁 Cartella» apre un **selettore delle cartelle del server** (casa, dischi esterni montati in `/media/<utente>/`, `/run/media/<utente>/`, `/mnt/`, unità di Windows), non quello del browser: il selettore del browser non dà il percorso e quindi non si può ricordare. Quello del browser resta solo come «solo per questa pagina» e sul telefono.
   - Si possono condividere **più cartelle**, anche su HDD; l'elenco (una per riga) sta in `~/.cache/<app>/`. Un disco staccato non dà errori: la cartella resta nell'elenco come «non collegata» e torna da sola quando si ricollega. Togliere una cartella non cancella file.
   - **Un disco staccato non svuota l'indice** (Videoteca 1.2): `os.walk` su una cartella che non c'è non dà errori e restituisce zero file, quindi la lettura «riuscirebbe» e salverebbe un indice vuoto. Prima di leggere si controlla `is_dir()`: se manca, l'indice resta com'era e la pagina dice «non collegata»; il server si riaggancia da solo quando la cartella ricompare, e la pagina se ne accorge quando la finestra torna in primo piano.
-  - Telefono e TV vedono la libreria delle cartelle condivise dal PC (elenco e video dal server, `Range`), come Vivlío: niente libreria che esiste solo nel browser del PC.
+  - Telefono e TV vedono la libreria delle cartelle condivise dal PC (elenco e video dal server, `Range`), come Vivlos: niente libreria che esiste solo nel browser del PC.
   - Scelta, aggiunta e rimozione delle cartelle solo dal PC del server; ai dispositivi della rete mai i percorsi completi.
 
 ## 4. Backup
@@ -155,7 +155,7 @@ una volta sola, senza rifarlo pezzo per pezzo a ogni richiesta. Si chiede solo q
 **Regola.** I download avviati da qualsiasi dispositivo della rete locale (telefono, tablet, altro PC) vengono eseguiti
 sul PC host del server; i file vengono salvati nella libreria del PC; l'archivio è unico e deriva dal server, quindi dopo
 il download la serie compare nell'archivio sia del telefono sia del PC senza ricaricare la pagina.
-Implementazione di riferimento: Vivlío 3.1 (`Free Claude Code/Vivlos/codice/`).
+Implementazione di riferimento: Vivlos 3.1 (`Vivlos/codice/`).
 
 - **Avvio per la rete**: il server ascolta su `0.0.0.0` solo se scelto (domanda all'avvio, `--rete` o `"rete_locale": true`
   in `dati/impostazioni.json`) e stampa nel terminale l'indirizzo da aprire dal telefono, `http://IP-DEL-PC:PORTA/`
@@ -164,7 +164,7 @@ Implementazione di riferimento: Vivlío 3.1 (`Free Claude Code/Vivlos/codice/`).
   `sudo ufw allow <porta>/tcp`. Windows: «Consenti accesso» per Python sulle reti private, oppure da PowerShell
   amministratore `New-NetFirewallRule -DisplayName <app> -Direction Inbound -Protocol TCP -LocalPort <porta> -Action Allow -Profile Private`.
   macOS: Impostazioni → Rete → Firewall → Opzioni. Mai cambiare il firewall senza dirlo all'utente.
-- **Dove vanno i file**: nella stessa cartella e struttura di quando si scarica dal PC (Vivlío: pagine parziali in
+- **Dove vanno i file**: nella stessa cartella e struttura di quando si scarica dal PC (Vivlos: pagine parziali in
   `dati/caricati/.scarica-<hash>/`, poi importate in `dati/biblioteca/<serie>/capitoli/`).
 - **Lavoro in background**: il server crea un job (id, stato `in_corso`/`ok`/`errore`/`fermato`, avanzamento) in un thread
   suo; il client chiede solo di avviarlo e ne legge lo stato. Telefono bloccato, disconnesso o pagina chiusa: il download
@@ -236,5 +236,5 @@ Implementazione di riferimento: Suite Intrattenimento (`dipendenze.py`, copia id
   Musicoteca 8798…): la porta successiva è un ripiego, non il modo normale di farli convivere. App per TV o telefono che
   cercano il server su una porta fissa (Apk TV di Theca: 8804) vanno aggiornate se cambia il default.
 - Implementazioni: `base.py` della Suite (`PORTS_TO_TRY = 20`), Theca/Cineteca-FCC `serve()`, Scaffale Mangawa e
-  Vivlío (`PORTE_DA_PROVARE`), Media Loader (`TENTATIVI_PORTA`), Ayanokoji, Compliance Tracker, Carburanti Veneto,
+  Vivlos (`PORTE_DA_PROVARE`), Media Loader (`TENTATIVI_PORTA`), Ayanokoji, Compliance Tracker, Carburanti Veneto,
   Cyber Quiz (dal 2026-11-09).
