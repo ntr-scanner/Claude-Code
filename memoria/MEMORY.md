@@ -56,3 +56,6 @@
 - [Skill scaricate = integrate](feedback_skill_integrate.md) — ogni clone in Repository/ integrato e verificato subito o eliminato; scientific su richiesta; --check segnala orfani
 - [App che si aggiornano da sole](feedback_app_aggiornamenti.md) — controllo all'apertura, firma comune firma/vektora.keystore, mai disinstallare
 - [Hamus](project_hamus.md) — identità fittizie + email/SMS locali (FastAPI+SQLite) in `Hamus/codice/`; 2026-11-21 ~25 bug sistemati, insidie CSP/app.js, SIGTERM, UTC SQLite
+- [Simulacrum](project_simulacrum.md) — Simulatore phishing aziendale, fork di GoPhish (Go), fasi 0-6, cattura credenziali cifrata AES-GCM, in Cybersecurity/Script/Simulacrum
+- [Converti TS](project_converti_ts.md) — .ts → .mp4 senza ricodifica, `Cybersecurity/Script/Converti TS/`, copia identica in Cineteca/Theca/Videoteca (Riproduci converte)
+- [Jarvis e Grok](project_jarvis.md) — dal 2026-11-22 in `~/Vektora/Jarvis/` (agent, llm, voce, venv condiviso) e `~/Vektora/Grok/`; servizio jarvis-llm su 127.0.0.1, spostare = ricompilare + sed sul venv

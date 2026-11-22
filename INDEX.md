@@ -73,6 +73,8 @@ Ogni cartella di primo livello è autonoma: si sincronizza da sola (Syncthing o 
 | `Work Tools/` | Tool da ufficio in HTML (repo git unico, `Dashboard.html` come ingresso) |
 | `Antigravity/` | Area di lavoro di un altro agente (Antigravity) con sue regole; ha una copia vecchia della skill `vektora-web-dev`, non è quella attiva |
 | `Ayanokoji/` | Ayanokoji System e Ayanokoji Tab (struttura propria, non riorganizzare) |
+| `Jarvis/` | Assistente locale: `agent/`, `llm/` (llama.cpp + modelli), `voce/` (whisper.cpp + piper), `venv/` (condiviso con Grok), servizio `jarvis-llm` su 127.0.0.1:8000; spostato da `~` il 2026-11-22 (README.md) |
+| `Grok/` | Pipeline video (skill MoviePy, progetti, output); usa `Jarvis/venv`; spostata da `~` il 2026-11-22 |
 | `Claude/` | Questa cartella (non riorganizzare) |
 | `.claude/` | Configurazione attiva di Claude Code: `skills/` e `agents/` (collegamenti a `Claude/`), `settings.local.json` (permessi), `launch.json` (server di sviluppo) |
 

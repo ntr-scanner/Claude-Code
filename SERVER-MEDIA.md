@@ -91,6 +91,12 @@ Memoria di ogni progetto: `memoria/project_<nome>.md`.
 - Il server serve audio e video **a pezzi con `Range` (206)**: senza, il salto in avanti non funziona.
 - Formati che il browser non legge (mkv con x265/HEVC, audio AC3/DTS): la pagina lo dice con il motivo e propone di
   aprirlo con il lettore del PC o di convertirlo; non si finge che parta.
+- **`.ts` (MPEG-TS) si convertono quando si preme Riproduci** (regola dell'utente, 2026-11-22): il browser del PC non
+  li apre e sulla Fire TV qualcuno resta muto. Il server li trasforma in `.mp4` con `converti_ts.py` (video copiato,
+  audio AAC se non lo è già, ~1 minuto per film, durata controllata), la pagina mostra l'avanzamento e poi apre l'`.mp4`;
+  punto raggiunto e dati passano al file nuovo (Theca: in ogni profilo; Videoteca: `move_user_data` sull'oshash nuovo),
+  l'originale va nel Cestino (Videoteca: nel suo `.cestino`, con Ripristina). Anche da TV e telefono: il lavoro gira sul PC.
+  Un `.ts` con un `.mp4` uguale accanto non si elenca (Cestino non riuscito).
 - Sottotitoli `.srt` accanto al video (stesso nome, anche `.it.srt`) caricati da soli, convertiti in WebVTT, letti
   anche in cp1252. I sottotitoli dentro gli mkv il browser non li legge: dirlo.
 - Stato per file `{t, d, v, at}` (secondi, durata, visto a mano, quando): sopra il 90% è visto, sotto il primo minuto
@@ -179,6 +185,7 @@ Un file comune si cambia in tutte le copie e si controlla con `sha256sum`:
 | `base.py`, `app/comune.js`, `app/base.css` | biblioteca, galleria, musicoteca, serata, videoteca |
 | `dipendenze.py` | le sei app della Suite (Theca compresa), Cineteca-FCC, Compliance Tracker |
 | `menu_app.py` | Suite, Ruota, Ayanokoji `server/` |
+| `converti_ts.py` | Theca, Cineteca-FCC, Videoteca, `Cybersecurity/Script/Converti TS/` (originale con i test) |
 | `app/lettore.js` | Theca, Cineteca-FCC, Videoteca |
 | `online_wall.py` | Galleria, Videoteca |
 | `app/ruota.js` | Theca, Videoteca (copia) |
