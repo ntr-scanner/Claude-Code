@@ -1,6 +1,6 @@
 ---
 name: project-katharsis
-description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 2026-10-04 fatti; manca un test VM completo; impronta manifest 498ab1e0f36682f7 (2026-11-15); repo GitHub privato ntr-scanner/Katharsis; tool AV aggiornati all'avvio"
+description: "Katharsis = fork rinominato di Tron (vocatus, MIT) in Cybersecurity/Script/Katharsis; Fasi 0-3 + confronto Tron 12 e 13.0.0 (2026-11-22) fatti; manca un test VM completo; impronta manifest 0ae52bebcf8a7bb9; repo GitHub privato ntr-scanner/Katharsis; build_manifest.py nella radice"
 metadata:
   node_type: memory
   type: project
@@ -24,3 +24,5 @@ Aperti (decide l'utente): download di binari aggiornati (Stinger 2023, AdwCleane
 **How to apply:** nuove funzionalità o download solo dopo conferma esplicita; dopo ogni modifica ricostruire il manifest e aggiornare expected_fp.txt; testare in VM su snapshot e poi ripristinarlo. Collegamento possibile con [[project-ransomware-identifier]].
 
 Revisione del 2026-11-15 (solo statica, niente Windows): tolto `Set-ExecutionPolicy Unrestricted` dello Stage 2 (mai ripristinato), due `%ERRORLEVEL%` dentro blocchi (Stage 2 OneDrive, Stage 7 fc), `powershell` senza percorso nel gate e nel prerun, `::` consecutivi in blocco nella telemetria. Dettagli in CONFRONTO_TRON.md. Insidia della replica Python del manifest: leggere con `newline=''` (CRLF). Lo scanner per variabili/`::` nei blocchi stava nello scratchpad di quella sessione.
+
+Confronto con Tron 13.0.0 del 2026-11-22 (dettagli in CONFRONTO_TRON.md): exe in `_archivio/` (firma GPG vocatus verificata). Portate le correzioni di bug (repair_wmi senza REPAIR3, SMART/spazio libero con le azioni `system-disk`/`freespace-mb` di katharsis_sys.ps1, unita' GB/MB dello Stage 7, .NET 3.5 di Stinger, null-route e repair_file_extensions tolti, updater delle liste con iniezione da `SCRIPT_VERSION` chiusa). Su scelta dell'utente: binari 13.0.0, liste debloat 13.0.0 ripinnate, Sophos tolto, BleachBit al posto di CCleaner (preset con `windows_defender.*` = False tranne temp, per non perdere prove), DeviceCleanupCmd al posto di DriveCleanup. Manifest: 784 file, impronta `0ae52bebcf8a7bb9`, si ricostruisce con `python3 build_manifest.py .` dalla cartella Katharsis. Niente provato su Windows.

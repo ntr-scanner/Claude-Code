@@ -20,7 +20,7 @@
 - [Niente proposte di commit git](feedback_no_commit_git.md) — L'utente committa sempre manualmente, non chiedere/offrire di fare commit
 - [Claude/ unica fonte](feedback_claude_folder_unica_fonte.md) — Leggere Claude/INDEX.md prima di tutto, niente nuovi CLAUDE.md fuori da Claude/; se un file di Claude/ «manca», controllare prima `git status -sb` (il repo può essere indietro rispetto a origin)
 - [Coerenza tra componenti](feedback_coerenza_componenti.md) — Un elemento nuovo ha tutto quello che hanno i suoi simili (es. dettagli a comparsa sulle schede); leggere prima come fa il programma
-- [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 + confronto Tron fatti, exe Tron eliminato e audit applicato 2026-10-25 (exe in _archivio, impronta 498ab1e0f36682f7, install_katharsis.py dopo il clone; KVRT/AdwCleaner/Malwarebytes aggiornati all'avvio), test VirtualBox da completare
+- [Katharsis (fork di Tron)](project_katharsis.md) — Orchestratore antimalware Batch, Fasi 0-3 fatte; 2026-11-22 allineato a Tron 13.0.0 (bug portati, binari/liste nuovi, BleachBit, Sophos tolto), impronta 0ae52bebcf8a7bb9, `build_manifest.py` per il manifest; test VirtualBox da completare
 - [Vektora Order](project_vektora_order.md) — Menu QR + ordini real-time Next 16/Prisma 7/Socket.io, step con conferma, in `Prodotti Vektora/vektora-order/`
 - [Vektora Prodotti (catalogo)](project_vektora_prodotti.md) — prodotti.vektora-web.com, Eleventy 3, registro prodotti JSON, fasi con conferma, in `Prodotti Vektora/vektora-prodotti/`
 - [Generatore firma](project_generatore_firma.md) — HTML singolo offline: 3 modalità, sigla, SVG, firme salvate, firma PDF (pdf-lib+pdf.js incorporati), insidie di test
@@ -32,7 +32,7 @@
 - [Ruota (Porn Roulette v.3)](project_ruota.md) — server Python + PWA in Intrattenimento/, Ritmo e Metriche dalla 3.8, ruota 📂 Cartella dalla 3.20, Organizza + Wallhaven dalla 3.21, test con -B, Playwright via Brave snap
 - [Scaffale Mangawa](project_scaffale_mangawa.md) — Lettore manga in `~/Vektora/Scaffale Mangawa/` (codice/ repo, dati/ fuori), porta 8790; dalla 1.6.0 sezione Online + likemanga chiuso
 - [Media Loader manga](project_media_loader_manga.md) — Download manga in cartelle JPG per capitolo, Mgeko/LikeManga (core/mgeko.py), MangaRead/Webtoons via gallery-dl, insidie episode_no/.venv-linux/0 byte, MangaDex di nuovo raggiungibile
-- [Media Loader v3](project_media_loader_v3.md) — dal 2026-10-25 codice/ (repo) + dati/ accanto, scelta lingua audio/sottotitoli; App in finestra (app.py+interfaccia/, brave --app), terminale muto, unica versione (v2 eliminata); domini da tracker VibraVid, siti personali, copertine + Sistema→Domini, yt-dlp impersonate, Link sceglie motore; dal 2026-10-25 Jable/RedTube/TnaFlix/PornTrex, Jav24 con avviso VPN Giappone
+- [Media Loader v3](project_media_loader_v3.md) — dal 2026-10-25 codice/ (repo) + dati/ accanto, scelta lingua audio/sottotitoli; App in finestra (app.py+interfaccia/, brave --app), terminale muto, unica versione (v2 eliminata); domini da tracker VibraVid, siti personali, copertine + Sistema→Domini, yt-dlp impersonate, Link sceglie motore; dal 2026-10-25 Jable/RedTube/TnaFlix/PornTrex, Jav24 con avviso VPN Giappone; 5.0 velocità VibraVid, 5.1 Celeritas al posto di Velora + fix AnimeUnity/HentaiWorld/Ikisoda
 - [Games](project_games.md) — Dashboard + 7 giochi riflessi/mente in `Progetti/Games/`, record localStorage `giochi:<id>`
 - [Carburanti Veneto](project_carburanti_veneto.md) — Dashboard prezzi Diesel/Benzina/Metano Veneto da CSV MIMIT, server stdlib 8795, in `Sincronizzazione/Progetti/`
 - [Folder Pull](project_folder_pull.md) — pull/push cartelle locali ↔ Syncthing con casella per PC, in `Cybersecurity/Script/Folder Pull/`, repo separata
@@ -45,7 +45,7 @@
 - [Biblioteca](project_biblioteca.md) — 8800, EPUB fatto in casa + pdf.js in vendor/, segnalibri, Open Library
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
-- [Videoteca](project_videoteca.md) — 8802, dalla 1.2 come Cineteca (Continua/Riprendi/Anno/Ruota, Porno e Hentai separati), Galleria immagini, Online siti + scaricamenti sul PC (§9), selettore cartelle; cassaforte AES-GCM, StashDB, doppioni
+- [Videoteca](project_videoteca.md) — 8802, dalla 1.11 i 17 siti adulti di Media Loader (solo ricerca); dalla 1.2 come Cineteca (Continua/Riprendi/Anno/Ruota, Porno e Hentai separati), Galleria immagini, Online siti + scaricamenti sul PC (§9), selettore cartelle; cassaforte AES-GCM, StashDB, doppioni
 - [Organizza Cartella](project_organizza_cartella.md) — script file di primo livello → sottocartelle per tipo, anteprima di default, in `Cybersecurity/Script/Organizza Cartella/`
 - [Sipario](project_sipario.md) — progetto unico Intrattenimento/Sipario (copia Scaffale+Suite+Media Loader), dashboard 8780, repo privato da creare, prossimi Film&Serie/Anime + Scarica
 - [Vivlos](project_vivlio.md) — nome unico dal 2026-11-21 (ex Vivlío), unica copia `~/Vektora/Vivlos/codice` (repo GitHub `ntr-scanner/Vivlos`), 8790; scrapers/ (scarica.py eliminato), test su codice vero; 3.1 download dal telefono sul PC, 3.3 PIN telefono
@@ -59,3 +59,5 @@
 - [Simulacrum](project_simulacrum.md) — Simulatore phishing aziendale, fork di GoPhish (Go), fasi 0-6, cattura credenziali cifrata AES-GCM, in Cybersecurity/Script/Simulacrum
 - [Converti TS](project_converti_ts.md) — .ts → .mp4 senza ricodifica, `Cybersecurity/Script/Converti TS/`, copia identica in Cineteca/Theca/Videoteca (Riproduci converte)
 - [Jarvis e Grok](project_jarvis.md) — dal 2026-11-22 in `~/Vektora/Jarvis/` (agent, llm, voce, venv condiviso) e `~/Vektora/Grok/`; servizio jarvis-llm su 127.0.0.1, spostare = ricompilare + sed sul venv
+- [Celeritas](project_celeritas.md) — motore segmenti Python fortificato (ex Velora), `Cybersecurity/Script/Celeritas/`, copia in Media Loader 5.1.0; REA CLI vuole Node ≥26.12.1
+- [Lumen (YouTube TV senza pubblicità)](project_youtube_tv.md) — APK Fire TV in `Progetti/Lumen/`, WebView youtube.com/tv + script TizenTube, UA PS4, uscita con Indietro tenuto premuto; niente SmartTube
