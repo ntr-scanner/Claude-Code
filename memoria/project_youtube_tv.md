@@ -16,3 +16,5 @@ Dalla 1.1.0 (2026-11-23), su richiesta: lo script TizenTube si aggiorna da solo 
 
 **Why:** l'utente vuole niente pubblicità e app che si aggiornano da sole ([[feedback-app-aggiornamenti]]).
 **How to apply:** prove sull'emulatore con `adb reverse tcp:8807 tcp:8807` (il broadcast non esce dall'emulatore). Restano da verificare la sparizione di una pubblicità vera (l'emulatore non ne riceve) e la prova su Fire Stick reale. Se tornano le pubblicità e lo script nuovo non basta, guardare se YouTube ha spostato i dati delle pubblicità fuori da `JSON.parse`.
+
+**Prossimo passo (deciso 2026-11-24, da fare il giorno dopo):** l'utente vuole alleggerire la Fire Stick e cambiarne la home (sfondo ecc.). Scelto di partire da FireFrame (github.com/dyascj/FireFrame: launcher + debloat via ADB, senza root, testato su Fire OS 7). CleanYourTV su Fire OS fa solo debloat. LineageOS per sheldonp: rischio brick e sblocco forse chiuso su 7.7.1.7, quindi non verificato. Primo controllo: `adb shell getprop ro.product.model`.

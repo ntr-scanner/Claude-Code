@@ -1,5 +1,7 @@
 # Memory Index
 
+- [Venator (KB bug bounty)](project_venator.md) — Guida metodologica Obsidian in `~/Vektora/Venator---Bug-Bounty/` (repo ntr-scanner); 2026-11-25 bug comandi corretti + 12 classi vuln nuove, contesto Arc/HackerOne
+
 - [Coerenza nuovi file siti Vektora](feedback_coerenza_nuovi_file.md) — Riusa css/styles.css, js/script.js, header/nav/footer esistenti; segnala prima di deviare
 - [Progetto Vektora WAT](project_vektora.md) — Framework WAT per agenzia web freelance, stack HTML/Tailwind/Netlify, percorso `Vektora Site/`
 - [Blog Vektora (Eleventy)](project_vektora_blog.md) — Blog scoped a /blog in `vektora-site-main/`, Eleventy 3, insidie url/eleventyComputed
@@ -60,4 +62,5 @@
 - [Converti TS](project_converti_ts.md) — .ts → .mp4 senza ricodifica, `Cybersecurity/Script/Converti TS/`, copia identica in Cineteca/Theca/Videoteca (Riproduci converte)
 - [Jarvis e Grok](project_jarvis.md) — dal 2026-11-22 in `~/Vektora/Jarvis/` (agent, llm, voce, venv condiviso) e `~/Vektora/Grok/`; servizio jarvis-llm su 127.0.0.1, spostare = ricompilare + sed sul venv
 - [Celeritas](project_celeritas.md) — motore segmenti Python fortificato (ex Velora), `Cybersecurity/Script/Celeritas/`, copia in Media Loader 5.1.0; REA CLI vuole Node ≥26.12.1
-- [Lumen (YouTube TV senza pubblicità)](project_youtube_tv.md) — APK Fire TV in `Progetti/Lumen/`, WebView youtube.com/tv + script TizenTube, UA PS4, uscita con Indietro tenuto premuto; niente SmartTube
+- [Lumen (YouTube TV senza pubblicità)](project_youtube_tv.md) — APK Fire TV in `Progetti/Lumen/`, WebView youtube.com/tv + script TizenTube, UA PS4, uscita con Indietro tenuto premuto; niente SmartTube ; prossimo: FireFrame su Fire Stick
+- [Video YouTube Vektora](project_video_youtube.md) — motore `Grok/motore` (Chatterbox + scena.html/Playwright + controllo Whisper), venv `Grok/.venv-tts`, GPU 4 GB → ripiego CPU; poi lead Jarvis con approvazione
