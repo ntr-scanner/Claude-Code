@@ -1,6 +1,6 @@
 # Memory Index
 
-- [Venator (KB bug bounty)](project_venator.md) — Guida metodologica Obsidian in `~/Vektora/Venator---Bug-Bounty/` (repo ntr-scanner); 2026-11-25 bug comandi corretti + 12 classi vuln nuove, contesto Arc/HackerOne
+- [Venator (KB sicurezza)](project_venator.md) — `~/Vektora/Venator---Bug-Bounty/`: `Bug Bounty/` + `Cyber Security/` (Phishing awareness + Active Directory complete, altre 4 aree vuote; 2026-11-25), repo ntr-scanner
 
 - [Coerenza nuovi file siti Vektora](feedback_coerenza_nuovi_file.md) — Riusa css/styles.css, js/script.js, header/nav/footer esistenti; segnala prima di deviare
 - [Progetto Vektora WAT](project_vektora.md) — Framework WAT per agenzia web freelance, stack HTML/Tailwind/Netlify, percorso `Vektora Site/`
@@ -43,7 +43,7 @@
 - [Musicoteca](project_musicoteca.md) — 8798, tag ID3/MP4/FLAC nella pagina, playlist, ruota album, karaoke .lrc + telecomando; dalla 1.2 cartella ricordata, 🌐 Online (YouTube/SoundCloud/Archive + Classica, online.py), popup dettagli
 - [Musicoteca Android](project_musicoteca_android.md) — APK senza server in `Suite Intrattenimento/musicoteca/android`, cartella SAF, Media3, preferiti/playlist/ruota; verificato su emulatore
 - [Galleria](project_galleria.md) — 8799, cartella letta dal server, EXIF, GPS solo in ~/.cache, duplicati e riordino con Annulla; dalla 1.1 miniature ffmpeg + bottone scarica ffmpeg
-- [Galleria Android](project_galleria_android.md) — APK senza server in `Suite Intrattenimento/galleria-android`, tutto il telefono da MediaStore, minSdk 30, cestino/riordino/duplicati, EXIF letto da sé; dalla 1.1 Album, video da raccolte separate, aggiornamento via `aggiorna.py` (build non verificata)
+- [Galleria Android](project_galleria_android.md) — APK senza server in `Suite Intrattenimento/galleria/android` (dal 2026-11-26, come musicoteca/android), tutto il telefono da MediaStore, minSdk 30, cestino/riordino/duplicati, EXIF letto da sé; dalla 1.1 Album, video da raccolte separate, aggiornamenti solo da `aggiorna.py` 8803 (dal server provato e tolto su richiesta il 2026-11-26, app 1.6.3), build e aggiornamento all'apertura verificati su emulatore 2026-11-26; Gradle forzato su JDK 21 da gradle/gradle-daemon-jvm.properties (JDK 25 rompe Kotlin 2.0.21)
 - [Biblioteca](project_biblioteca.md) — 8800, EPUB fatto in casa + pdf.js in vendor/, segnalibri, Open Library
 - [Serata](project_serata.md) — 8801 in LAN, Quiz importati + Disegna e indovina, TV con password, telefoni con codice
 - [Catalogo template n8n](project_n8n_templates.md) — 19 template n8n 2.10.4 in `Prodotti Vektora/vektora-n8n-templates/`, sorgenti Python → genera.py, validate + test Docker (130/130), insidie n8n 2.10
@@ -62,5 +62,5 @@
 - [Converti TS](project_converti_ts.md) — .ts → .mp4 senza ricodifica, `Cybersecurity/Script/Converti TS/`, copia identica in Cineteca/Theca/Videoteca (Riproduci converte)
 - [Jarvis e Grok](project_jarvis.md) — dal 2026-11-22 in `~/Vektora/Jarvis/` (agent, llm, voce, venv condiviso) e `~/Vektora/Grok/`; servizio jarvis-llm su 127.0.0.1, spostare = ricompilare + sed sul venv
 - [Celeritas](project_celeritas.md) — motore segmenti Python fortificato (ex Velora), `Cybersecurity/Script/Celeritas/`, copia in Media Loader 5.1.0; REA CLI vuole Node ≥26.12.1
-- [Lumen (YouTube TV senza pubblicità)](project_youtube_tv.md) — APK Fire TV in `Progetti/Lumen/`, WebView youtube.com/tv + script TizenTube, UA PS4, uscita con Indietro tenuto premuto; niente SmartTube ; prossimo: FireFrame su Fire Stick
+- [Lumen (YouTube TV senza pubblicità)](project_youtube_tv.md) — APK Fire TV in `Progetti/Lumen/`, WebView youtube.com/tv + script TizenTube, UA PS4, uscita con Indietro tenuto premuto; niente SmartTube ; Fire Stick con FireFrame + debloat dal 2026-11-26, Alexa non removibile senza root
 - [Video YouTube Vektora](project_video_youtube.md) — motore `Grok/motore` (Chatterbox + scena.html/Playwright + controllo Whisper), venv `Grok/.venv-tts`, GPU 4 GB → ripiego CPU; poi lead Jarvis con approvazione

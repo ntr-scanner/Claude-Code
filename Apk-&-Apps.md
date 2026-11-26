@@ -163,6 +163,14 @@ Come si fa (codice di riferimento: `galleria-android/.../data/Aggiornamento.kt`,
   Suite firmano con **`Suite Intrattenimento/firma/vektora.keystore`** (`signingConfigs.debug` in `app/build.gradle.kts`;
   la chiave debug di Linux, SHA-256 `cc978e45…`). È fuori da git (`.gitignore`): su un PC nuovo si copia a mano, se manca
   la build si ferma con il percorso atteso. Mai compilare con la chiave debug del PC: obbligherebbe a disinstallare.
+- Prima di scaricare l'APK: `packageManager.canRequestPackageInstalls()`. Se è falso, niente download: avviso con
+  bottone che apre `Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES` (`package:<id>`). Senza, Android annulla con
+  `STATUS_FAILURE_ABORTED` («User rejected permissions» / «permission denied», visto il 2026-11-26 sulla Galleria);
+  quel codice va spiegato come permesso mancante, **non** come firma diversa (quella è `STATUS_FAILURE_CONFLICT`).
+- **Xiaomi HyperOS**: rifiuta `USER_ACTION_NOT_REQUIRED` con `INSTALL_FAILED_ABORTED: Permission denied` anche col
+  permesso dato. Con «permission denied» e `canRequestPackageInstalls()` vero si salva un flag e le installazioni
+  successive non chiedono il silenzioso (finestra di conferma). «User rejected permissions» invece è l'Annulla
+  dell'utente. Codice di riferimento: `galleria/android/.../data/Aggiornamento.kt` 1.6.2.
 - Errori tradotti per l'utente: server spento = «nessun aggiornamento» (non un errore), timeout, APK rovinato,
   installazione rifiutata (con il motivo di Android).
 - Prova: emulatore con la versione A installata, versione B sul server, `adb reverse tcp:<porta> tcp:<porta>` e indirizzo
